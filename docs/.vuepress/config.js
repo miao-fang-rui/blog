@@ -12,6 +12,7 @@ export default defineUserConfig({
     head: [
         ['link', { rel: 'icon', href: '/images/logo.png' }],
     ],
+    plugins: [],
     locales: {
         '/': {
             lang: 'en-US',
