@@ -13,10 +13,6 @@ const login = reactive({
     password: ''
 })
 
-
-onMounted(() => {
-    console.log(loginSuccess)
-})
 const onSubmit = () => {
 
     if (login.username === '') {
