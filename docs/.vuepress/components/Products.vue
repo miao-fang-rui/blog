@@ -33,7 +33,7 @@ const props = defineProps(['product'])
     width: 100%;
     text-align: center;
     display: inline-block;
-    color: var(--vp-c-text);
+    color: var(--vp-c-text-1);
 
     &:hover {
         color: var(--vp-c-accent);
