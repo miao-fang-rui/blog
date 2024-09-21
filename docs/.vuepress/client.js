@@ -15,27 +15,27 @@ export default defineClientConfig({
             app.component(key, component)
         }
 
-        router.beforeEach((to, from, next) => {
-            if (typeof window !== "undefined") {
+        // router.beforeEach((to, from, next) => {
+        //     if (typeof window !== "undefined") {
 
-                const isLoggedIn = sessionStorage.getItem('token');
+        //         const isLoggedIn = sessionStorage.getItem('token');
 
-                if (to.path === '/login') {
-                    if (isLoggedIn) {
-                        return next(from.fullPath)
-                    } else {
-                        sessionStorage.removeItem('token')
-                        return next()
-                    }
-                }
+        //         if (to.path === '/login') {
+        //             if (isLoggedIn) {
+        //                 return next(from.fullPath)
+        //             } else {
+        //                 sessionStorage.removeItem('token')
+        //                 return next()
+        //             }
+        //         }
 
-                if (!isLoggedIn) {
-                    sessionStorage.removeItem('token')
-                    return next({ path: '/login', replace: true })
-                }
-                next()
-            }
-        })
+        //         if (!isLoggedIn) {
+        //             sessionStorage.removeItem('token')
+        //             return next({ path: '/login', replace: true })
+        //         }
+        //         next()
+        //     }
+        // })
     },
     setup() {
         const lS = reactive({ u: 'admin', p: 'tmkj@123456' })
