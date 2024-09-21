@@ -1,10 +1,15 @@
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { inject } from 'vue'
 
 const lS = inject('lS')
+const isClient = ref(false)
+
+onMounted(() => {
+    isClient.value = true
+})
 
 const router = useRouter()
 
@@ -55,7 +60,7 @@ const onSubmit = () => {
 </script>
 
 <template>
-    <div class="login-contain">
+    <div class="login-contain" v-if="isClient">
         <div class="login">
             <div class="login-title">天迈文章中心</div>
             <el-form class="login-form">
