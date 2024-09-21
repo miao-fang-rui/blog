@@ -14,6 +14,9 @@ importers:
       element-plus:
         specifier: ^2.8.3
         version: 2.8.3(vue@3.5.7)
+      vue-router:
+        specifier: '4'
+        version: 4.4.5(vue@3.5.7)
     devDependencies:
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.15

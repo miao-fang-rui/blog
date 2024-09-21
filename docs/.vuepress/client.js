@@ -33,9 +33,7 @@ export default defineClientConfig({
                     sessionStorage.removeItem('token')
                     return next({ path: '/login.html', replace: true })
                 }
-
                 next()
-
             }
         })
     },
