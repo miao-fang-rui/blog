@@ -16,7 +16,7 @@ export default defineClientConfig({
         }
 
         router.beforeEach((to, from, next) => {
-            if (!__VUEPRESS_SSR__) {
+            if (typeof window !== "undefined") {
 
                 const isLoggedIn = sessionStorage.getItem('token');
 
