@@ -15,27 +15,27 @@ export default defineClientConfig({
             app.component(key, component)
         }
 
-        router.beforeEach((to, from, next) => {
-            if (!__VUEPRESS_SSR__) {
+        // router.beforeEach((to, from, next) => {
+        //     if (!__VUEPRESS_SSR__) {
 
-                const isLoggedIn = sessionStorage.getItem('token');
+        //         const isLoggedIn = sessionStorage.getItem('token');
 
-                if (to.path === '/login.html') {
-                    if (isLoggedIn) {
-                        return next(from.fullPath)
-                    } else {
-                        sessionStorage.removeItem('token')
-                        return next()
-                    }
-                }
+        //         if (to.path === '/login.html') {
+        //             if (isLoggedIn) {
+        //                 return next(from.fullPath)
+        //             } else {
+        //                 sessionStorage.removeItem('token')
+        //                 return next()
+        //             }
+        //         }
 
-                if (!isLoggedIn) {
-                    sessionStorage.removeItem('token')
-                    return next({ path: '/login.html', replace: true })
-                }
-                next()
-            }
-        })
+        //         if (!isLoggedIn) {
+        //             sessionStorage.removeItem('token')
+        //             return next({ path: '/login.html', replace: true })
+        //         }
+        //         next()
+        //     }
+        // })
     },
     setup() {
         const lS = reactive({ u: 'admin', p: 'tmkj@123456' })
