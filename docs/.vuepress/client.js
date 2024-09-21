@@ -15,27 +15,29 @@ export default defineClientConfig({
             app.component(key, component)
         }
 
-        // router.beforeEach((to, from, next) => {
-        //     if (typeof window !== "undefined") {
+        if (typeof window !== "undefined") {
+            // 在浏览器环境下执行 sessionStorage 相关操作
 
-        //         const isLoggedIn = sessionStorage.getItem('token');
+            router.beforeEach((to, from, next) => {
+                const isLoggedIn = sessionStorage.getItem('token');
+                if (to.path === '/login.html') {
+                    if (isLoggedIn) {
+                        return next(from.fullPath)
+                    } else {
+                        sessionStorage.removeItem('token')
+                        return next()
+                    }
+                }
 
-        //         if (to.path === '/login') {
-        //             if (isLoggedIn) {
-        //                 return next(from.fullPath)
-        //             } else {
-        //                 sessionStorage.removeItem('token')
-        //                 return next()
-        //             }
-        //         }
+                if (!isLoggedIn) {
+                    sessionStorage.removeItem('token')
+                    return next({ path: '/login.html', replace: true })
+                }
 
-        //         if (!isLoggedIn) {
-        //             sessionStorage.removeItem('token')
-        //             return next({ path: '/login', replace: true })
-        //         }
-        //         next()
-        //     }
-        // })
+                next()
+            
+            })
+        }
     },
     setup() {
         const lS = reactive({ u: 'admin', p: 'tmkj@123456' })
