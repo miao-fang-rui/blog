@@ -8,7 +8,7 @@ export default defineUserConfig({
     
     docsRepo: 'https://github.com/miao-fang-rui/blog',
     docsBranch: 'main',
-    // docsDir: 'docs',
+    docsDir: 'docs',
     head: [
         ['link', { rel: 'icon', href: '/images/logo.png' }],
     ],
