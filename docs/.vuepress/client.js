@@ -6,6 +6,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { provide, reactive } from 'vue'
 import Products from './components/Products.vue'
 import Table from './components/Table.vue'
+import Carousel from './components/Carousel.vue'
 
 
 export default defineClientConfig({
@@ -14,6 +15,7 @@ export default defineClientConfig({
         // app.component("Login", Login)
         app.component('Products', Products)
         app.component('Table', Table)
+        app.component('Carousel', Carousel)
 
         app.use(ElementPlus)
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
