@@ -8,7 +8,18 @@ export default defineUserConfig({
     head: [
         ['link', { rel: 'icon', href: '/images/logo.png' }],
     ],
-    plugins: [],
+    plugins: [
+        markdownImagePlugin({
+            // 启用 figure
+            figure: true,
+            // 启用图片懒加载
+            lazyload: true,
+            // 启用图片标记
+            mark: true,
+            // 启用图片大小
+            size: true,
+        }),
+    ],
     locales: {
         '/': {
             lang: 'en-US',

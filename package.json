@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@vuepress/plugin-markdown-image": "2.0.0-rc.46",
     "element-plus": "^2.8.3",
     "vue-router": "4"
   }
