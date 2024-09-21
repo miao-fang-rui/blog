@@ -29,7 +29,7 @@ export default defineUserConfig({
     },
     theme: defaultTheme({
         // 默认主题配置
-        hostname: 'https://tiamaes.blog.com',
+        // hostname: 'https://tiamaes.blog.com',
         logo: '/images/logo.png',
         logoAlt: 'Tiamaes-logo',
         repo: 'https://github.com/miao-fang-rui/blog',
