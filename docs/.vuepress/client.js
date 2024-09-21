@@ -16,7 +16,7 @@ export default defineClientConfig({
         }
 
         router.beforeEach((to, from, next) => {
-            if (!__VUEPRESS_SSR__) {
+            // if (!__VUEPRESS_SSR__) {
 
                 const isLoggedIn = sessionStorage.getItem('token');
 
@@ -34,7 +34,7 @@ export default defineClientConfig({
                     return next({ path: '/login.html', replace: true })
                 }
                 next()
-            }
+            // }
         })
     },
     setup() {
