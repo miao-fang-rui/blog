@@ -1,6 +1,8 @@
 ---
-layout: Login
+sidebar: false
+navbar: false
+# layout: Login
 ---
 
-<!-- <Login /> -->
-登陆
+<Login />
+<!-- 登陆 -->
