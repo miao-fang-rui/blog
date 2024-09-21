@@ -8,7 +8,7 @@ import { provide, reactive } from 'vue'
 export default defineClientConfig({
     enhance({ app, router, siteData }) {
 
-        app.component("Login", Login)
+        // app.component("Login", Login)
 
         app.use(ElementPlus)
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
