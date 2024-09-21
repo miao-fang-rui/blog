@@ -5,10 +5,6 @@ import { defineUserConfig } from 'vuepress'
 export default defineUserConfig({
     bundler: viteBundler(),
     base: '/blog/',
-    
-    docsRepo: 'https://github.com/miao-fang-rui/blog',
-    docsBranch: 'main',
-    docsDir: 'docs',
     head: [
         ['link', { rel: 'icon', href: '/images/logo.png' }],
     ],
@@ -32,7 +28,9 @@ export default defineUserConfig({
         // hostname: 'https://tiamaes.blog.com',
         logo: '/images/logo.png',
         logoAlt: 'Tiamaes-logo',
-        repo: 'https://github.com/miao-fang-rui/blog',
+        docsRepo: 'https://github.com/miao-fang-rui/blog',
+        docsBranch: 'main',
+        docsDir: 'docs',
         locales: {
             '/': {
                 selectLanguageName: 'English',
