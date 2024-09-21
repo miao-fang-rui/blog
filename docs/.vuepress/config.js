@@ -58,7 +58,7 @@ export default defineUserConfig({
                 selectLanguageText: '选择语言',
                 toggleColorMode: '白天 / 黑夜',
                 backToHome: '返回首页',
-                prev: '上一篇文章',
+                prev: '返回',
                 next: '下一篇文章',
                 editLinkText: '编辑此页',
                 lastUpdatedText: '最近更新',
@@ -70,7 +70,7 @@ export default defineUserConfig({
                     },
                     {
                         text: '产品列表',
-                        link: '/zh/456.md'
+                        link: '/zh/product/车载调度产品.md'
                     },
                     {
                         text: '技术文档',
@@ -94,7 +94,17 @@ export default defineUserConfig({
                     '/zh/': [
                         {
                             text: '所有产品',
-                            children: ['/product/车载调度产品.md', '/product/智慧收银产品.md']
+                            children: [
+                                {
+                                    text: '车载调度产品',
+                                    link: '/zh/product/车载调度产品.md',
+                                },
+                                {
+                                    text: '智慧收银产品',
+                                    link: '/zh/product/智慧收银产品.md',
+                                },
+                            ]
+                            
                         }
                     ],
                 },

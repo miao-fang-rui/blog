@@ -4,11 +4,14 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { provide, reactive } from 'vue'
+import Products from './components/Products.vue'
+
 
 export default defineClientConfig({
     enhance({ app, router, siteData }) {
 
         // app.component("Login", Login)
+        app.component('Products', Products)
 
         app.use(ElementPlus)
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
