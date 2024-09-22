@@ -86,23 +86,23 @@ export default defineUserConfig({
                         text: '技术文档',
                         link: '/zh/123.md'
                     },
-                    {
-                        text: '写文章',
-                        link: '/zh/edit.md'
-                    },
-                    {
-                        text: '文档列表',
-                        children: [
-                            {
-                                text: '测试1',
-                                link: '/zh/测试1.md'
-                            }, 
-                            {
-                                text: '测试2',
-                                link: '/zh/测试2.md'
-                            }, 
-                        ],
-                    }
+                    // {
+                    //     text: '写文章',
+                    //     link: '/zh/edit.md'
+                    // },
+                    // {
+                    //     text: '文档列表',
+                    //     children: [
+                    //         {
+                    //             text: '测试1',
+                    //             link: '/zh/测试1.md'
+                    //         }, 
+                    //         {
+                    //             text: '测试2',
+                    //             link: '/zh/测试2.md'
+                    //         }, 
+                    //     ],
+                    // }
                 ],
                 sidebar: {
                     '/zh/': [

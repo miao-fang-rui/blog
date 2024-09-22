@@ -2,7 +2,13 @@
 <el-row :gutter="20">
     <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4" v-for="p in props.product" class="product">
         <el-card shadow="hover">
-            <img :src="p.src" class="image" />
+            <el-image :src="p.src" fit="contain" style="width: 100%; height: 100px">
+                <template #error>
+                    <div class="image-slot">
+                        <el-icon><Picture /></el-icon>
+                    </div>
+                </template>
+            </el-image>
             <template #footer>
                 <router-link :to="p.link" class="product_name">{{ p.name }}</router-link> 
             </template>
@@ -23,11 +29,6 @@ const props = defineProps(['product'])
 </script>
 
 <style lang="scss" scoped>
-.image {
-    width: 100%;
-    height: 100px;
-    object-fit: contain;
-}
 
 .el-col{
     margin: 10px 0;
@@ -83,6 +84,20 @@ const props = defineProps(['product'])
 
 .stop-production {
     background-color: rgba($color: #ff0000, $alpha: 0.5) !important;
+}
+
+.product .image-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--vp-c-bg);
+  color: var(--el-text-color-secondary);
+  font-size: 30px;
+}
+.product .image-slot .el-icon {
+  font-size: 30px;
 }
 
 </style>
