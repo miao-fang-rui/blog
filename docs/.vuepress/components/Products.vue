@@ -40,4 +40,14 @@ const props = defineProps(['product'])
         text-decoration: underline !important;
     }
 }
+
+[data-theme='dark'] {
+    .product_name{
+        color: white;
+        &:hover {
+            color: var(--vp-c-accent);
+            text-decoration: underline !important;
+        }
+    }
+}
 </style>

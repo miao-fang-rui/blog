@@ -4,3 +4,21 @@
     --vp-c-accent-hover: #5e71ff;
     --vp-c-accent-bg: #5468ff;
 }
+
+[data-theme='dark'] {
+    .el-card{
+        background-color: var(--vp-c-bg);
+        border: 1px solid var(--vp-c-border)
+    }
+    .el-card__footer{
+        border-top: 1px solid var(--vp-c-border)
+    }
+
+    .el-card.is-hover-shadow:hover {
+        box-shadow: var(--el-box-shadow-dark);
+    }
+
+    div[class*=language-] {
+        background-color: #151618;
+    }
+}

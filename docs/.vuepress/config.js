@@ -87,6 +87,10 @@ export default defineUserConfig({
                         link: '/zh/123.md'
                     },
                     {
+                        text: '写文章',
+                        link: '/zh/edit.md'
+                    },
+                    {
                         text: '文档列表',
                         children: [
                             {

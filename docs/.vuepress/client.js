@@ -7,6 +7,7 @@ import { provide, reactive } from 'vue'
 import Products from './components/Products.vue'
 import Table from './components/Table.vue'
 import Carousel from './components/Carousel.vue'
+import Edit from './components/Edit.vue'
 
 
 export default defineClientConfig({
@@ -53,5 +54,6 @@ export default defineClientConfig({
     rootComponents: [],
     layouts: {
         Login,
+        Edit
     }
 })
