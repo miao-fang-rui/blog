@@ -1,6 +1,6 @@
 <template>
 <el-row :gutter="20">
-    <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6" v-for="p in props.product">
+    <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4" v-for="p in props.product">
         <el-card shadow="hover">
             <img :src="p.src" class="image" />
             <template #footer>
