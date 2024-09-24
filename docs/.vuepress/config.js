@@ -2,6 +2,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { markdownImagePlugin } from '@vuepress/plugin-markdown-image'
+import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
 
 export default defineUserConfig({
     bundler: viteBundler(),
@@ -19,6 +20,28 @@ export default defineUserConfig({
             mark: true,
             // 启用图片大小
             size: true,
+        }),
+        mdEnhancePlugin({
+            // 启用下角标功能
+            sub: true,
+            // 启用上角标
+            sup: true,
+            // 启用任务列表
+            tasklist: true,
+            // 启用导入支持
+            include: true,
+            // 开启组件支持
+            component: true,
+            // 启用脚注
+            footnote: true,
+            // 开启剧透
+            spoiler: true,
+            // Enable attrs support
+            attrs: true,
+            // 开启标记
+            mark: true,
+            // 启用自定义对齐
+            align: true,
         }),
     ],
     locales: {
@@ -43,6 +66,7 @@ export default defineUserConfig({
         docsRepo: 'https://github.com/miao-fang-rui/blog',
         docsBranch: 'main',
         docsDir: 'docs',
+        sidebarDepth: 3,
         locales: {
             '/': {
                 selectLanguageName: 'English',

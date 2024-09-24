@@ -3,6 +3,14 @@
     --vp-c-accent: #5468ff;
     --vp-c-accent-hover: #5e71ff;
     --vp-c-accent-bg: #5468ff;
+
+    :not(pre)>code {
+        // background-color: rgba(125, 125, 255, 0.4);
+        color: rgb(255, 73, 73);
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        letter-spacing: 1px;
+        padding: 4px 6px;
+    }
 }
 
 [data-theme='dark'] {
