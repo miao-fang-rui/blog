@@ -66,7 +66,7 @@ export default defineUserConfig({
         docsRepo: 'https://github.com/miao-fang-rui/blog',
         docsBranch: 'main',
         docsDir: 'docs',
-        sidebarDepth: 3,
+        sidebarDepth: 4,
         locales: {
             '/': {
                 selectLanguageName: 'English',
