@@ -29,4 +29,10 @@
     div[class*=language-] {
         background-color: #151618;
     }
+    .el-timeline {
+        --el-timeline-node-color: rgb(62, 67, 77);
+    } 
+    .el-card {
+        color: white;
+    }
 }

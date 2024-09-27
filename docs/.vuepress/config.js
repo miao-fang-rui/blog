@@ -108,7 +108,7 @@ export default defineUserConfig({
                     },
                     {
                         text: '技术文档',
-                        link: '/zh/123.md'
+                        link: '/zh/blog/车载调度产品.md'
                     },
                     // {
                     //     text: '写文章',
@@ -143,8 +143,23 @@ export default defineUserConfig({
                                 },
                             ]
                             
-                        }
+                        },
                     ],
+                    '/zh/blog/': [
+                        {
+                            text: '产品故障及排查',
+                            children: [
+                                {
+                                    text: '车载调度产品',
+                                    link: '/zh/blog/车载调度产品.md',
+                                },
+                                {
+                                    text: '智慧收银产品',
+                                    link: '/zh/blog/智慧收银产品.md',
+                                },
+                            ]
+                        }
+                    ]
                 },
             }
         }
