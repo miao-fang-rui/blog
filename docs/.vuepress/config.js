@@ -110,10 +110,10 @@ export default defineUserConfig({
                         text: '技术文档',
                         link: '/zh/blog/车载调度产品.md'
                     },
-                    // {
-                    //     text: '写文章',
-                    //     link: '/zh/edit.md'
-                    // },
+                    {
+                        text: '写文章',
+                        link: '/zh/edit.md'
+                    },
                     // {
                     //     text: '文档列表',
                     //     children: [
