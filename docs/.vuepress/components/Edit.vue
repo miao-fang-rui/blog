@@ -1,13 +1,25 @@
 <script setup>
 import "aieditor/dist/style.css"
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { ElMessageBox, ElMessage } from 'element-plus'
+import { Notebook } from '@element-plus/icons-vue'
 
 const divRef = ref();
 let aiEditor = null;
+const catalog = ref()
+const show = ref(false)
+const catalogIsShow = ref(false)
+
+window.addEventListener('scroll', (e) => {
+    let header = document.getElementById('containerHeader');
+    let stickyDiv = document.getElementById('containerCatalog');
+    let headerHeight = header.offsetHeight;
+    stickyDiv.style.top = headerHeight + 'px';
+    stickyDiv.style.height = `calc(100vh - ${headerHeight}px)`
+})
 
 onMounted(() => {
-    //for ssr
+
     import('aieditor').then(({ AiEditor }) => {
         aiEditor = new AiEditor({
             element: divRef.value,
@@ -15,12 +27,12 @@ onMounted(() => {
             content: '',
             draggable: false,
             toolbarKeys: ["undo", "redo", "eraser",
-                "|", "heading",
+                "|", "heading", "font-family", "font-size",
                 "|", "bold", "italic", "underline", "strike", "link", "code", "subscript", "superscript", "hr", "todo", "emoji",
                 "|", "highlight", "font-color",
                 "|", "align",
                 "|", "bullet-list", "ordered-list", "indent-decrease", "indent-increase", "break",
-                "|", "image", "video", "attachment", "quote", "code-block", "table",
+                "|", "image", "quote", "code-block", "table",
                 "|", "source-code", "printer",
                 "|",
                 {
@@ -37,7 +49,7 @@ onMounted(() => {
                     tip: "保存",
                 },
             ],
-            toolbarExcludeKeys: ["emoji", "brush", "font-family", "font-size", "line-height", "fullscreen", "ai"],
+            // toolbarExcludeKeys: ["emoji", "brush", "font-family", "font-size", "line-height", "fullscreen", "ai"],
             textSelectionBubbleMenu: {
                 enable: true,
                 items: ["Bold", "Italic", "Underline", "Strike", "code"],
@@ -51,12 +63,17 @@ onMounted(() => {
                         //注意：
                         // 1、如果此方法返回 false，则图片不会被插入到编辑器
                         // 2、可以在这里返回一个新的 json 给编辑器
-                        // console.log(file)
+                        console.log(file, response)
                         const code = {
                             "errorCode": 0,
                             "data": {
                                 "src": `/public/产品/车载调度/报站器/TM5805/${file.name}`,
-                                "alt": file.name
+                                "alt": file.name,
+                                "loading": false,
+                                // "align": "center",
+                                "width": "80%",
+                                "height": "auto",
+                                "data-src": response.data.src
                             }
                         }
                         return code
@@ -64,6 +81,11 @@ onMounted(() => {
                 },
                 bubbleMenuItems: ["AlignLeft", "AlignCenter", "AlignRight", "delete"]
             },
+            onChange: (aiEditor) => {
+                // 监听到用编辑器内容发生变化了，控制台打印编辑器的 html 内容...
+                catalog.value = aiEditor.getOutline()
+                // console.log(catalog.value)
+            }
         })
     })
 })
@@ -92,14 +114,67 @@ const saveHandle = (event, editor) => {
 //     const html = aiEditor.getMarkdown();
 //     console.log(html)
 // }
+
+const goBack = () => {
+    window.history.back();
+}
 </script>
 
 <template>
     <ClientOnly>
-        <div ref="divRef" style="">
+        <div class="menuButtons">
+            <div class="menu-item">
+                <el-tooltip 
+                    effect="dark"
+                    :content="catalogIsShow? '打开目录' : '关闭目录'"
+                    placement="top"
+                >
+                    <el-button link @click="catalogIsShow =!catalogIsShow">
+                        <el-icon size="16">
+                            <Notebook />
+                        </el-icon>
+                    </el-button>
+                </el-tooltip>
+                <el-tooltip
+                    effect="dark"
+                    content="返回上级"
+                    placement="top"
+                >
+                    <el-button link @click="goBack">
+                        <el-icon size="16">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path></svg>
+                        </el-icon>
+                    </el-button>
+                </el-tooltip>
+            </div>
+        </div>
+        <div ref="divRef">
             <div class="aie-container">
-                <div class="aie-container-header"></div>
-                <div class="aie-container-main"></div>
+                <div class="aie-container-header" id="containerHeader"></div>
+                <div class="aie-main">
+                    <div class="aie-container-catalog" id="containerCatalog" v-show="!catalogIsShow">
+                        <el-scrollbar class="catalog-contarner">
+                            <div class="title">目录导航</div>
+                            <div class="catalog">
+                                <div v-for="c in catalog" class="level">
+                                    <div v-if="c.level === 1" class="level-1"><a :href="`#${c.id}`">{{ c.text }}</a>
+                                    </div>
+                                    <div v-if="c.level === 2" class="level-2"><a :href="`#${c.id}`">{{ c.text }}</a>
+                                    </div>
+                                    <div v-if="c.level === 3" class="level-3"><a :href="`#${c.id}`">{{ c.text }}</a>
+                                    </div>
+                                    <div v-if="c.level === 4" class="level-4"><a :href="`#${c.id}`">{{ c.text }}</a>
+                                    </div>
+                                    <div v-if="c.level === 5" class="level-5"><a :href="`#${c.id}`">{{ c.text }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-scrollbar>
+                    </div>
+                    <div class="main-container">
+                        <div class="aie-container-main"></div>
+                    </div>
+                </div>
                 <div class="aie-container-footer"></div>
             </div>
         </div>
@@ -107,6 +182,20 @@ const saveHandle = (event, editor) => {
 </template>
 
 <style lang="scss" scoped>
+
+.menuButtons {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+
+    .menu-item {
+        padding: 6px;
+    }
+}
+
 :deep(.aie-container) {
     background-color: #eee;
     border: none;
@@ -117,16 +206,102 @@ const saveHandle = (event, editor) => {
         z-index: 999;
         background-color: white;
         width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: 1px solid var(--aie-container-border);
+
+        div {
+            border-bottom: none;
+        }
+    }
+
+    .aie-main {
+        display: flex;
     }
 
     .aie-container-main {
-        min-height: 700px;
+        margin: 60px 0;
+        min-height: 1200px;
         width: 80%;
         background-color: white;
-        margin: 40px auto;
         border: 1px solid #e0e0e0;
         padding: 40px;
         box-sizing: border-box;
+    }
+
+    .main-container {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .aie-container-catalog {
+        width: 260px;
+        position: sticky;
+        flex: none;
+        top: 0;
+        overflow: auto;
+        border-right: 1px solid #dbdbdb;
+
+        .catalog-contarner {
+            box-sizing: border-box;
+
+            .title {
+                border-bottom: 1px solid #dbdbdb;
+                font-weight: bold;
+                font-size: 18px;
+                padding: 12px;
+                margin: 0 10px;
+                color: #5c5c5c;
+            }
+
+            .catalog {
+                width: 100%;
+                font-size: 14px;
+                padding-left: 20px;
+                padding-bottom: 20px;
+                box-sizing: border-box;
+
+            }
+
+            .level {
+                margin: 10px 0;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    color: rgb(48, 48, 48);
+
+                    &:hover {
+                        color: #5e71ff;
+                    }
+                }
+
+                .level-1 {
+                    padding-left: 0;
+                }
+
+                .level-2 {
+                    padding-left: 20px;
+                }
+
+                .level-3 {
+                    padding-left: 40px;
+                }
+
+                .level-4 {
+                    padding-left: 60px;
+                }
+
+                .level-5 {
+                    padding-left: 80px;
+                }
+            }
+
+
+        }
     }
 
     .aie-container-footer {
