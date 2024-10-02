@@ -24,6 +24,8 @@
     "@vuepress/plugin-markdown-image": "2.0.0-rc.46",
     "aieditor": "^1.1.6",
     "element-plus": "^2.8.3",
+    "file-saver": "^2.0.5",
+    "html-docx-fixed": "^1.0.2",
     "vue-router": "4"
   }
 }
