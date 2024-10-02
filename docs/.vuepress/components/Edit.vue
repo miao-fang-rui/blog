@@ -3,6 +3,7 @@ import "aieditor/dist/style.css"
 import { onMounted, onUnmounted, ref, watch } from "vue";
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { Notebook } from '@element-plus/icons-vue'
+import 'element-plus/theme-chalk/display.css'
 
 const divRef = ref();
 let aiEditor = null;
@@ -152,7 +153,7 @@ const goBack = () => {
             <div class="aie-container">
                 <div class="aie-container-header" id="containerHeader"></div>
                 <div class="aie-main">
-                    <div class="aie-container-catalog" id="containerCatalog" v-show="!catalogIsShow">
+                    <div class="aie-container-catalog hidden-sm-and-down" id="containerCatalog" v-show="!catalogIsShow">
                         <el-scrollbar class="catalog-contarner">
                             <div class="title">目录导航</div>
                             <div class="catalog">
