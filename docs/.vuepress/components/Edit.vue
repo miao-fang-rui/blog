@@ -230,7 +230,7 @@ onMounted(() => {
         max-width: 100%;
 
         &.ProseMirror-selectednode {
-            outline: 3px solid var(--purple);
+            outline: 3px solid var(--vp-c-accent);
         }
     }
 
