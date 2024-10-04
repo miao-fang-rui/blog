@@ -138,6 +138,10 @@ export default defineUserConfig({
                                     link: '/zh/product/车载调度产品.md',
                                 },
                                 {
+                                    text: '主动安全产品',
+                                    link: '/zh/product/主动安全产品.md',
+                                },
+                                {
                                     text: '智慧收银产品',
                                     link: '/zh/product/智慧收银产品.md',
                                 },
@@ -152,6 +156,10 @@ export default defineUserConfig({
                                 {
                                     text: '车载调度产品',
                                     link: '/zh/blog/车载调度产品.md',
+                                },
+                                {
+                                    text: '主动安全产品',
+                                    link: '/zh/blog/主动安全产品.md',
                                 },
                                 {
                                     text: '智慧收银产品',
