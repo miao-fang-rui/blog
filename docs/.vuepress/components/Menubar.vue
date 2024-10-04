@@ -29,6 +29,7 @@ import Superscript from '../icons/Superscript.vue'
 import CodeIcon from '../icons/CodeIcon.vue'
 import Highlight from '../icons/Highlight.vue'
 
+
 const { editor } = defineProps({
     editor: {
         type: Object
