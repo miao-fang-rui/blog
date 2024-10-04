@@ -16,7 +16,7 @@ import DeleteColumn from '../icons/DeleteColumn.vue'
 import AddRowBefore from '../icons/AddRowBefore.vue'
 import AddRowAfter from '../icons/AddRowAfter.vue'
 import DeleteRow from '../icons/DeleteRow.vue'
-import DeleteTable from '../icons/DeleteTable.vue'
+import DeleteTableIcon from '../icons/DeleteTableIcon.vue'
 import MergeCells from '../icons/MergeCells.vue'
 import SplitCell from '../icons/SplitCell.vue'
 import TaskItem from '../icons/TaskItem.vue'
@@ -392,7 +392,7 @@ const setLink = () => {
                         </el-dropdown-item>
                         <el-dropdown-item command="deleteTable">
                             <el-icon size="18">
-                                <DeleteTable />
+                                <DeleteTableIcon />
                             </el-icon>
                             <span>删除表格</span>
                         </el-dropdown-item>
