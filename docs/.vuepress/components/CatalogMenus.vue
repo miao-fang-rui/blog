@@ -13,7 +13,7 @@ const goBack = () => {
 <template>
     <div class="catalog-buttons">
         <div class="button-item">
-            <el-tooltip effect="dark" :content="catalogIsShow ? '打开目录' : '关闭目录'" placement="top">
+            <el-tooltip effect="dark" :content="catalogIsShow ? '关闭目录' : '打开目录'" placement="top">
                 <el-button link @click="catalogIsShow = !catalogIsShow">
                     <el-icon size="16">
                         <CatalogIcon />

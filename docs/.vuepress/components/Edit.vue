@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, h } from 'vue'
+import 'element-plus/theme-chalk/display.css'
 import { ElMessage } from 'element-plus'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
@@ -28,6 +29,7 @@ const editor = ref(null)
 const content = ref()
 const heading = ref('正文')
 const catalogIsShow = ref(true)
+const catalogHeadings = ref()
 
 window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
@@ -75,11 +77,11 @@ onMounted(() => {
             // const markdownOutput = editor.value.storage.markdown.getMarkdown();
             // console.log(content.value)
             // console.log(markdownOutput)
-            const firstHeading = editor.value.$nodes('heading')
-            console.log(firstHeading)
-            firstHeading.forEach(element => {
-                console.log(element.element.nodeName, element.textContent)
-            });
+            catalogHeadings.value = editor.value.$nodes('heading')
+            // console.log(catalogHeadings.value)
+            // Headings.forEach(heading => {
+            //     console.log(heading.element.nodeName, heading.textContent)
+            // });
         },
         onTransaction({ editor, transaction }) {
             if (editor.isActive('heading', { level: 1 })) {
@@ -108,8 +110,8 @@ onMounted(() => {
     <ClientOnly>
         <CatalogMenus v-model:title="catalogIsShow" />
         <div class="editor-container">
-            <div class="catalog" id="catalog" v-if="catalogIsShow">
-                <Catalog />
+            <div class="catalog hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
+                <Catalog :catalogHeadings="catalogHeadings" />
             </div>
             <editor-content :editor="editor" class="editor" />
         </div>
@@ -137,7 +139,7 @@ onMounted(() => {
         overflow: auto;
         top: 48px;
         border-right: 1px solid #dbdbdb;
-        padding: 40px 20px;
+        padding: 10px 20px;
         box-sizing: border-box;
     }
 
