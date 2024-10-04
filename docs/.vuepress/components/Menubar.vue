@@ -143,7 +143,7 @@ const setLink = () => {
 </script>
 
 <template>
-    <div class="menu-bar">
+    <div class="menu-bar" id="menu-bar">
         <div class="menu-buttons">
             <el-dropdown class="drop-down" @command="handleCommand">
                 <span class="el-dropdown-link">
@@ -440,6 +440,7 @@ const setLink = () => {
     justify-items: center;
     align-items: center;
     border: 1px solid #eee;
+    flex-wrap: wrap;
 
     .menu-buttons {
         display: flex;
@@ -447,6 +448,7 @@ const setLink = () => {
         align-items: center;
         padding: 10px;
         margin: 0 auto;
+        flex-wrap: wrap;
     }
 
     .button {

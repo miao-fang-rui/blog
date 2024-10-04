@@ -20,13 +20,25 @@ import Superscript from '@tiptap/extension-superscript'
 import Highlight from '@tiptap/extension-highlight'
 import BubbleMenus from './BubbleMenus.vue'
 import FloatingMenus from './FloatingMenus.vue'
+import Catalog from './Catalog.vue'
+import CatalogMenus from './CatalogMenus.vue'
 
 
 const editor = ref(null)
 const content = ref()
 const heading = ref('正文')
+const catalogIsShow = ref(true)
+
+window.addEventListener('scroll', (e) => {
+    let header = document.getElementById('menu-bar');
+    let catalog = document.getElementById('catalog');
+    let headerHeight = header.offsetHeight;
+    catalog.style.top = headerHeight + 'px';
+    catalog.style.height = `calc(100vh - ${headerHeight}px)`
+})
 
 onMounted(() => {
+
     editor.value = new Editor({
         autofocus: true,
         extensions: [
@@ -60,9 +72,14 @@ onMounted(() => {
         content: '',
         onUpdate: () => {
             // content.value = editor.value.getHTML()
-            const markdownOutput = editor.value.storage.markdown.getMarkdown();
+            // const markdownOutput = editor.value.storage.markdown.getMarkdown();
             // console.log(content.value)
-            console.log(markdownOutput)
+            // console.log(markdownOutput)
+            const firstHeading = editor.value.$nodes('heading')
+            console.log(firstHeading)
+            firstHeading.forEach(element => {
+                console.log(element.element.nodeName, element.textContent)
+            });
         },
         onTransaction({ editor, transaction }) {
             if (editor.isActive('heading', { level: 1 })) {
@@ -89,39 +106,55 @@ onMounted(() => {
 
 <template>
     <ClientOnly>
+        <CatalogMenus v-model:title="catalogIsShow" />
         <div class="editor-container">
+            <div class="catalog" id="catalog" v-if="catalogIsShow">
+                <Catalog />
+            </div>
+            <editor-content :editor="editor" class="editor" />
+        </div>
+        <div>
             <Menubar :editor="editor" v-model:title="heading" />
             <BubbleMenus :editor="editor" v-model:title="heading" />
             <FloatingMenus :editor="editor" />
-            <div class="editor">
-                <editor-content :editor="editor" />
-            </div>
         </div>
     </ClientOnly>
 </template>
 
 <style lang="scss" scoped>
+
 .editor-container {
     background-color: #eee;
     height: 100%;
-    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.editor {
-    width: 100%;
+    .catalog {
+        // display: none;
+        height: calc(100vh - 48px);
+        width: 260px;
+        position: sticky;
+        flex: none;
+        overflow: auto;
+        top: 48px;
+        border-right: 1px solid #dbdbdb;
+        padding: 40px 20px;
+        box-sizing: border-box;
+    }
+
+    .editor {
+        width: 64%;
+        margin: 60px auto;
+    }
 }
 
 :deep(.tiptap) {
-    margin: 60px auto;
     padding: 60px;
     box-sizing: border-box;
     outline: none;
     border: 1px solid #eee;
     background-color: white;
-    width: 60%;
+    // width: 70%;
+    margin: 60px 0;
     min-height: 800px;
     border: 1px solid #eee;
 
@@ -230,7 +263,7 @@ onMounted(() => {
         max-width: 100%;
 
         &.ProseMirror-selectednode {
-            outline: 3px solid var(--vp-c-accent);
+            outline: 2px solid var(--vp-c-accent);
         }
     }
 
