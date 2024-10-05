@@ -9,6 +9,7 @@ import Subscript from '../icons/Subscript.vue'
 import Superscript from '../icons/Superscript.vue'
 import CodeIcon from '../icons/CodeIcon.vue'
 import Highlight from '../icons/Highlight.vue'
+import CodeBlockIcon from '../icons/CodeBlockIcon.vue'
 import H1Icon from '../icons/H1Icon.vue'
 import H2Icon from '../icons/H2Icon.vue'
 import H3Icon from '../icons/H3Icon.vue'
@@ -46,7 +47,7 @@ const setLink = () => {
 <template>
     <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
         <div class="bubble-menu">
-            <el-tooltip content="标题1" :show-after="200">
+            <!-- <el-tooltip content="标题1" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
                     @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">
                     <el-icon size="18">
@@ -54,7 +55,7 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题1" :show-after="200">
+            <el-tooltip content="标题2" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
                     @click="editor.chain().focus().toggleHeading({ level: 2 }).run()">
                     <el-icon size="18">
@@ -62,7 +63,7 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题1" :show-after="200">
+            <el-tooltip content="标题3" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
                     @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">
                     <el-icon size="18">
@@ -70,7 +71,7 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题1" :show-after="200">
+            <el-tooltip content="标题4" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
                     @click="editor.chain().focus().toggleHeading({ level: 4 }).run()">
                     <el-icon size="18">
@@ -78,7 +79,7 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题1" :show-after="200">
+            <el-tooltip content="标题5" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
                     @click="editor.chain().focus().toggleHeading({ level: 5 }).run()">
                     <el-icon size="18">
@@ -93,8 +94,8 @@ const setLink = () => {
                         <H6Icon />
                     </el-icon>
                 </button>
-            </el-tooltip>
-            <el-divider direction="vertical" />
+            </el-tooltip> -->
+            <!-- <el-divider direction="vertical" /> -->
             <el-tooltip content="粗体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('bold') }"
                     @click="editor.chain().focus().toggleBold().run()">
@@ -103,7 +104,6 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
             <el-tooltip content="斜体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('italic') }"
                     @click="editor.chain().focus().toggleItalic().run()">
@@ -112,7 +112,6 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-          
             <el-tooltip content="下划线" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('underline') }"
                     @click="editor.chain().focus().toggleUnderline().run()">
@@ -121,7 +120,6 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
             <el-tooltip content="删除线" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('strike') }"
                     @click="editor.chain().focus().toggleStrike().run()">
@@ -130,7 +128,16 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
+            <el-divider direction="vertical" />
+            <el-tooltip content="高亮" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }" 
+                    @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
+                    <el-icon size="18">
+                        <Highlight />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
             <el-tooltip content="链接" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('link') }" @click="setLink">
                     <el-icon size="18">
@@ -162,14 +169,15 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="高亮" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }" 
-                    @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
+            <el-tooltip content="代码块" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('codeBlock') }"
+                    @click="editor.chain().focus().toggleCodeBlock().run()">
                     <el-icon size="18">
-                        <Highlight />
+                        <CodeBlockIcon />
                     </el-icon>
                 </button>
             </el-tooltip>
+            
 
         </div>
     </bubble-menu>

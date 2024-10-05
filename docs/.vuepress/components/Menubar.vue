@@ -28,6 +28,13 @@ import Subscript from '../icons/Subscript.vue'
 import Superscript from '../icons/Superscript.vue'
 import CodeIcon from '../icons/CodeIcon.vue'
 import Highlight from '../icons/Highlight.vue'
+import CodeBlockIcon from '../icons/CodeBlockIcon.vue'
+import UndoIcon from '../icons/UndoIcon.vue'
+import RedoIcon from '../icons/RedoIcon.vue'
+import LeftTextAlign from '../icons/LeftTextAlign.vue'
+import CenterTextAlign from '../icons/CenterTextAlign.vue'
+import RightTextAlign from '../icons/RightTextAlign.vue'
+import JustifyTextAlign from '../icons/JustifyTextAlign.vue'
 
 
 const { editor } = defineProps({
@@ -37,7 +44,29 @@ const { editor } = defineProps({
 })
 
 const fileList = ref([])
-const heading = defineModel('title')
+const heading = defineModel('heading')
+const textAlign = defineModel('textAlign')
+
+const handleTextAlignCommand =(command) => {
+    switch (command) {
+        case 'left':
+            textAlign.value = 'left'
+            editor.chain().focus().setTextAlign('left').run()
+            break;
+        case 'center':
+            textAlign.value = 'center'
+            editor.chain().focus().setTextAlign('center').run()
+            break;
+        case 'right':
+            textAlign.value = 'right'
+            editor.chain().focus().setTextAlign('right').run()
+            break;
+        case 'justify':
+            textAlign.value = 'justify'
+            editor.chain().focus().setTextAlign('justify').run()
+            break;
+    }
+}
 
 const handleCommand = (command) => {
     switch (command) {
@@ -145,6 +174,21 @@ const setLink = () => {
 <template>
     <div class="menu-bar" id="menu-bar">
         <div class="menu-buttons">
+            <el-tooltip content="撤销" :show-after="200">
+                <button class="button" :disabled="!editor.can().undo()" @click="editor.chain().focus().undo().run()">
+                    <el-icon size="18">
+                        <UndoIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="恢复" :show-after="200">
+                <button class="button" :disabled="!editor.can().redo()" @click="editor.chain().focus().redo().run()">
+                    <el-icon size="18">
+                        <RedoIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
             <el-dropdown class="drop-down" @command="handleCommand">
                 <span class="el-dropdown-link">
                     {{ heading }}
@@ -211,9 +255,7 @@ const setLink = () => {
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-
             <el-divider direction="vertical" />
-
             <el-tooltip content="粗体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('bold') }"
                     @click="editor.chain().focus().toggleBold().run()">
@@ -246,37 +288,52 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="链接" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('link') }" @click="setLink">
-                    <el-icon size="18">
-                        <LinkIcon />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-tooltip content="下标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }" 
-                    @click="editor.chain().focus().toggleSubscript().run()">
-                    <el-icon size="18">
-                        <Subscript />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-tooltip content="上标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }" 
-                    @click="editor.chain().focus().toggleSuperscript().run()">
-                    <el-icon size="18">
-                        <Superscript />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-tooltip content="行内代码" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('code') }" 
-                    @click="editor.chain().focus().toggleCode().run()">
-                    <el-icon size="18">
-                        <CodeIcon />
-                    </el-icon>
-                </button>
-            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-dropdown class="textalign-dropdown" @command="handleTextAlignCommand">
+                <span class="el-dropdown-link">
+                    <el-icon size="18" v-show="textAlign === 'left'"><LeftTextAlign /></el-icon>
+                    <el-icon size="18" v-show="textAlign === 'center'"><CenterTextAlign /></el-icon>
+                    <el-icon size="18" v-show="textAlign === 'right'"><RightTextAlign /></el-icon>
+                    <el-icon size="18" v-show="textAlign === 'justify'"><JustifyTextAlign /></el-icon>
+                    <el-icon class="el-icon--right"><arrow-down /></el-icon>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu class="el-dropdown-menu">
+                        <el-dropdown-item command="left">
+                            <div class="el-icon">
+                                <el-icon v-show="textAlign === 'left'">
+                                    <Check />
+                                </el-icon>
+                            </div>
+                            <span><el-icon><LeftTextAlign /></el-icon>左对齐</span>
+                        </el-dropdown-item>
+                        <el-dropdown-item command="center">
+                            <div class="el-icon">
+                                <el-icon v-show="textAlign === 'center'">
+                                    <Check />
+                                </el-icon>
+                            </div>
+                            <span><el-icon><CenterTextAlign /></el-icon>居中对齐</span>
+                        </el-dropdown-item>
+                        <el-dropdown-item command="right">
+                            <div class="el-icon">
+                                <el-icon v-show="textAlign === 'right'">
+                                    <Check />
+                                </el-icon>
+                            </div>
+                            <span><el-icon><RightTextAlign /></el-icon>右对齐</span>
+                        </el-dropdown-item>
+                        <el-dropdown-item command="justify">
+                            <div class="el-icon">
+                                <el-icon v-show="textAlign === 'justify'">
+                                    <Check />
+                                </el-icon>
+                            </div>
+                            <span><el-icon><JustifyTextAlign /></el-icon>两端对齐</span>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
             <el-tooltip content="高亮" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('highlight') }" 
                     @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
@@ -285,7 +342,6 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
             <el-divider direction="vertical" />
             <el-tooltip content="分割线" :show-after="200">
                 <button class="button" @click="editor.chain().focus().setHorizontalRule().run()">
@@ -333,10 +389,47 @@ const setLink = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
-
             <el-divider direction="vertical" />
-
+            <el-tooltip content="链接" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('link') }" @click="setLink">
+                    <el-icon size="18">
+                        <LinkIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="下标" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }" 
+                    @click="editor.chain().focus().toggleSubscript().run()">
+                    <el-icon size="18">
+                        <Subscript />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="上标" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }" 
+                    @click="editor.chain().focus().toggleSuperscript().run()">
+                    <el-icon size="18">
+                        <Superscript />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="行内代码" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('code') }" 
+                    @click="editor.chain().focus().toggleCode().run()">
+                    <el-icon size="18">
+                        <CodeIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="代码块" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('codeBlock') }"
+                    @click="editor.chain().focus().toggleCodeBlock().run()">
+                    <el-icon size="18">
+                        <CodeBlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
             <el-dropdown class="table-dropdown" @command="handleTableCommand">
                 <span class="el-dropdown-link">
                     <el-icon size="18">
@@ -411,9 +504,7 @@ const setLink = () => {
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-
             <el-divider direction="vertical" />
-
             <el-upload v-model:file-list="fileList" ref="uploadRef" action="#" :auto-upload="false"
                 :on-change="uploadImg">
                 <el-tooltip content="插入图片" :show-after="200">
@@ -433,7 +524,6 @@ const setLink = () => {
 .menu-bar {
     position: fixed;
     top: 0;
-    z-index: 999999;
     background-color: var(--vp-c-bg);
     width: 100%;
     display: flex;
@@ -516,6 +606,26 @@ const setLink = () => {
 .table-dropdown {
     height: 26px;
     padding: 0 6px;
+
+    &:hover {
+        background-color: #eee;
+    }
+
+    .el-dropdown-link {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        outline: none;
+        color: black;
+    }
+}
+
+.textalign-dropdown {
+    margin-right: 10px;
+    padding: 0 6px;
+    height: 26px;
 
     &:hover {
         background-color: #eee;

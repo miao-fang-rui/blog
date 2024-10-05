@@ -23,6 +23,21 @@ import BubbleMenus from './BubbleMenus.vue'
 import FloatingMenus from './FloatingMenus.vue'
 import Catalog from './Catalog.vue'
 import CatalogMenus from './CatalogMenus.vue'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+import { all, createLowlight } from 'lowlight'
+import CharacterCount from '@tiptap/extension-character-count'
+import TextAlign from '@tiptap/extension-text-align'
+
+
+const lowlight = createLowlight(all)
+lowlight.register('html', html)
+lowlight.register('css', css)
+lowlight.register('js', js)
+lowlight.register('ts', ts)
 
 
 const editor = ref(null)
@@ -30,6 +45,7 @@ const content = ref()
 const heading = ref('正文')
 const catalogIsShow = ref(true)
 const catalogHeadings = ref()
+const textAlign = ref('left')
 
 window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
@@ -44,7 +60,9 @@ onMounted(() => {
     editor.value = new Editor({
         autofocus: true,
         extensions: [
-            StarterKit,
+            StarterKit.configure({
+                codeBlock: false,
+            }),
             Markdown,
             Underline,
             Subscript,
@@ -70,6 +88,15 @@ onMounted(() => {
                 openOnClick: false,
                 defaultProtocol: 'https',
             }),
+            CodeBlockLowlight.configure({
+                lowlight,
+                languageClassPrefix: 'language-',
+                defaultLanguage: 'js',
+            }),
+            CharacterCount,
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+            }),
         ],
         content: '',
         onUpdate: () => {
@@ -78,10 +105,11 @@ onMounted(() => {
             // console.log(content.value)
             // console.log(markdownOutput)
             catalogHeadings.value = editor.value.$nodes('heading')
+
             // console.log(catalogHeadings.value)
-            // Headings.forEach(heading => {
-            //     console.log(heading.element.nodeName, heading.textContent)
-            // });
+            catalogHeadings.value.forEach(heading => {
+                console.log(heading.element.nodeName, heading.textContent, heading.pos)
+            });
         },
         onTransaction({ editor, transaction }) {
             if (editor.isActive('heading', { level: 1 })) {
@@ -99,6 +127,16 @@ onMounted(() => {
             } else {
                 heading.value = '正文'
             }
+
+            if (editor.isActive({ textAlign: 'center' })) {
+                textAlign.value = 'center'
+            } else if (editor.isActive({ textAlign: 'right' })) {
+                textAlign.value = 'right'
+            } else if (editor.isActive({ textAlign: 'justify' })) {
+                textAlign.value = 'justify'
+            } else {
+                textAlign.value = 'left'
+            }
         },
     })
 })
@@ -108,7 +146,7 @@ onMounted(() => {
 
 <template>
     <ClientOnly>
-        <CatalogMenus v-model:title="catalogIsShow" />
+        <CatalogMenus v-model:title="catalogIsShow" :editor="editor" />
         <div class="editor-container">
             <div class="catalog hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
                 <Catalog :catalogHeadings="catalogHeadings" />
@@ -116,7 +154,7 @@ onMounted(() => {
             <editor-content :editor="editor" class="editor" />
         </div>
         <div>
-            <Menubar :editor="editor" v-model:title="heading" />
+            <Menubar :editor="editor" v-model:heading="heading" v-model:textAlign="textAlign" />
             <BubbleMenus :editor="editor" v-model:title="heading" />
             <FloatingMenus :editor="editor" />
         </div>
@@ -124,7 +162,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
-
 .editor-container {
     background-color: #eee;
     height: 100%;
@@ -135,11 +172,11 @@ onMounted(() => {
         height: calc(100vh - 48px);
         width: 260px;
         position: sticky;
-        flex: none;
+        // flex: none;
         overflow: auto;
         top: 48px;
         border-right: 1px solid #dbdbdb;
-        padding: 10px 20px;
+        // padding: 10px 20px;
         box-sizing: border-box;
     }
 
@@ -159,6 +196,75 @@ onMounted(() => {
     margin: 60px 0;
     min-height: 800px;
     border: 1px solid #eee;
+
+    pre {
+        background: #2E2B29;
+        border-radius: 0.5rem;
+        color: #FFF;
+        font-family: 'JetBrainsMono', monospace;
+        margin: 1.5rem 0;
+        padding: 0.75rem 1rem;
+
+        code {
+            background: none;
+            color: inherit;
+            font-size: 0.8rem;
+            padding: 0;
+        }
+
+        /* Code styling */
+        .hljs-comment,
+        .hljs-quote {
+            color: #616161;
+        }
+
+        .hljs-variable,
+        .hljs-template-variable,
+        .hljs-attribute,
+        .hljs-tag,
+        .hljs-name,
+        .hljs-regexp,
+        .hljs-link,
+        .hljs-name,
+        .hljs-selector-id,
+        .hljs-selector-class {
+            color: #f98181;
+        }
+
+        .hljs-number,
+        .hljs-meta,
+        .hljs-built_in,
+        .hljs-builtin-name,
+        .hljs-literal,
+        .hljs-type,
+        .hljs-params {
+            color: #fbbc88;
+        }
+
+        .hljs-string,
+        .hljs-symbol,
+        .hljs-bullet {
+            color: #b9f18d;
+        }
+
+        .hljs-title,
+        .hljs-section {
+            color: #faf594;
+        }
+
+        .hljs-keyword,
+        .hljs-selector-tag {
+            color: #70cff8;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: 700;
+        }
+    }
 
     table {
         border-collapse: collapse;

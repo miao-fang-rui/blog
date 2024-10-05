@@ -8,6 +8,12 @@ const goBack = () => {
     window.history.back();
 }
 
+const { editor } = defineProps({
+    editor: {
+        type: Object
+    }
+})
+
 </script>
 
 <template>
@@ -27,6 +33,7 @@ const goBack = () => {
                     </el-icon>
                 </el-button>
             </el-tooltip>
+            <span class="count">全文：{{ editor.storage.characterCount.characters() }} 字</span>
         </div>
     </div>
 </template>
@@ -39,9 +46,15 @@ const goBack = () => {
     z-index: 9999999;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 
     .button-item {
         padding: 6px;
+    }
+
+    .count {
+        margin-left: 20px;
+        font-size: 13px;
     }
 }
 </style>

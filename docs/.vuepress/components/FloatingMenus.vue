@@ -124,6 +124,7 @@ const handleFloatCommand = (command) => {
 <style lang="scss" scoped>
 .floating-menu {
     transform: translate3d(-40px, 0px, 0px);
+    z-index: 98 !important;
 
     .el-dropdown {
 
