@@ -142,11 +142,16 @@ const uploadImg = (uploadFile) => {
     console.log(imageUrl)
 
     if (imageUrl) {
-        editor.chain().focus().setImage({
-            src: imageUrl,
-            alt: uploadFile.name,
-            title: uploadFile.name,
-        }).run()
+        // editor.chain().focus().setImage({
+        //     src: imageUrl,
+        //     alt: uploadFile.name,
+        //     title: uploadFile.name,
+        // }).run()
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: imageUrl, caption: uploadFile.name })
+          .run()
     }
 }
 
