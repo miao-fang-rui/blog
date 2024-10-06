@@ -3,7 +3,7 @@ import { ref, onMounted, h } from 'vue'
 import 'element-plus/theme-chalk/display.css'
 import { ElMessage } from 'element-plus'
 import StarterKit from '@tiptap/starter-kit'
-import { Editor, EditorContent } from '@tiptap/vue-3'
+import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { Markdown } from 'tiptap-markdown'
 import Placeholder from '@tiptap/extension-placeholder'
 import Table from '@tiptap/extension-table'
@@ -31,6 +31,7 @@ import html from 'highlight.js/lib/languages/xml'
 import { all, createLowlight } from 'lowlight'
 import CharacterCount from '@tiptap/extension-character-count'
 import TextAlign from '@tiptap/extension-text-align'
+import CodeBlockComponent from './CodeBlockComponent.vue'
 
 
 const lowlight = createLowlight(all)
@@ -88,11 +89,11 @@ onMounted(() => {
                 openOnClick: false,
                 defaultProtocol: 'https',
             }),
-            CodeBlockLowlight.configure({
-                lowlight,
-                languageClassPrefix: 'language-',
-                defaultLanguage: 'js',
-            }),
+            CodeBlockLowlight.extend({
+                addNodeView() {
+                    return VueNodeViewRenderer(CodeBlockComponent)
+                },
+            }).configure({ lowlight }),
             CharacterCount,
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
@@ -107,11 +108,9 @@ onMounted(() => {
             catalogHeadings.value = editor.value.$nodes('heading')
 
             // console.log(catalogHeadings.value)
-            catalogHeadings.value.forEach(heading => {
-                console.log(heading.element.nodeName, heading.textContent, heading.pos)
-            });
         },
         onTransaction({ editor, transaction }) {
+
             if (editor.isActive('heading', { level: 1 })) {
                 heading.value = '标题1'
             } else if (editor.isActive('heading', { level: 2 })) {
@@ -162,6 +161,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+
 .editor-container {
     background-color: #eee;
     height: 100%;
@@ -194,7 +194,7 @@ onMounted(() => {
     background-color: white;
     // width: 70%;
     margin: 60px 0;
-    min-height: 800px;
+    min-height: 1000px;
     border: 1px solid #eee;
 
     pre {
@@ -202,14 +202,18 @@ onMounted(() => {
         border-radius: 0.5rem;
         color: #FFF;
         font-family: 'JetBrainsMono', monospace;
-        margin: 1.5rem 0;
-        padding: 0.75rem 1rem;
+        padding: 2rem 1rem 1rem 1rem;
+        overflow: auto !important;
 
         code {
             background: none;
             color: inherit;
-            font-size: 0.8rem;
-            padding: 0;
+            font-size: 15px;
+            line-height: 30px;
+            overflow-x: auto;
+            width: 100%;
+            word-wrap: none;
+            word-break: break-all;
         }
 
         /* Code styling */

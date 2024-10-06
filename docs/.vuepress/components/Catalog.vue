@@ -12,17 +12,17 @@ const { catalogHeadings } = defineProps({
         <div class="title">目录导航</div>
         <el-scrollbar class="catalogs">
             <div v-for="heading in catalogHeadings" class="level">
-                <div v-if="heading.element.nodeName === 'H1'" class="level-1"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 1" class="level-1"><a href="#">{{
                         heading.textContent }}</a></div>
-                <div v-if="heading.element.nodeName === 'H2'" class="level-2"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 2" class="level-2"><a href="#">{{
                         heading.textContent }}</a></div>
-                <div v-if="heading.element.nodeName === 'H3'" class="level-3"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 3" class="level-3"><a href="#">{{
                         heading.textContent }}</a></div>
-                <div v-if="heading.element.nodeName === 'H4'" class="level-4"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 4" class="level-4"><a href="#">{{
                         heading.textContent }}</a></div>
-                <div v-if="heading.element.nodeName === 'H5'" class="level-5"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 5" class="level-5"><a href="#">{{
                         heading.textContent }}</a></div>
-                <div v-if="heading.element.nodeName === 'H6'" class="level-6"><a href="#">{{
+                <div v-if="heading.node.attrs.level === 6" class="level-6"><a href="#">{{
                         heading.textContent }}</a></div>
             </div>
         </el-scrollbar>

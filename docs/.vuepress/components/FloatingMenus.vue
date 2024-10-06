@@ -68,7 +68,7 @@ const handleFloatCommand = (command) => {
         <div class="floating-menu">
             <el-dropdown popper-class="el-dropdown" @command="handleFloatCommand">
                 <span class="el-dropdown-link">
-                    <el-icon size="20" color="black">
+                    <el-icon size="20">
                         <FloatMenuIcon />
                     </el-icon>
                 </span>
