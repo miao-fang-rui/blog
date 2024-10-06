@@ -35,6 +35,11 @@ import LeftTextAlign from '../icons/LeftTextAlign.vue'
 import CenterTextAlign from '../icons/CenterTextAlign.vue'
 import RightTextAlign from '../icons/RightTextAlign.vue'
 import JustifyTextAlign from '../icons/JustifyTextAlign.vue'
+import SourceCodeIcon from '../icons/SourceCodeIcon.vue'
+import PrintIcon from '../icons/PrintIcon.vue'
+import SettingIcon from '../icons/SettingIcon.vue'
+import DownloadIcon from '../icons/DownloadIcon.vue'
+import EraserIcon from '../icons/EraserIcon.vue'
 
 
 const { editor } = defineProps({
@@ -142,16 +147,11 @@ const uploadImg = (uploadFile) => {
     console.log(imageUrl)
 
     if (imageUrl) {
-        // editor.chain().focus().setImage({
-        //     src: imageUrl,
-        //     alt: uploadFile.name,
-        //     title: uploadFile.name,
-        // }).run()
-        editor
-          .chain()
-          .focus()
-          .setImage({ src: imageUrl, caption: uploadFile.name })
-          .run()
+        editor.chain().focus().setImage({
+            src: imageUrl,
+            alt: uploadFile.name,
+            title: uploadFile.name,
+        }).run()
     }
 }
 
@@ -174,6 +174,12 @@ const setLink = () => {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 }
 
+const eraserFormat = () => {
+    editor.commands.selectAll()
+    editor.commands.clearNodes()
+    editor.commands.unsetAllMarks()
+}
+
 </script>
 
 <template>
@@ -190,6 +196,13 @@ const setLink = () => {
                 <button class="button" :disabled="!editor.can().redo()" @click="editor.chain().focus().redo().run()">
                     <el-icon size="18">
                         <RedoIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="清除格式" :show-after="200">
+                <button class="button" @click="eraserFormat">
+                    <el-icon size="18">
+                        <EraserIcon />
                     </el-icon>
                 </button>
             </el-tooltip>
@@ -509,7 +522,7 @@ const setLink = () => {
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-            <el-divider direction="vertical" />
+            <!-- <el-divider direction="vertical" /> -->
             <el-upload v-model:file-list="fileList" ref="uploadRef" action="#" :auto-upload="false"
                 :on-change="uploadImg">
                 <el-tooltip content="插入图片" :show-after="200">
@@ -520,6 +533,36 @@ const setLink = () => {
                     </button>
                 </el-tooltip>
             </el-upload>
+            <el-divider direction="vertical" />
+            <el-tooltip content="源代码" :show-after="200">
+                <button class="button" @click="">
+                    <el-icon size="18">
+                        <SourceCodeIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="打印" :show-after="200">
+                <button class="button" @click="">
+                    <el-icon size="18">
+                        <PrintIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="设置" :show-after="200">
+                <button class="button" @click="">
+                    <el-icon size="18">
+                        <SettingIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="下载" :show-after="200">
+                <button class="button" @click="">
+                    <el-icon size="18">
+                        <DownloadIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
 
         </div>
     </div>
@@ -549,6 +592,7 @@ const setLink = () => {
     .button {
         border: none;
         padding: 4px;
+        margin: 0 3px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -628,7 +672,7 @@ const setLink = () => {
 }
 
 .textalign-dropdown {
-    margin-right: 10px;
+    // margin-right: 10px;
     padding: 0 6px;
     height: 26px;
 

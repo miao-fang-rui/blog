@@ -55,7 +55,7 @@ const { catalogHeadings } = defineProps({
         padding: 10px;
 
         .level {
-
+            margin: 10px;
             .level-1 {
                 padding-left: 0;
             }
@@ -82,7 +82,7 @@ const { catalogHeadings } = defineProps({
 
             a {
                 color: rgb(48, 48, 48);
-                font-size: 13px;
+                font-size: 14px;
 
                 &:hover {
                     color: #5e71ff;

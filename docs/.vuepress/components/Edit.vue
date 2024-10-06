@@ -33,7 +33,6 @@ import CharacterCount from '@tiptap/extension-character-count'
 import TextAlign from '@tiptap/extension-text-align'
 import CodeBlockComponent from './CodeBlockComponent.vue'
 
-
 const lowlight = createLowlight(all)
 lowlight.register('html', html)
 lowlight.register('css', css)
@@ -47,6 +46,7 @@ const heading = ref('正文')
 const catalogIsShow = ref(true)
 const catalogHeadings = ref()
 const textAlign = ref('left')
+const bubbleMenuShow = ref(true)
 
 window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
@@ -55,6 +55,13 @@ window.addEventListener('scroll', (e) => {
     catalog.style.top = headerHeight + 'px';
     catalog.style.height = `calc(100vh - ${headerHeight}px)`
 })
+
+const converseImages = (makedownText) => {
+    const regex = /!\[(.*?)\]\((.*?)\)/g;
+    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${filename})\n\n`);
+    console.log(replacedText)
+}
+
 
 onMounted(() => {
 
@@ -101,15 +108,25 @@ onMounted(() => {
         ],
         content: '',
         onUpdate: () => {
-            // content.value = editor.value.getHTML()
-            // const markdownOutput = editor.value.storage.markdown.getMarkdown();
-            // console.log(content.value)
+            const htmlText = editor.value.getHTML()
+            const markdownOutput = editor.value.storage.markdown.getMarkdown();
+            converseImages(markdownOutput)
             // console.log(markdownOutput)
-            catalogHeadings.value = editor.value.$nodes('heading')
+            console.log(htmlText)
 
-            // console.log(catalogHeadings.value)
+
         },
         onTransaction({ editor, transaction }) {
+
+            catalogHeadings.value = editor.$nodes('heading')
+            // console.log(catalogHeadings.value)
+
+            const IsImage = editor.isActive('image')
+            if (IsImage) {
+                bubbleMenuShow.value = false
+            } else {
+                bubbleMenuShow.value = true
+            }
 
             if (editor.isActive('heading', { level: 1 })) {
                 heading.value = '标题1'
@@ -140,11 +157,15 @@ onMounted(() => {
     })
 })
 
+const test =() => {
+    editor.value.commands.insertContent('<p></p>')
+}
 
 </script>
 
 <template>
     <ClientOnly>
+        <el-button class="test" @click="test">测试</el-button>
         <CatalogMenus v-model:title="catalogIsShow" :editor="editor" />
         <div class="editor-container">
             <div class="catalog hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
@@ -154,7 +175,7 @@ onMounted(() => {
         </div>
         <div>
             <Menubar :editor="editor" v-model:heading="heading" v-model:textAlign="textAlign" />
-            <BubbleMenus :editor="editor" v-model:title="heading" />
+            <BubbleMenus :editor="editor" v-model:title="heading" v-show="bubbleMenuShow" />
             <FloatingMenus :editor="editor" />
         </div>
     </ClientOnly>
@@ -162,6 +183,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 
+.test {
+    position: fixed;
+    top: 80px;
+    right: 0;
+}
 .editor-container {
     background-color: #eee;
     height: 100%;
