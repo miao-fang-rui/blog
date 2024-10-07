@@ -44,6 +44,8 @@ import DownloadIcon from '../icons/DownloadIcon.vue'
 import EraserIcon from '../icons/EraserIcon.vue'
 import MarkdownIcon from '../icons/MarkdownIcon.vue'
 import PdfIcon from '../icons/PdfIcon.vue'
+import IndentIcon from '../icons/IndentIcon.vue'
+import OutdentIcon from '../icons/OutdentIcon.vue'
 
 
 const { editor } = defineProps({
@@ -556,6 +558,20 @@ const settingSaveHandle = () => {
                     @click="editor.chain().focus().toggleTaskList().run()">
                     <el-icon size="18">
                         <TaskItem />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="增加缩进" :show-after="200">
+                <button class="button" @click="editor.chain().focus().indent().run()">
+                    <el-icon size="18">
+                        <IndentIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="减少缩进" :show-after="200">
+                <button class="button" @click="editor.chain().focus().outdent().run()">
+                    <el-icon size="18">
+                        <OutdentIcon />
                     </el-icon>
                 </button>
             </el-tooltip>

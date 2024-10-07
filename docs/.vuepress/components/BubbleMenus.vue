@@ -1,5 +1,6 @@
 <script setup>
 import { BubbleMenu } from '@tiptap/vue-3'
+import { ElMessage } from 'element-plus'
 import Bold from '../icons/Bold.vue'
 import Italic from '../icons/Italic.vue'
 import StrikeIcon from '../icons/StrikeIcon.vue'
@@ -16,6 +17,7 @@ import H3Icon from '../icons/H3Icon.vue'
 import H4Icon from '../icons/H4Icon.vue'
 import H5Icon from '../icons/H5Icon.vue'
 import H6Icon from '../icons/H6Icon.vue'
+import DeleteIcon from '../icons/DeleteIcon.vue'
 
 const { editor } = defineProps({
     editor: {
@@ -40,6 +42,20 @@ const setLink = () => {
 
     // update link
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+}
+
+const deleteSelectHandle = () => {
+
+    if(editor.isActive('table')){
+        ElMessage({
+            message: '当前选择的是表格，请使用表格命令!',
+            type: 'error',
+            plain: true,
+        })
+    }else{
+        editor.chain().focus().deleteSelection().run()
+    }
+    // editor.chain().focus().deleteSelection().run()
 }
 
 </script>
@@ -174,6 +190,14 @@ const setLink = () => {
                     @click="editor.chain().focus().toggleCodeBlock().run()">
                     <el-icon size="18">
                         <CodeBlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="删除" :show-after="200">
+                <button class="button" @click="deleteSelectHandle">
+                    <el-icon size="18">
+                        <DeleteIcon />
                     </el-icon>
                 </button>
             </el-tooltip>

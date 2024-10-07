@@ -32,6 +32,7 @@ import { all, createLowlight } from 'lowlight'
 import CharacterCount from '@tiptap/extension-character-count'
 import TextAlign from '@tiptap/extension-text-align'
 import CodeBlockComponent from './CodeBlockComponent.vue'
+import Indent from '../extension/indent'
 
 const lowlight = createLowlight(all)
 lowlight.register('html', html)
@@ -64,6 +65,7 @@ onMounted(() => {
             StarterKit.configure({
                 codeBlock: false,
             }),
+            Indent,
             Markdown,
             Underline,
             Subscript,
@@ -101,13 +103,6 @@ onMounted(() => {
         ],
         content: '',
         onUpdate: () => {
-            // const htmlText = editor.value.getHTML()
-            // const markdownOutput = editor.value.storage.markdown.getMarkdown();
-            // converseImages(markdownOutput)
-            // console.log(markdownOutput)
-            // console.log(htmlText)
-
-
         },
         onTransaction({ editor, transaction }) {
 
@@ -155,7 +150,11 @@ onUnmounted(() => {
 })
 
 const test =() => {
-    editor.value.commands.insertContent('<p></p>')
+    editor.value.commands.indent()
+}
+
+const test1 =() => {
+    editor.value.commands.outdent()
 }
 
 </script>
@@ -163,6 +162,7 @@ const test =() => {
 <template>
     <ClientOnly>
         <el-button class="test no-print" @click="test">测试</el-button>
+        <el-button class="test1 no-print" @click="test1">测试1</el-button>
         <CatalogMenus class="no-print" v-model:title="catalogIsShow" :editor="editor" />
         <div class="editor-container">
             <div class="catalog no-print hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
@@ -208,6 +208,11 @@ const test =() => {
 .test {
     position: fixed;
     top: 80px;
+    right: 0;
+}
+.test1 {
+    position: fixed;
+    top: 120px;
     right: 0;
 }
 .editor-container {
