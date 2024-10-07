@@ -10,142 +10,240 @@ import H5Icon from '../icons/H5Icon.vue'
 import H6Icon from '../icons/H6Icon.vue'
 import HorizontalRule from '../icons/HorizontalRule.vue'
 import Blockquote from '../icons/Blockquote.vue'
-import HardBreak from '../icons/HardBreak.vue'
+import BulletList from '../icons/BulletList.vue'
+import OrderedList from '../icons/OrderedList.vue'
+import TaskItem from '../icons/TaskItem.vue'
+import LinkIcon from '../icons/LinkIcon.vue'
+import CodeBlockIcon from '../icons/CodeBlockIcon.vue'
+import TableIcon from '../icons/TableIcon.vue'
+
 
 
 const { editor } = defineProps({
     editor: {
         type: Object
+    },
+    heading :{
+        type: String
     }
 })
-const heading = defineModel('title')
 
-const handleFloatCommand = (command) => {
-    switch (command) {
-        case 'Paragraph':
-            heading.value = '正文'
-            editor.chain().focus().setParagraph().run()
-            break;
-        case 'heading1':
-            heading.value = '标题1'
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-            break;
-        case 'heading2':
-            heading.value = '标题2'
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-            break;
-        case 'heading3':
-            heading.value = '标题3'
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-            break;
-        case 'heading4':
-            heading.value = '标题4'
-            editor.chain().focus().toggleHeading({ level: 4 }).run()
-            break;
-        case 'heading5':
-            heading.value = '标题5'
-            editor.chain().focus().toggleHeading({ level: 5 }).run()
-            break;
-        case 'heading6':
-            heading.value = '标题6'
-            editor.chain().focus().toggleHeading({ level: 6 }).run()
-            break;
-        case 'HorizontalRule':
-            editor.chain().focus().setHorizontalRule().run()
-            break;
-        case 'Blockquote':
-            editor.chain().focus().toggleBlockquote().run()
-            break;
-        case 'HardBreak':
-            editor.chain().focus().setHardBreak().run()
-            break;
+
+const setLink = () => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+
+    // cancelled
+    if (url === null) {
+        return
     }
+
+    // empty
+    if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink().run()
+        return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
 }
 </script>
 
 <template>
     <floating-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-        <div class="floating-menu">
-            <el-dropdown popper-class="el-dropdown" @command="handleFloatCommand">
-                <span class="el-dropdown-link">
-                    <el-icon size="20">
-                        <FloatMenuIcon />
-                    </el-icon>
-                </span>
-                <template #dropdown>
-                    <el-dropdown-menu class="el-dropdown-menu">
-                        <el-dropdown-item class="el-dropdown-menu-item" command="Paragraph">
-                            <el-icon size="18"><Paragraph /></el-icon>
-                            <span>正文</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading1" divided>
-                            <el-icon size="18"><H1Icon /></el-icon>
-                            <span>标题1</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading2">
-                            <el-icon size="18"><H2Icon /></el-icon>
-                            <span>标题2</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading3">
-                            <el-icon size="18"><H3Icon /></el-icon>
-                            <span>标题3</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading4">
-                            <el-icon size="18"><H4Icon /></el-icon>
-                            <span>标题4</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading5">
-                            <el-icon size="18"><H5Icon /></el-icon>
-                            <span>标题5</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="heading6">
-                            <el-icon size="18"><H6Icon /></el-icon>
-                            <span>标题6</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="HorizontalRule" divided>
-                            <el-icon size="18"><HorizontalRule /></el-icon>
-                            <span>分割线</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="Blockquote">
-                            <el-icon size="18"><Blockquote /></el-icon>
-                            <span>引用</span>
-                        </el-dropdown-item>
-                        <el-dropdown-item class="el-dropdown-menu-item" command="HardBreak">
-                            <el-icon size="18"><HardBreak /></el-icon>
-                            <span>换行</span>
-                        </el-dropdown-item>
-                    </el-dropdown-menu>
-                </template>
-            </el-dropdown>
+        <div class="nav-wrapper">
+            <div class="nav-item">
+                <el-icon size="20" class="nav-link">
+                    <FloatMenuIcon />
+                </el-icon>
+                <div class="nav-drop-down-wrapper">
+                    <div class="nav-drop-down">
+                        <div class="down-item-wrapper">
+                            <el-button class="down-button" :class="{ 'is-active': heading==='正文' }"
+                            @click="editor.chain().focus().setParagraph().run()">
+                                <el-icon size="18">
+                                    <Paragraph />
+                                </el-icon>
+                                <span>正文</span>
+                            </el-button>
+                        </div>
+                        <div class="divider-x"></div>
+                        <div class="down-item-wrapper">
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">
+                                <el-icon size="18">
+                                    <H1Icon />
+                                </el-icon>
+                                <span>标题1</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 2 }).run()">
+                                <el-icon size="18">
+                                    <H2Icon />
+                                </el-icon>
+                                <span>标题2</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">
+                                <el-icon size="18">
+                                    <H3Icon />
+                                </el-icon>
+                                <span>标题3</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 4 }).run()">
+                                <el-icon size="18">
+                                    <H4Icon />
+                                </el-icon>
+                                <span>标题4</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 5 }).run()">
+                                <el-icon size="18">
+                                    <H5Icon />
+                                </el-icon>
+                                <span>标题5</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
+                            @click="editor.chain().focus().toggleHeading({ level: 6 }).run()">
+                                <el-icon size="18">
+                                    <H6Icon />
+                                </el-icon>
+                                <span>标题6</span>
+                            </el-button>
+                        </div>
+                        <div class="divider-x"></div>
+                        <div class="down-item-wrapper">
+                            <el-button class="down-button" @click="editor.chain().focus().setHorizontalRule().run()">
+                                <el-icon size="18">
+                                    <HorizontalRule />
+                                </el-icon>
+                                <span>分割线</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('blockquote') }"
+                            @click="editor.chain().focus().toggleBlockquote().run()">
+                                <el-icon size="18">
+                                    <Blockquote />
+                                </el-icon>
+                                <span>引用</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('bulletList') }"
+                            @click="editor.chain().focus().toggleBulletList().run()">
+                                <el-icon size="18" >
+                                    <BulletList />
+                                </el-icon>
+                                <span>无序列表</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('orderedList') }"
+                            @click="editor.chain().focus().toggleOrderedList().run()">
+                                <el-icon size="18">
+                                    <OrderedList />
+                                </el-icon>
+                                <span>有序列表</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('taskList') }"
+                            @click="editor.chain().focus().toggleTaskList().run()">
+                                <el-icon size="18" >
+                                    <TaskItem />
+                                </el-icon>
+                                <span>任务列表</span>
+                            </el-button>
+                        </div>
+                        <div class="divider-x"></div>
+                        <div class="down-item-wrapper">
+                            <el-button class="down-button"  :class="{ 'is-active': editor.isActive('link') }" @click="setLink">
+                                <el-icon size="18">
+                                    <LinkIcon />
+                                </el-icon>
+                                <span>链接</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('codeBlock') }"
+                            @click="editor.chain().focus().toggleCodeBlock().run()">
+                                <el-icon size="18">
+                                    <CodeBlockIcon />
+                                </el-icon>
+                                <span>代码块</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button"  @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
+                                <el-icon size="18">
+                                    <TableIcon />
+                                </el-icon>
+                                <span>表格</span>
+                            </el-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </floating-menu>
 </template>
 
 <style lang="scss" scoped>
-.floating-menu {
-    transform: translate3d(-40px, 0px, 0px);
-    z-index: 98 !important;
-
-    .el-dropdown {
-
-        .el-dropdown-link {
-            outline: none;
-        }
-    }
+.divider-x {
+    border-bottom: 1px dashed var(--el-border-color);
+    margin: 4px 0;
 }
 
-:deep(.el-dropdown-menu__item) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.nav-wrapper {
+    transform: translate3d(-40px, 0, 0px);
 
     &:hover {
-        background-color: #eee;
-        color: black;
+        cursor: pointer;
+    }
+
+    &:hover .nav-drop-down-wrapper {
+        display: block;
+    }
+
+    .nav-link {
+        padding: 3px;
+        color: #676767;
+        border-radius: 6px;
+
+        &:hover {
+            background-color: #eee;
+        }
+    }
+
+    .nav-drop-down-wrapper {
+        background-color: white;
+        box-shadow: var(--el-box-shadow-light);
+        display: none;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .down-item-wrapper {
+        display: flex;
+        align-items: center;
+
+        .down-button {
+            display: flex;
+            align-items: center;
+            border: none;
+            padding: 0 4px;
+
+            &:hover {
+                background-color: #eee;
+                color: black;
+            }
+        }
     }
 }
 
 .is-active {
     background-color: #eee !important;
+    color: black;
 }
 </style>

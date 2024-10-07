@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, h } from 'vue'
+import { ref, onMounted, h, onUnmounted } from 'vue'
 import 'element-plus/theme-chalk/display.css'
 import { ElMessage } from 'element-plus'
 import StarterKit from '@tiptap/starter-kit'
@@ -56,13 +56,6 @@ window.addEventListener('scroll', (e) => {
     catalog.style.height = `calc(100vh - ${headerHeight}px)`
 })
 
-const converseImages = (makedownText) => {
-    const regex = /!\[(.*?)\]\((.*?)\)/g;
-    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${filename})\n\n`);
-    console.log(replacedText)
-}
-
-
 onMounted(() => {
 
     editor.value = new Editor({
@@ -108,11 +101,11 @@ onMounted(() => {
         ],
         content: '',
         onUpdate: () => {
-            const htmlText = editor.value.getHTML()
-            const markdownOutput = editor.value.storage.markdown.getMarkdown();
-            converseImages(markdownOutput)
+            // const htmlText = editor.value.getHTML()
+            // const markdownOutput = editor.value.storage.markdown.getMarkdown();
+            // converseImages(markdownOutput)
             // console.log(markdownOutput)
-            console.log(htmlText)
+            // console.log(htmlText)
 
 
         },
@@ -157,6 +150,10 @@ onMounted(() => {
     })
 })
 
+onUnmounted(() => {
+    editor.value.destroy()
+})
+
 const test =() => {
     editor.value.commands.insertContent('<p></p>')
 }
@@ -165,23 +162,48 @@ const test =() => {
 
 <template>
     <ClientOnly>
-        <el-button class="test" @click="test">测试</el-button>
-        <CatalogMenus v-model:title="catalogIsShow" :editor="editor" />
+        <el-button class="test no-print" @click="test">测试</el-button>
+        <CatalogMenus class="no-print" v-model:title="catalogIsShow" :editor="editor" />
         <div class="editor-container">
-            <div class="catalog hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
+            <div class="catalog no-print hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
                 <Catalog :catalogHeadings="catalogHeadings" />
             </div>
             <editor-content :editor="editor" class="editor" />
         </div>
-        <div>
+        <div class="no-print">
             <Menubar :editor="editor" v-model:heading="heading" v-model:textAlign="textAlign" />
             <BubbleMenus :editor="editor" v-model:title="heading" v-show="bubbleMenuShow" />
-            <FloatingMenus :editor="editor" />
+            <FloatingMenus :editor="editor" :heading="heading" />
         </div>
     </ClientOnly>
 </template>
 
 <style lang="scss" scoped>
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .no-print{
+        visibility: hidden;
+        display: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;   
+    }
+    :deep(.tiptap) *{
+        visibility: visible;
+    }
+    :deep(.tiptap) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
 
 .test {
     position: fixed;

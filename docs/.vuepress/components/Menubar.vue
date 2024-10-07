@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { Close } from '@element-plus/icons-vue'
 import Bold from '../icons/Bold.vue'
 import Italic from '../icons/Italic.vue'
 import Blockquote from '../icons/Blockquote.vue'
@@ -40,6 +42,8 @@ import PrintIcon from '../icons/PrintIcon.vue'
 import SettingIcon from '../icons/SettingIcon.vue'
 import DownloadIcon from '../icons/DownloadIcon.vue'
 import EraserIcon from '../icons/EraserIcon.vue'
+import MarkdownIcon from '../icons/MarkdownIcon.vue'
+import PdfIcon from '../icons/PdfIcon.vue'
 
 
 const { editor } = defineProps({
@@ -51,8 +55,29 @@ const { editor } = defineProps({
 const fileList = ref([])
 const heading = defineModel('heading')
 const textAlign = defineModel('textAlign')
+const sourceCode = ref('')
+const dialogConfig = reactive({
+    visible: false,
+    id: '',
+    title: '',
+    width: '60%',
+    draggable: true
+})
 
-const handleTextAlignCommand =(command) => {
+const article = reactive({
+    prev: {
+        text: '',
+        link: '',
+    },
+    next: {
+        text: '',
+        link: '',
+    },
+    title: '',
+    imgSrc: ''
+})
+
+const handleTextAlignCommand = (command) => {
     switch (command) {
         case 'left':
             textAlign.value = 'left'
@@ -180,6 +205,124 @@ const eraserFormat = () => {
     editor.commands.unsetAllMarks()
 }
 
+const dialogHandle = (id) => {
+    dialogConfig.id = id
+    switch (id) {
+        case 'sourceCode':
+            dialogConfig.title = '查看源代码';
+            sourceCode.value = editor.getHTML()
+            dialogConfig.visible = true
+            break;
+        case 'print':
+            dialogConfig.title = '打印';
+            window.print();
+            break;
+        case 'setting':
+            dialogConfig.title = '设置';
+            dialogConfig.visible = true
+            break;
+        case 'download':
+            dialogConfig.title = '下载';
+            dialogConfig.visible = true
+            break;
+    }
+}
+
+const dialogCloseHandle = () => {
+    if(dialogConfig.id === 'setting'){
+        settingSaveHandle()
+    }else{
+        dialogConfig.visible = false
+    }
+}
+
+const converseImages = (makedownText) => {
+    const regex = /!\[(.*?)\]\((.*?)\)/g;
+    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${filename})\n\n`);
+    return replacedText
+}
+
+
+const getMarkdownFile = () => {
+
+    if (article.title !== '') {
+        ElMessageBox.confirm('确认下载本页面文档 - [ ' + article.title + '.md' + ' ], 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            plain: true,
+        })
+            .then(() => {
+                const content = converseImages(editor.storage.markdown.getMarkdown())
+                const frontpage =
+                    `---
+sidebar: heading
+prev:
+text: ${article.prev.text} 
+link: ${article.prev.link}
+next:
+text: ${article.next.text} 
+link: ${article.next.link} 
+---
+
+`
+                // 创建一个 Blob 对象，它表示了一段不可变的原始数据
+                const blob = new Blob([frontpage + content], { type: 'text/plain' });
+                // 创建一个指向 Blob 的 URL
+                const url = URL.createObjectURL(blob);
+                // 创建一个下载链接元素
+                const downloadLink = document.createElement('a');
+                // 设置下载链接的 href 属性为 Blob 的 URL
+                downloadLink.href = url;
+                // 设置下载文件的名称
+                downloadLink.download = article.title + '.md';
+                // 触发下载
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                // 清理
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(url);
+
+                ElMessage.success({
+                    message: '导出成功，请等待浏览器下载！',
+                    type: 'success',
+                    plain: true,
+                })
+                dialogConfig.visible = false
+
+            }).catch(() => {
+                ElMessage({
+                    message: '取消下载!',
+                    type: 'error',
+                    plain: true,
+                })
+
+            })
+    }else {
+        ElMessage({
+            message: '请先设置文章标题!',
+            type: 'error',
+            plain: true,
+        })
+    }
+
+}
+
+const getPdfFile =() => {
+    console.log('getPdfFile')
+}
+
+const settingSaveHandle = () => {
+    if(article.title){
+        dialogConfig.visible = false
+    }else{
+        ElMessage({
+            message: '请先设置文章标题!',
+            type: 'error',
+            plain: true,
+        })
+    }
+}
 </script>
 
 <template>
@@ -309,10 +452,18 @@ const eraserFormat = () => {
             <el-divider direction="vertical" />
             <el-dropdown class="textalign-dropdown" @command="handleTextAlignCommand">
                 <span class="el-dropdown-link">
-                    <el-icon size="18" v-show="textAlign === 'left'"><LeftTextAlign /></el-icon>
-                    <el-icon size="18" v-show="textAlign === 'center'"><CenterTextAlign /></el-icon>
-                    <el-icon size="18" v-show="textAlign === 'right'"><RightTextAlign /></el-icon>
-                    <el-icon size="18" v-show="textAlign === 'justify'"><JustifyTextAlign /></el-icon>
+                    <el-icon size="18" v-show="textAlign === 'left'">
+                        <LeftTextAlign />
+                    </el-icon>
+                    <el-icon size="18" v-show="textAlign === 'center'">
+                        <CenterTextAlign />
+                    </el-icon>
+                    <el-icon size="18" v-show="textAlign === 'right'">
+                        <RightTextAlign />
+                    </el-icon>
+                    <el-icon size="18" v-show="textAlign === 'justify'">
+                        <JustifyTextAlign />
+                    </el-icon>
                     <el-icon class="el-icon--right"><arrow-down /></el-icon>
                 </span>
                 <template #dropdown>
@@ -323,7 +474,9 @@ const eraserFormat = () => {
                                     <Check />
                                 </el-icon>
                             </div>
-                            <span><el-icon><LeftTextAlign /></el-icon>左对齐</span>
+                            <span><el-icon>
+                                    <LeftTextAlign />
+                                </el-icon>左对齐</span>
                         </el-dropdown-item>
                         <el-dropdown-item command="center">
                             <div class="el-icon">
@@ -331,7 +484,9 @@ const eraserFormat = () => {
                                     <Check />
                                 </el-icon>
                             </div>
-                            <span><el-icon><CenterTextAlign /></el-icon>居中对齐</span>
+                            <span><el-icon>
+                                    <CenterTextAlign />
+                                </el-icon>居中对齐</span>
                         </el-dropdown-item>
                         <el-dropdown-item command="right">
                             <div class="el-icon">
@@ -339,7 +494,9 @@ const eraserFormat = () => {
                                     <Check />
                                 </el-icon>
                             </div>
-                            <span><el-icon><RightTextAlign /></el-icon>右对齐</span>
+                            <span><el-icon>
+                                    <RightTextAlign />
+                                </el-icon>右对齐</span>
                         </el-dropdown-item>
                         <el-dropdown-item command="justify">
                             <div class="el-icon">
@@ -347,13 +504,15 @@ const eraserFormat = () => {
                                     <Check />
                                 </el-icon>
                             </div>
-                            <span><el-icon><JustifyTextAlign /></el-icon>两端对齐</span>
+                            <span><el-icon>
+                                    <JustifyTextAlign />
+                                </el-icon>两端对齐</span>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
             <el-tooltip content="高亮" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }"
                     @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
                     <el-icon size="18">
                         <Highlight />
@@ -416,7 +575,7 @@ const eraserFormat = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="下标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }"
                     @click="editor.chain().focus().toggleSubscript().run()">
                     <el-icon size="18">
                         <Subscript />
@@ -424,7 +583,7 @@ const eraserFormat = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="上标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }"
                     @click="editor.chain().focus().toggleSuperscript().run()">
                     <el-icon size="18">
                         <Superscript />
@@ -432,7 +591,7 @@ const eraserFormat = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="行内代码" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('code') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('code') }"
                     @click="editor.chain().focus().toggleCode().run()">
                     <el-icon size="18">
                         <CodeIcon />
@@ -534,15 +693,15 @@ const eraserFormat = () => {
                 </el-tooltip>
             </el-upload>
             <el-divider direction="vertical" />
-            <el-tooltip content="源代码" :show-after="200">
-                <button class="button" @click="">
+            <el-tooltip content="HTML源代码" :show-after="200">
+                <button class="button" @click="dialogHandle('sourceCode')">
                     <el-icon size="18">
                         <SourceCodeIcon />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="打印" :show-after="200">
-                <button class="button" @click="">
+                <button class="button" @click="dialogHandle('print')">
                     <el-icon size="18">
                         <PrintIcon />
                     </el-icon>
@@ -550,14 +709,14 @@ const eraserFormat = () => {
             </el-tooltip>
             <el-divider direction="vertical" />
             <el-tooltip content="设置" :show-after="200">
-                <button class="button" @click="">
+                <button class="button" @click="dialogHandle('setting')">
                     <el-icon size="18">
                         <SettingIcon />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="下载" :show-after="200">
-                <button class="button" @click="">
+                <button class="button" @click="dialogHandle('download')">
                     <el-icon size="18">
                         <DownloadIcon />
                     </el-icon>
@@ -565,10 +724,123 @@ const eraserFormat = () => {
             </el-tooltip>
 
         </div>
+
+        <el-dialog v-model="dialogConfig.visible" :draggable="dialogConfig.draggable" :show-close="false"
+            :width="dialogConfig.width" :before-close="dialogCloseHandle">
+            <template #header>
+                <div class="dialog-header">
+                    <span class="dialog-title">{{ dialogConfig.title }}</span>
+                    <el-button link @click="dialogConfig.visible = false">
+                        <el-icon class="el-icon--left">
+                            <Close />
+                        </el-icon>
+                    </el-button>
+                </div>
+            </template>
+            <div v-show="dialogConfig.id === 'sourceCode'" class="sourceCode">
+                <el-scrollbar height="400px">
+                    {{ sourceCode }}
+                </el-scrollbar>
+            </div>
+            <div v-show="dialogConfig.id === 'setting'" class="setting">
+                <el-form :model="article" labelPosition="top">
+                    <el-form-item label="文章标题">
+                        <el-input v-model="article.title" />
+                    </el-form-item>
+                    <el-form-item label="图片路径">
+                        <el-input v-model="article.imgSrc" />
+                        <el-alert show-icon type="info" :closable="false" style="margin-top: 6px" title="例: /产品/车载调度/车载机/TM8730/" />
+                    </el-form-item>
+                    <el-form-item label="上一篇文章">
+                        <el-row :gutter="20" style="width:100%">
+                            <el-col :span="12"><el-input v-model="article.prev.text" placeholder="标题" /></el-col>
+                            <el-col :span="12"><el-input v-model="article.prev.link" placeholder="链接" /></el-col>
+                        </el-row>
+                    </el-form-item>
+                    <el-form-item label="下一篇文章">
+                        <el-row :gutter="20" style="width:100%">
+                            <el-col :span="12"><el-input v-model="article.next.text" placeholder="标题" /></el-col>
+                            <el-col :span="12"><el-input v-model="article.next.link" placeholder="链接" /></el-col>
+                        </el-row>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div v-show="dialogConfig.id === 'download'">
+                <div class="download-buttons">
+                    <el-button class="download-btn" color="#626aef" plain @click="getMarkdownFile">
+                        <el-icon size="60" class="download-icon">
+                            <MarkdownIcon />
+                        </el-icon>
+                        <span>MarkDown</span>
+                    </el-button>
+                    <el-button class="download-btn" color="#626aef" plain @click="getPdfFile">
+                        <el-icon size="60" class="download-icon">
+                            <PdfIcon />
+                        </el-icon>
+                        <span>PDF</span>
+                    </el-button>
+                </div>
+            </div>
+            <template #footer v-if="dialogConfig.id === 'setting'">
+                <div class="dialog-footer">
+                    <el-button type="primary" color="#626aef" @click="settingSaveHandle">
+                        确定
+                    </el-button>
+                </div>
+            </template>
+        </el-dialog>
     </div>
 </template>
 
 <style lang="scss" scoped>
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .dialog-title {
+        font-weight: bold;
+    }
+}
+
+.sourceCode {
+    border: 1px solid #dbdbdb;
+    line-height: 30px;
+
+    .el-scrollbar {
+        padding: 0 6px;
+    }
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+    box-sizing: border-box;
+
+    .download-btn {
+        height: 200px;
+        width: 50%;
+
+        :deep(span) {
+            display: flex;
+            flex-direction: column;
+
+            .download-icon {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.setting{
+    padding: 20px;
+    :deep(.el-input__wrapper.is-focus) {
+        box-shadow: 0 0 0 1px #626aef inset !important;
+    }
+}
+
 .menu-bar {
     position: fixed;
     top: 0;
