@@ -149,20 +149,10 @@ onUnmounted(() => {
     editor.value.destroy()
 })
 
-const test =() => {
-    editor.value.commands.indent()
-}
-
-const test1 =() => {
-    editor.value.commands.outdent()
-}
-
 </script>
 
 <template>
     <ClientOnly>
-        <el-button class="test no-print" @click="test">测试</el-button>
-        <el-button class="test1 no-print" @click="test1">测试1</el-button>
         <CatalogMenus class="no-print" v-model:title="catalogIsShow" :editor="editor" />
         <div class="editor-container">
             <div class="catalog no-print hidden-sm-and-down" id="catalog" v-if="catalogIsShow">
@@ -205,16 +195,6 @@ const test1 =() => {
     }
 }
 
-.test {
-    position: fixed;
-    top: 80px;
-    right: 0;
-}
-.test1 {
-    position: fixed;
-    top: 120px;
-    right: 0;
-}
 .editor-container {
     background-color: #eee;
     height: 100%;
