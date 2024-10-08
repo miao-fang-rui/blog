@@ -76,7 +76,7 @@ const article = reactive({
         link: '',
     },
     title: '',
-    imgSrc: ''
+    imgSrc: '',
 })
 
 const handleTextAlignCommand = (command) => {
@@ -240,7 +240,7 @@ const dialogCloseHandle = () => {
 
 const converseImages = (makedownText) => {
     const regex = /!\[(.*?)\]\((.*?)\)/g;
-    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${filename})\n\n`);
+    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${article.imgSrc}${filename})\n\n`);
     return replacedText
 }
 
@@ -257,14 +257,14 @@ const getMarkdownFile = () => {
             .then(() => {
                 const content = converseImages(editor.storage.markdown.getMarkdown())
                 const frontpage =
-                    `---
+`---
 sidebar: heading
 prev:
-text: ${article.prev.text} 
-link: ${article.prev.link}
+  text: ${article.prev.text}
+  link: ${article.prev.link}
 next:
-text: ${article.next.text} 
-link: ${article.next.link} 
+  text: ${article.next.text}
+  link: ${article.next.link}
 ---
 
 `
@@ -317,6 +317,12 @@ const getPdfFile =() => {
 const settingSaveHandle = () => {
     if(article.title){
         dialogConfig.visible = false
+        localStorage.setItem('editor-blog', JSON.stringify({
+            'title': article.title,
+            'imgSrc': article.imgSrc, 
+            'prev':{ 'text': article.prev.text, 'link': article.prev.link },
+            'next':{ 'text': article.next.text, 'link': article.next.link },
+        }))
     }else{
         ElMessage({
             message: '请先设置文章标题!',
@@ -325,6 +331,19 @@ const settingSaveHandle = () => {
         })
     }
 }
+
+onMounted(() => {
+    if(localStorage.getItem('editor-blog')){
+        const articleLocalStorage = JSON.parse(localStorage.getItem('editor-blog'))
+        article.title = articleLocalStorage.title
+        article.imgSrc = articleLocalStorage.imgSrc
+        article.prev.text = articleLocalStorage.prev.text
+        article.prev.link = articleLocalStorage.prev.link
+        article.next.text = articleLocalStorage.next.text
+        article.next.link = articleLocalStorage.next.link
+        article.content = articleLocalStorage.content
+    }
+})
 </script>
 
 <template>
@@ -738,7 +757,6 @@ const settingSaveHandle = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-
         </div>
 
         <el-dialog v-model="dialogConfig.visible" :draggable="dialogConfig.draggable" :show-close="false"

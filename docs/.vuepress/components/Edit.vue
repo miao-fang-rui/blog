@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, h, onUnmounted } from 'vue'
 import 'element-plus/theme-chalk/display.css'
-import { ElMessage } from 'element-plus'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { Markdown } from 'tiptap-markdown'
@@ -65,7 +64,6 @@ onMounted(() => {
             StarterKit.configure({
                 codeBlock: false,
             }),
-            Indent,
             Markdown,
             Underline,
             Subscript,
@@ -100,9 +98,12 @@ onMounted(() => {
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
             }),
+            Indent,
         ],
         content: '',
         onUpdate: () => {
+            content.value = editor.value.getJSON()
+            localStorage.setItem('editor-content', JSON.stringify(content.value))
         },
         onTransaction({ editor, transaction }) {
 
@@ -143,6 +144,12 @@ onMounted(() => {
             }
         },
     })
+
+    if(editor.value){
+        const getJson = JSON.parse(localStorage.getItem('editor-content'))
+        editor.value.commands.setContent(getJson)
+    }
+
 })
 
 onUnmounted(() => {
@@ -161,7 +168,7 @@ onUnmounted(() => {
             <editor-content :editor="editor" class="editor" />
         </div>
         <div class="no-print">
-            <Menubar :editor="editor" v-model:heading="heading" v-model:textAlign="textAlign" />
+            <Menubar :editor="editor" :content="content" v-model:heading="heading" v-model:textAlign="textAlign" />
             <BubbleMenus :editor="editor" v-model:title="heading" v-show="bubbleMenuShow" />
             <FloatingMenus :editor="editor" :heading="heading" />
         </div>
@@ -169,7 +176,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-
 @media screen and (max-width: 576px) {
     .editor {
         width: 100% !important;
@@ -187,11 +193,13 @@ onUnmounted(() => {
         width: 80% !important;
     }
 }
+
 @media screen and (min-width: 992px) and (max-width: 1200px) {
     .editor {
         width: 64% !important;
     }
 }
+
 @media screen and (min-width: 1200px) {
     .editor {
         width: 64% !important;
@@ -203,16 +211,19 @@ onUnmounted(() => {
     body * {
         visibility: hidden;
     }
-    .no-print{
+
+    .no-print {
         visibility: hidden;
         display: none !important;
         border: none !important;
         margin: 0 !important;
-        padding: 0 !important;   
+        padding: 0 !important;
     }
-    :deep(.tiptap) *{
+
+    :deep(.tiptap) * {
         visibility: visible;
     }
+
     :deep(.tiptap) {
         position: absolute;
         left: 0;
