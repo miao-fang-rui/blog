@@ -162,7 +162,6 @@ onUnmounted(() => {
         <div class="no-print">
             <Menubar :editor="editor" :content="content" v-model:heading="heading" v-model:textAlign="textAlign" />
             <BubbleMenus class="bubbleMenus" :editor="editor" v-model:title="heading" />
-            <!-- <ImageBubbleMenus class="imageBubbleMenus" :editor="editor" v-show="editor.isActive('image')" /> -->
             <FloatingMenus :editor="editor" :heading="heading" />
         </div>
     </ClientOnly>
@@ -278,7 +277,7 @@ onUnmounted(() => {
     background-color: white;
     // width: 70%;
     margin: 60px 0;
-    min-height: 1000px;
+    min-height: 1400px;
     border: 1px solid #eee;
 
     pre {
