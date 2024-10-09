@@ -18,7 +18,6 @@ import DeleteColumn from '../icons/DeleteColumn.vue'
 import AddRowBefore from '../icons/AddRowBefore.vue'
 import AddRowAfter from '../icons/AddRowAfter.vue'
 import DeleteRow from '../icons/DeleteRow.vue'
-import DeleteTableIcon from '../icons/DeleteTableIcon.vue'
 import MergeCells from '../icons/MergeCells.vue'
 import SplitCell from '../icons/SplitCell.vue'
 import TaskItem from '../icons/TaskItem.vue'
@@ -46,6 +45,7 @@ import MarkdownIcon from '../icons/MarkdownIcon.vue'
 import PdfIcon from '../icons/PdfIcon.vue'
 import IndentIcon from '../icons/IndentIcon.vue'
 import OutdentIcon from '../icons/OutdentIcon.vue'
+import DeleteIcon from '../icons/DeleteIcon.vue'
 
 
 const { editor } = defineProps({
@@ -156,14 +156,14 @@ const handleTableCommand = (command) => {
         case 'deleteRow':
             editor.chain().focus().deleteRow().run()
             break;
-        case 'deleteTable':
-            editor.chain().focus().deleteTable().run()
-            break;
         case 'mergeCells':
             editor.chain().focus().mergeCells().run()
             break;
         case 'splitCell':
             editor.chain().focus().splitCell().run()
+            break;
+        case 'deleteTable':
+            editor.chain().focus().deleteTable().run()
             break;
     }
 }
@@ -695,12 +695,6 @@ onMounted(() => {
                             </el-icon>
                             <span>删除行</span>
                         </el-dropdown-item>
-                        <el-dropdown-item command="deleteTable">
-                            <el-icon size="18">
-                                <DeleteTableIcon />
-                            </el-icon>
-                            <span>删除表格</span>
-                        </el-dropdown-item>
                         <el-dropdown-item command="mergeCells">
                             <el-icon size="18">
                                 <MergeCells />
@@ -712,6 +706,12 @@ onMounted(() => {
                                 <SplitCell />
                             </el-icon>
                             <span>分割单元格</span>
+                        </el-dropdown-item>
+                        <el-dropdown-item command="deleteTable">
+                            <el-icon size="18">
+                                <DeleteIcon />
+                            </el-icon>
+                            <span>删除表格</span>
                         </el-dropdown-item>
                     </el-dropdown-menu>
                 </template>

@@ -1,6 +1,5 @@
 <script setup>
 import { BubbleMenu } from '@tiptap/vue-3'
-import { ElMessage } from 'element-plus'
 import Bold from '../icons/Bold.vue'
 import Italic from '../icons/Italic.vue'
 import StrikeIcon from '../icons/StrikeIcon.vue'
@@ -11,13 +10,18 @@ import Superscript from '../icons/Superscript.vue'
 import CodeIcon from '../icons/CodeIcon.vue'
 import Highlight from '../icons/Highlight.vue'
 import CodeBlockIcon from '../icons/CodeBlockIcon.vue'
-import H1Icon from '../icons/H1Icon.vue'
-import H2Icon from '../icons/H2Icon.vue'
-import H3Icon from '../icons/H3Icon.vue'
-import H4Icon from '../icons/H4Icon.vue'
-import H5Icon from '../icons/H5Icon.vue'
-import H6Icon from '../icons/H6Icon.vue'
+import LeftTextAlign from '../icons/LeftTextAlign.vue'
+import CenterTextAlign from '../icons/CenterTextAlign.vue'
+import RightTextAlign from '../icons/RightTextAlign.vue'
 import DeleteIcon from '../icons/DeleteIcon.vue'
+import InsetTableLeft from '../icons/InsetTableLeft.vue'
+import InsetTableRight from '../icons/InsetTableRight.vue'
+import DeleteColumn from '../icons/DeleteColumn.vue'
+import AddRowBefore from '../icons/AddRowBefore.vue'
+import AddRowAfter from '../icons/AddRowAfter.vue'
+import DeleteRow from '../icons/DeleteRow.vue'
+import MergeCells from '../icons/MergeCells.vue'
+import SplitCell from '../icons/SplitCell.vue'
 
 const { editor } = defineProps({
     editor: {
@@ -45,73 +49,114 @@ const setLink = () => {
 }
 
 const deleteSelectHandle = () => {
-
-    if(editor.isActive('table')){
-        ElMessage({
-            message: '当前选择的是表格，请使用表格命令!',
-            type: 'error',
-            plain: true,
-        })
-    }else{
-        editor.chain().focus().deleteSelection().run()
-    }
-    // editor.chain().focus().deleteSelection().run()
+    editor.chain().focus().deleteSelection().run()
 }
 
 </script>
 
 <template>
-    <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-        <div class="bubble-menu">
-            <!-- <el-tooltip content="标题1" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 1 }).run()">
+    <bubble-menu :editor="editor" :tippy-options="{ duration: 0 }" v-if="editor">
+
+        <div class="bubble-menu" v-if="editor.isActive('image')">
+            <el-tooltip content="居左" :show-after="200">
+                <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
-                        <H1Icon />
+                        <LeftTextAlign />
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题2" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 2 }).run()">
+            <el-tooltip content="居中" :show-after="200">
+                <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
-                        <H2Icon />
+                        <CenterTextAlign />
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题3" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 3 }).run()">
+            <el-tooltip content="居右" :show-after="200">
+                <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
-                        <H3Icon />
+                        <RightTextAlign />
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题4" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 4 }).run()">
+            <el-divider direction="vertical" />
+            <el-tooltip content="删除" :show-after="200">
+                <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
-                        <H4Icon />
+                        <DeleteIcon />
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题5" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 5 }).run()">
+        </div>
+        <div class="bubble-menu" v-else-if="editor.isActive('table')">
+            <el-tooltip content="向左插入一列" :show-after="200">
+                <button class="button" @click="editor.chain().focus().addColumnBefore().run()">
                     <el-icon size="18">
-                        <H5Icon />
+                        <InsetTableLeft />
                     </el-icon>
                 </button>
             </el-tooltip>
-            <el-tooltip content="标题6" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }"
-                    @click="editor.chain().focus().toggleHeading({ level: 6 }).run()">
+            <el-tooltip content="向右插入一列" :show-after="200">
+                <button class="button" @click="editor.chain().focus().addColumnAfter().run()">
                     <el-icon size="18">
-                        <H6Icon />
+                        <InsetTableRight />
                     </el-icon>
                 </button>
-            </el-tooltip> -->
-            <!-- <el-divider direction="vertical" /> -->
+            </el-tooltip>
+            <el-tooltip content="删除列" :show-after="200">
+                <button class="button" @click="editor.chain().focus().deleteColumn().run()">
+                    <el-icon size="18">
+                        <DeleteColumn />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="向上添加一行" :show-after="200">
+                <button class="button" @click="editor.chain().focus().addRowBefore().run()">
+                    <el-icon size="18">
+                        <AddRowBefore />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="向下添加一行" :show-after="200">
+                <button class="button" @click="editor.chain().focus().addRowAfter().run()">
+                    <el-icon size="18">
+                        <AddRowAfter />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="删除行" :show-after="200">
+                <button class="button" @click="editor.chain().focus().deleteRow().run()">
+                    <el-icon size="18">
+                        <DeleteRow />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="合并单元格" :show-after="200">
+                <button class="button" @click="editor.chain().focus().mergeCells().run()">
+                    <el-icon size="18">
+                        <MergeCells />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="拆分单元格" :show-after="200">
+                <button class="button" @click="editor.chain().focus().splitCell().run()">
+                    <el-icon size="18">
+                        <SplitCell />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="删除表格" :show-after="200">
+                <button class="button" @click="editor.chain().focus().deleteTable().run()">
+                    <el-icon size="18">
+                        <DeleteIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+        </div>
+        <div class="bubble-menu" v-else>
             <el-tooltip content="粗体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('bold') }"
                     @click="editor.chain().focus().toggleBold().run()">
@@ -201,9 +246,8 @@ const deleteSelectHandle = () => {
                     </el-icon>
                 </button>
             </el-tooltip>
-            
-
         </div>
+
     </bubble-menu>
 </template>
 

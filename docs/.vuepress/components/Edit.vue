@@ -46,7 +46,7 @@ const heading = ref('正文')
 const catalogIsShow = ref(true)
 const catalogHeadings = ref()
 const textAlign = ref('left')
-const bubbleMenuShow = ref(true)
+
 
 window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
@@ -108,14 +108,6 @@ onMounted(() => {
         onTransaction({ editor, transaction }) {
 
             catalogHeadings.value = editor.$nodes('heading')
-            // console.log(catalogHeadings.value)
-
-            const IsImage = editor.isActive('image')
-            if (IsImage) {
-                bubbleMenuShow.value = false
-            } else {
-                bubbleMenuShow.value = true
-            }
 
             if (editor.isActive('heading', { level: 1 })) {
                 heading.value = '标题1'
@@ -169,7 +161,8 @@ onUnmounted(() => {
         </div>
         <div class="no-print">
             <Menubar :editor="editor" :content="content" v-model:heading="heading" v-model:textAlign="textAlign" />
-            <BubbleMenus :editor="editor" v-model:title="heading" v-show="bubbleMenuShow" />
+            <BubbleMenus class="bubbleMenus" :editor="editor" v-model:title="heading" />
+            <!-- <ImageBubbleMenus class="imageBubbleMenus" :editor="editor" v-show="editor.isActive('image')" /> -->
             <FloatingMenus :editor="editor" :heading="heading" />
         </div>
     </ClientOnly>
@@ -196,13 +189,13 @@ onUnmounted(() => {
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
     .editor {
-        width: 64% !important;
+        width: 60% !important;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .editor {
-        width: 64% !important;
+        width: 60% !important;
     }
 }
 
@@ -233,6 +226,24 @@ onUnmounted(() => {
         margin: 0 !important;
         padding: 0 !important;
     }
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .editor-container {
