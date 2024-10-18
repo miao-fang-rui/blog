@@ -13,7 +13,8 @@ const ResizableImage = Node.create({
             types: ["image"],
             HTMLAttributes: {},
             width: '',
-            height: ''
+            height: '',
+            display: ''
         }
     },
 
@@ -50,12 +51,19 @@ const ResizableImage = Node.create({
                 renderHTML: (attributes) => {
                     return {};
                 }
+            },
+            display: {
+                // default: 'null',
+                renderHTML: (attributes) => {
+                    return {
+                        display: attributes.display
+                    };
+                }
             }
         }
     },
 
     renderHTML({ node, HTMLAttributes }) {
-        HTMLAttributes.class = 'custom-image'
         return ['img', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
     },
 
@@ -66,6 +74,9 @@ const ResizableImage = Node.create({
                     type: this.name,
                     attrs: options,
                 })
+            },
+            setDisplay: inlineOrBlock => ({ commands }) => {
+                return commands.updateAttributes({ display: inlineOrBlock })
             },
             toggleResizable:() => ({ tr }) => {
                 const { node } = tr?.selection;

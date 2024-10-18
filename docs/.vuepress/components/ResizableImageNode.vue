@@ -130,7 +130,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <node-view-wrapper class="img-container">
+    <node-view-wrapper class="img-container" :style="{ display: node.attrs.display || 'block' }">
         <img v-bind="node.attrs" :draggable="isDraggable" :data-drag-handle="isDraggable" ref="resizableImg" />
     </node-view-wrapper>
 </template>

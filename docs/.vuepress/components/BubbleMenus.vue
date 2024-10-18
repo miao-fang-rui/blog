@@ -58,6 +58,13 @@ const deleteSelectHandle = () => {
     <bubble-menu :editor="editor" :tippy-options="{ duration: 0 }" v-if="editor">
 
         <div class="bubble-menu" v-if="editor.isActive('ResizableImage')">
+            <el-tooltip content="元素块" :show-after="200">
+                <button class="button" @click="editor.chain().focus().setDisplay('inline-block').run()">
+                    <el-icon size="18">
+                        <DeleteIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
             <el-tooltip content="删除" :show-after="200">
                 <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
