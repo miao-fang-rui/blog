@@ -57,29 +57,7 @@ const deleteSelectHandle = () => {
 <template>
     <bubble-menu :editor="editor" :tippy-options="{ duration: 0 }" v-if="editor">
 
-        <div class="bubble-menu" v-if="editor.isActive('image')">
-            <el-tooltip content="居左" :show-after="200">
-                <button class="button" @click="deleteSelectHandle">
-                    <el-icon size="18">
-                        <LeftTextAlign />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-tooltip content="居中" :show-after="200">
-                <button class="button" @click="deleteSelectHandle">
-                    <el-icon size="18">
-                        <CenterTextAlign />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-tooltip content="居右" :show-after="200">
-                <button class="button" @click="deleteSelectHandle">
-                    <el-icon size="18">
-                        <RightTextAlign />
-                    </el-icon>
-                </button>
-            </el-tooltip>
-            <el-divider direction="vertical" />
+        <div class="bubble-menu" v-if="editor.isActive('ResizableImage')">
             <el-tooltip content="删除" :show-after="200">
                 <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
@@ -191,7 +169,7 @@ const deleteSelectHandle = () => {
             </el-tooltip>
             <el-divider direction="vertical" />
             <el-tooltip content="高亮" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('highlight') }"
                     @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
                     <el-icon size="18">
                         <Highlight />
@@ -207,7 +185,7 @@ const deleteSelectHandle = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="下标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('subscript') }"
                     @click="editor.chain().focus().toggleSubscript().run()">
                     <el-icon size="18">
                         <Subscript />
@@ -215,7 +193,7 @@ const deleteSelectHandle = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="上标" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('superscript') }"
                     @click="editor.chain().focus().toggleSuperscript().run()">
                     <el-icon size="18">
                         <Superscript />
@@ -223,7 +201,7 @@ const deleteSelectHandle = () => {
                 </button>
             </el-tooltip>
             <el-tooltip content="行内代码" :show-after="200">
-                <button class="button" :class="{ 'is-active': editor.isActive('code') }" 
+                <button class="button" :class="{ 'is-active': editor.isActive('code') }"
                     @click="editor.chain().focus().toggleCode().run()">
                     <el-icon size="18">
                         <CodeIcon />
@@ -252,8 +230,7 @@ const deleteSelectHandle = () => {
 </template>
 
 <style lang="scss" scoped>
-
-.bubble-menu{
+.bubble-menu {
     background-color: white;
     border: 1px solid #eee;
     box-shadow: var(--el-box-shadow-light);

@@ -26,8 +26,6 @@ const Indent = Extension.create({
             default: this.options.minIndent,
             parseHTML: element => {
               const textIndent = element.getAttribute('textIndent');
-              // const indent = parseInt((element.style.textIndent).match(/\d+/), 10)
-              // return indent
               return (textIndent ? parseInt((textIndent).match(/\d+/), 10) : 0) || 0;
             },
             renderHTML: attributes => {

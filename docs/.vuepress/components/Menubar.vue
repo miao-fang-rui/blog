@@ -58,6 +58,9 @@ const fileList = ref([])
 const heading = defineModel('heading')
 const textAlign = defineModel('textAlign')
 const sourceCode = ref('')
+const activeTabName = ref('')
+const sourceCodeHtml = ref('')
+const sourceCodeMarkdown = ref('')
 const dialogConfig = reactive({
     visible: false,
     id: '',
@@ -169,9 +172,7 @@ const handleTableCommand = (command) => {
 }
 
 const uploadImg = (uploadFile) => {
-    console.log(uploadFile)
     const imageUrl = URL.createObjectURL(uploadFile.raw)
-    console.log(imageUrl)
 
     if (imageUrl) {
         editor.chain().focus().setImage({
@@ -231,16 +232,18 @@ const dialogHandle = (id) => {
 }
 
 const dialogCloseHandle = () => {
-    if(dialogConfig.id === 'setting'){
+    if (dialogConfig.id === 'setting') {
         settingSaveHandle()
-    }else{
+    } else {
         dialogConfig.visible = false
     }
 }
 
 const converseImages = (makedownText) => {
-    const regex = /!\[(.*?)\]\((.*?)\)/g;
-    const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${article.imgSrc}${filename})\n\n`);
+    const regex = /!\[(.*?)\]\((blob:.* \")(.*")(.*)\)/g;
+    const replacedText = makedownText.replace(regex, (_, alt, blob, title, size) => `![${alt}](${article.imgSrc}${title}${size})`);
+    // const regex = /!\[(.*?)\]\((.*?)\)/g;
+    // const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${article.imgSrc}${filename})\n\n`);
     return replacedText
 }
 
@@ -257,7 +260,7 @@ const getMarkdownFile = () => {
             .then(() => {
                 const content = converseImages(editor.storage.markdown.getMarkdown())
                 const frontpage =
-`---
+                    `---
 sidebar: heading
 prev:
   text: ${article.prev.text}
@@ -300,7 +303,7 @@ next:
                 })
 
             })
-    }else {
+    } else {
         ElMessage({
             message: '请先设置文章标题!',
             type: 'error',
@@ -310,30 +313,46 @@ next:
 
 }
 
-const getPdfFile =() => {
-    console.log('getPdfFile')
+const getPdfFile = () => {
+    const markdown =  editor.commands.outputMarkdown()
+    const converseMarkdown = converseImages(markdown)
+    console.log(converseMarkdown)
 }
 
 const settingSaveHandle = () => {
-    if(article.title){
+    if (article.title) {
         dialogConfig.visible = false
         localStorage.setItem('editor-blog', JSON.stringify({
             'title': article.title,
-            'imgSrc': article.imgSrc, 
-            'prev':{ 'text': article.prev.text, 'link': article.prev.link },
-            'next':{ 'text': article.next.text, 'link': article.next.link },
+            'imgSrc': article.imgSrc,
+            'prev': { 'text': article.prev.text, 'link': article.prev.link },
+            'next': { 'text': article.next.text, 'link': article.next.link },
         }))
-    }else{
+    } else {
         ElMessage({
             message: '请先设置文章标题!',
             type: 'error',
             plain: true,
         })
+    }
+}
+
+const handleTabsChange = (TabPaneName) => {
+    
+    if (TabPaneName === 'Html') {
+        sourceCodeHtml.value = editor.getHTML()
+
+    }
+
+    if (TabPaneName === 'Markdown') {
+        const markdown =  editor.commands.outputMarkdown()
+        const converseMarkdown = converseImages(markdown)
+        sourceCodeMarkdown.value = converseMarkdown
     }
 }
 
 onMounted(() => {
-    if(localStorage.getItem('editor-blog')){
+    if (localStorage.getItem('editor-blog')) {
         const articleLocalStorage = JSON.parse(localStorage.getItem('editor-blog'))
         article.title = articleLocalStorage.title
         article.imgSrc = articleLocalStorage.imgSrc
@@ -772,9 +791,12 @@ onMounted(() => {
                 </div>
             </template>
             <div v-show="dialogConfig.id === 'sourceCode'" class="sourceCode">
-                <el-scrollbar height="400px">
-                    {{ sourceCode }}
-                </el-scrollbar>
+                <el-tabs v-model="activeTabName" class="sourceCodeTabs" @tab-change="handleTabsChange">
+                    <el-scrollbar height="400px">
+                        <el-tab-pane label="Html" name="Html">{{ sourceCodeHtml }}</el-tab-pane>
+                        <el-tab-pane label="Markdown" name="Markdown">{{ sourceCodeMarkdown }}</el-tab-pane>
+                    </el-scrollbar>
+                </el-tabs>
             </div>
             <div v-show="dialogConfig.id === 'setting'" class="setting">
                 <el-form :model="article" labelPosition="top">
@@ -783,7 +805,8 @@ onMounted(() => {
                     </el-form-item>
                     <el-form-item label="图片路径">
                         <el-input v-model="article.imgSrc" />
-                        <el-alert show-icon type="info" :closable="false" style="margin-top: 6px" title="例: /产品/车载调度/车载机/TM8730/" />
+                        <el-alert show-icon type="info" :closable="false" style="margin-top: 6px"
+                            title="例: /产品/车载调度/车载机/TM8730/" />
                     </el-form-item>
                     <el-form-item label="上一篇文章">
                         <el-row :gutter="20" style="width:100%">
@@ -838,11 +861,18 @@ onMounted(() => {
 }
 
 .sourceCode {
-    border: 1px solid #dbdbdb;
-    line-height: 30px;
 
     .el-scrollbar {
-        padding: 0 6px;
+        padding: 0 10px;
+    }
+
+    .sourceCodeTabs {
+
+        :deep(.el-tabs__content) {
+            color: #6b778c;
+            line-height: 30px;
+        }
+
     }
 }
 
@@ -868,8 +898,9 @@ onMounted(() => {
     }
 }
 
-.setting{
+.setting {
     padding: 20px;
+
     :deep(.el-input__wrapper.is-focus) {
         box-shadow: 0 0 0 1px #626aef inset !important;
     }
