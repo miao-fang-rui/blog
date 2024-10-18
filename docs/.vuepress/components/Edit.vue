@@ -174,6 +174,11 @@ onUnmounted(() => {
 @media screen and (max-width: 576px) {
     .editor {
         width: 100% !important;
+        margin: 0 !important;
+        :deep(.tiptap){ 
+            padding: 60px 20px !important;
+            margin-bottom: 0 !important;
+        }
     }
 }
 
