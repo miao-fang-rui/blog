@@ -22,6 +22,11 @@ import AddRowAfter from '../icons/AddRowAfter.vue'
 import DeleteRow from '../icons/DeleteRow.vue'
 import MergeCells from '../icons/MergeCells.vue'
 import SplitCell from '../icons/SplitCell.vue'
+import JustifyTextAlign from '../icons/JustifyTextAlign.vue'
+import CustomWidthIcon from '../icons/CustomWidthIcon.vue'
+import BlockIcon from '../icons/BlockIcon.vue'
+import inlineBlockIcon from '../icons/inlineBlockIcon.vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const { editor } = defineProps({
     editor: {
@@ -52,19 +57,99 @@ const deleteSelectHandle = () => {
     editor.chain().focus().deleteSelection().run()
 }
 
+const customWidthHandle = () => {
+    ElMessageBox.prompt('请输入宽度值', '修改图片宽度', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        inputPattern:
+        /^[0-9]*[%]?$/,
+        inputErrorMessage: '宽度输入错误，内容为数字或者百分比',
+    })
+        .then(({ value }) => {
+            editor.commands.updateAttributes('ResizableImage', { width: value })
+            ElMessage({
+                type: 'success',
+                message: `图片宽度修改成功！`,
+            })
+        })
+        .catch(() => {
+            ElMessage({
+                type: 'info',
+                message: '取消修改图片宽度！',
+            })
+        })
+}
+
 </script>
 
 <template>
     <bubble-menu :editor="editor" :tippy-options="{ duration: 0 }" v-if="editor">
 
         <div class="bubble-menu" v-if="editor.isActive('ResizableImage')">
-            <el-tooltip content="元素块" :show-after="200">
-                <button class="button" @click="editor.chain().focus().setDisplay('inline-block').run()">
+            <el-tooltip content="居左" :show-after="200" v-if="editor.isActive('ResizableImage', { display: 'flex' })">
+                <button class="button"
+                    :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'left' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'left' })">
                     <el-icon size="18">
-                        <DeleteIcon />
+                        <LeftTextAlign />
                     </el-icon>
                 </button>
             </el-tooltip>
+            <el-tooltip content="居中" :show-after="200" v-if="editor.isActive('ResizableImage', { display: 'flex' })">
+                <button class="button"
+                    :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'center' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'center' })">
+                    <el-icon size="18">
+                        <CenterTextAlign />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="居右" :show-after="200" v-if="editor.isActive('ResizableImage', { display: 'flex' })">
+                <button class="button"
+                    :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'right' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'right' })">
+                    <el-icon size="18">
+                        <RightTextAlign />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="宽度100%" :show-after="200"
+                v-if="editor.isActive('ResizableImage', { display: 'flex' })">
+                <button class="button" :class="{ 'is-active': editor.isActive('ResizableImage', { width: '100%' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { width: '100%' })">
+                    <el-icon size="18">
+                        <JustifyTextAlign />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" v-if="editor.isActive('ResizableImage', { display: 'flex' })"/>
+
+            <el-tooltip content="输入宽度" :show-after="200">
+                <button class="button" @click="customWidthHandle">
+                    <el-icon size="18">
+                        <CustomWidthIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
+            <el-tooltip content="块-block" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('ResizableImage', { display: 'flex' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { display: 'flex' })">
+                    <el-icon size="18">
+                        <BlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="内联-inline" :show-after="200">
+                <button class="button"
+                    :class="{ 'is-active': editor.isActive('ResizableImage', { display: 'inline-block' }) }"
+                    @click="editor.commands.updateAttributes('ResizableImage', { display: 'inline-block' })">
+                    <el-icon size="18">
+                        <inlineBlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-divider direction="vertical" />
             <el-tooltip content="删除" :show-after="200">
                 <button class="button" @click="deleteSelectHandle">
                     <el-icon size="18">
@@ -254,7 +339,6 @@ const deleteSelectHandle = () => {
         justify-content: center;
         align-items: center;
         padding: 4px;
-        margin-right: 6px;
 
         &:last-child {
             margin-right: 0;

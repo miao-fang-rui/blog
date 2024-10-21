@@ -196,13 +196,13 @@ onUnmounted(() => {
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
     .editor {
-        width: 60% !important;
+        width: 800px !important;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .editor {
-        width: 60% !important;
+        width: 800px !important;
     }
 }
 
@@ -267,7 +267,7 @@ onUnmounted(() => {
     background-color: white;
     // width: 70%;
     margin: 60px 0;
-    min-height: 1400px;
+    min-height: 1200px;
     border: 1px solid #eee;
 
     pre {
@@ -361,9 +361,7 @@ onUnmounted(() => {
             vertical-align: top;
 
             >* {
-                display: flex;
-                align-items: center;
-                margin: 6px;
+                margin: 6px 6px 6px 0;
             }
         }
 

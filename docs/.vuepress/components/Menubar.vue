@@ -240,10 +240,14 @@ const dialogCloseHandle = () => {
 }
 
 const converseImages = (makedownText) => {
-    const regex = /!\[(.*?)\]\((blob:.* \")(.*")(.*)\)/g;
-    const replacedText = makedownText.replace(regex, (_, alt, blob, title, size) => `![${alt}](${article.imgSrc}${title}${size})`);
-    // const regex = /!\[(.*?)\]\((.*?)\)/g;
-    // const replacedText = makedownText.replace(regex, (_, filename, url) => `![${filename}](${article.imgSrc}${filename})\n\n`);
+    const regex = /!\[(.*?)\]\((blob:.* \")(.*)"(.*)\)/g;
+    const replacedText = makedownText.replace(regex, (_, alt, blob, title, size) => {
+        if(size.split('x')[0] === ' =100%'){
+            return `![${alt}](${article.imgSrc}${title})`
+        }else{
+            return `![${alt}](${article.imgSrc}${title}${size})`
+        }
+    })
     return replacedText
 }
 

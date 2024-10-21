@@ -28,7 +28,6 @@ const ResizableImage = Node.create({
                 default: null,
             },
             width: {
-                // default: '100%',
                 renderHTML: (attributes) => {
                     return {
                         width: attributes.width
@@ -37,27 +36,49 @@ const ResizableImage = Node.create({
             },
         
             height: {
-                // default: 'auto',
                 renderHTML: (attributes) => {
                     return {
                         height: attributes.height
                     };
                 }
             },
-        
-            isDraggable: {
-                default: true,
-                // We don't want it to render on the img tag
+            display: {
+                default: 'flex',
+                parseHTML: element => {
+                    const display = element.style.display || element.getAttribute('display')
+                    return display || this.options.display
+                },
                 renderHTML: (attributes) => {
-                    return {};
+                    if (!attributes.display) {
+                        return {}
+                      }
+            
+                      return {
+                        display: attributes.display,
+                        style: `display: ${attributes.display}`,
+                      }
                 }
             },
-            display: {
-                // default: 'null',
+            justifyContent: {
+                parseHTML: element => {
+                    const justifyContent = element.style.justifyContent || element.getAttribute('justifyContent')
+                    return justifyContent || this.options.justifyContent
+                },
                 renderHTML: (attributes) => {
-                    return {
-                        display: attributes.display
-                    };
+                    if (!attributes.justifyContent) {
+                        return {}
+                      }
+            
+                      return {
+                        display: attributes.justifyContent,
+                        style: `justifyContent: ${attributes.justifyContent}`,
+                      }
+                }
+            },
+            isDraggable: {
+                default: true,
+                renderHTML: (attributes) => {
+                    return {};
                 }
             }
         }
@@ -75,9 +96,6 @@ const ResizableImage = Node.create({
                     attrs: options,
                 })
             },
-            setDisplay: inlineOrBlock => ({ commands }) => {
-                return commands.updateAttributes({ display: inlineOrBlock })
-            },
             toggleResizable:() => ({ tr }) => {
                 const { node } = tr?.selection;
                 if (node?.type?.name === 'ResizableImage') {
@@ -94,64 +112,3 @@ const ResizableImage = Node.create({
 })
 
 export default ResizableImage
-
-// export default Image.extend({
-//     name: 'ResizableImage',
-
-//     addAttributes() {
-//         return {
-//             ...this.parent?.(),
-
-//             width: {
-//                 // default: '100%',
-//                 renderHTML: (attributes) => {
-//                     return {
-//                         width: attributes.width
-//                     };
-//                 }
-//             },
-    
-//             height: {
-//                 // default: 'auto',
-//                 renderHTML: (attributes) => {
-//                     return {
-//                         height: attributes.height
-//                     };
-//                 }
-//             },
-    
-//             // We'll use this to tell if we are going to drag the image
-//             // through the editor or if we are resizing it
-//             isDraggable: {
-//                 default: true,
-//                 // We don't want it to render on the img tag
-//                 renderHTML: (attributes) => {
-//                     return {};
-//                 }
-//             }
-//         }
-//     },
-
-
-//     addCommands() {
-//         return {
-//             ...this.parent?.(),
-    
-//             // New command that is going to be called like:
-//             // this.editor.chain().focus().toggleResizable().run();
-//             toggleResizable:
-//                 () =>
-//                 ({ tr }) => {
-//                     const { node } = tr?.selection;
-    
-//                     if (node?.type?.name === 'ResizableImage') {
-//                         node.attrs.isDraggable = !node.attrs.isDraggable;
-//                     }
-//                 }
-//         }
-//     },
-
-//     addNodeView() {
-//         return VueNodeViewRenderer(ResizableImageNode);
-//     }
-// })
