@@ -7,7 +7,7 @@ export default function table(state, node) {
                 state.write(' | ');
             }
 
-            col.content.content.forEach(item => {
+            col.content.content.forEach((item, index) => {
                 if(item.type.name === "ResizableImage"){
                     let widthHeight = ''
                     if(item.attrs?.width || item.attrs?.height){
@@ -21,6 +21,9 @@ export default function table(state, node) {
                 }else{
                     if(item.textContent.trim()){
                         state.renderInline(item);
+                        if(index + 1 < col.content.content.length){
+                            state.write('<br />')
+                        }
                     }
                 }
             })
