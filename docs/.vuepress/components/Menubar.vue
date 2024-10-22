@@ -240,7 +240,7 @@ const dialogCloseHandle = () => {
 }
 
 const converseImages = (makedownText) => {
-    const regex = /!\[(.*?)\]\((blob:.* \")(.*)"(.*)\)/g;
+    const regex = /!\[(.*?)\]\((blob:.*?\")(.*?)"(.*?)\)/g;
     const replacedText = makedownText.replace(regex, (_, alt, blob, title, size) => {
         if(size.split('x')[0] === ' =100%'){
             return `![${alt}](${article.imgSrc}${title})`
@@ -262,7 +262,7 @@ const getMarkdownFile = () => {
             plain: true,
         })
             .then(() => {
-                const content = converseImages(editor.storage.markdown.getMarkdown())
+                const content = converseImages(editor.commands.outputMarkdown())
                 const frontpage =
                     `---
 sidebar: heading
@@ -318,9 +318,10 @@ next:
 }
 
 const getPdfFile = () => {
-    const markdown =  editor.commands.outputMarkdown()
-    const converseMarkdown = converseImages(markdown)
-    console.log(converseMarkdown)
+    console.log('getPdf')
+    // const markdown = editor.commands.outputMarkdown()
+    const markdown = converseImages(editor.commands.outputMarkdown())
+    console.log(markdown)
 }
 
 const settingSaveHandle = () => {

@@ -1,28 +1,29 @@
 export default function table(state, node) {
     state.inTable = true;
     node.forEach((row, p, i) => {
-        state.write('| ');
+        state.write('| '); 
         row.forEach((col, p, j) => {
             if (j) {
                 state.write(' | ');
             }
-            const cellContent = col.firstChild;
-            if (cellContent.type.name === "paragraph") {
-                if(cellContent.textContent.trim()){
-                    state.renderInline(cellContent);
-                }
-            }
-            if(cellContent.type.name === "ResizableImage"){
-                let widthHeight = ''
-                if(cellContent.attrs?.width || cellContent.attrs?.height){
-                    widthHeight = `=${cellContent.attrs?.width? cellContent.attrs?.width: ''}x${cellContent.attrs?.height? cellContent.attrs?.height: ''}` 
+
+            col.content.content.forEach(item => {
+                if(item.type.name === "ResizableImage"){
+                    let widthHeight = ''
+                    if(item.attrs?.width || item.attrs?.height){
+                        widthHeight = `=${item.attrs?.width? item.attrs?.width: ''}x${item.attrs?.height? item.attrs?.height: ''}` 
+                    }else{
+                        widthHeight = ''
+                    }
+                    
+                    state.write("![" + state.esc(item.attrs.alt || "") + "](" + item.attrs.src.replace(/[\(\)]/g, "\\$&") +
+                        (item.attrs.title ? ' "' + item.attrs.title.replace(/"/g, '\\"') + '"' : "") + " "+ widthHeight + ")");
                 }else{
-                    widthHeight = ''
+                    if(item.textContent.trim()){
+                        state.renderInline(item);
+                    }
                 }
-                
-                state.write("![" + state.esc(cellContent.attrs.alt || "") + "](" + cellContent.attrs.src.replace(/[\(\)]/g, "\\$&") +
-                    (cellContent.attrs.title ? ' "' + cellContent.attrs.title.replace(/"/g, '\\"') + '"' : "") + " "+ widthHeight + ")");
-            }
+            })
         });
         state.write(' |')
         state.ensureNewLine();
