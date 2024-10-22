@@ -319,8 +319,8 @@ next:
 
 const getPdfFile = () => {
     console.log('getPdf')
-    // const markdown = editor.commands.outputMarkdown()
-    const markdown = converseImages(editor.commands.outputMarkdown())
+    const markdown = editor.commands.outputMarkdown()
+    // const markdown = converseImages(editor.commands.outputMarkdown())
     console.log(markdown)
 }
 
