@@ -5,6 +5,7 @@ import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { provide, reactive } from 'vue'
 import Products from './components/Products.vue'
+import Article from './components/Article.vue'
 import Table from './components/Table.vue'
 import Carousel from './components/Carousel.vue'
 import Edit from './components/Edit.vue'
@@ -16,6 +17,7 @@ export default defineClientConfig({
 
         // app.component("Login", Login)
         app.component('Products', Products)
+        app.component('Article', Article)
         app.component('Table', Table)
         app.component('Carousel', Carousel)
 

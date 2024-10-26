@@ -1,4 +1,41 @@
+import { getHTMLFromFragment } from "@tiptap/core";
+import { Fragment } from "@tiptap/pm/model";
+function childNodes(node) {
+    return node?.content?.content ?? [];
+}
+
+function hasSpan(node) {
+    return node.attrs.colspan > 1 || node.attrs.rowspan > 1;
+}
+
+function isMarkdownSerializable(node) {
+    const rows = childNodes(node);
+    const firstRow = rows[0];
+    const bodyRows = rows.slice(1);
+
+    if(childNodes(firstRow).some(cell => hasSpan(cell))) {
+        return false;
+    }
+
+    if(bodyRows.some(row =>
+        childNodes(row).some(cell => hasSpan(cell))
+    )) {
+        return false;
+    }
+
+    return true;
+}
+
 export default function table(state, node) {
+
+    if(!isMarkdownSerializable(node)) {
+        const schema = node.type.schema;
+        const html = getHTMLFromFragment(Fragment.from(node), schema);
+        state.write(html)
+        state.write('\n')
+        return
+    }
+
     state.inTable = true;
     node.forEach((row, p, i) => {
         state.write('| '); 

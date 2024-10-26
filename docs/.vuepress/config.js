@@ -107,8 +107,8 @@ export default defineUserConfig({
                         link: '/zh/product/车载调度产品.md'
                     },
                     {
-                        text: '技术文档',
-                        link: '/zh/blog/车载调度产品.md'
+                        text: '调试及维修文档',
+                        link: '/zh/article/车载调度产品.md'
                     },
                     {
                         text: '写文章',
@@ -149,21 +149,21 @@ export default defineUserConfig({
                             
                         },
                     ],
-                    '/zh/blog/': [
+                    '/zh/article/': [
                         {
-                            text: '产品故障及排查',
+                            text: '调试及维修文档',
                             children: [
                                 {
                                     text: '车载调度产品',
-                                    link: '/zh/blog/车载调度产品.md',
+                                    link: '/zh/article/车载调度产品.md',
                                 },
                                 {
                                     text: '主动安全产品',
-                                    link: '/zh/blog/主动安全产品.md',
+                                    link: '/zh/article/主动安全产品.md',
                                 },
                                 {
                                     text: '智慧收银产品',
-                                    link: '/zh/blog/智慧收银产品.md',
+                                    link: '/zh/article/智慧收银产品.md',
                                 },
                             ]
                         }

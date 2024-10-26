@@ -184,25 +184,25 @@ onUnmounted(() => {
 
 @media screen and (min-width: 576px) and (max-width: 768px) {
     .editor {
-        width: 80% !important;
+        width: 90% !important;
     }
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px) {
     .editor {
-        width: 80% !important;
+        width: 90% !important;
     }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1200px) {
     .editor {
-        width: 800px !important;
+        width: 860px !important;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .editor {
-        width: 800px !important;
+        width: 860px !important;
     }
 }
 

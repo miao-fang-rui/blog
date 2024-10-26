@@ -124,7 +124,7 @@ const customWidthHandle = () => {
             </el-tooltip>
             <el-divider direction="vertical" v-if="editor.isActive('ResizableImage', { display: 'flex' })"/>
 
-            <el-tooltip content="输入宽度" :show-after="200">
+            <el-tooltip content="自定义图片尺寸" :show-after="200">
                 <button class="button" @click="customWidthHandle">
                     <el-icon size="18">
                         <CustomWidthIcon />

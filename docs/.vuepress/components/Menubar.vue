@@ -267,11 +267,11 @@ const getMarkdownFile = () => {
                     `---
 sidebar: heading
 prev:
-  text: ${article.prev.text}
-  link: ${article.prev.link}
+  text: ${article.prev.text? article.prev.text: ''}
+  link: ${article.prev.link? article.prev.link: ''}
 next:
-  text: ${article.next.text}
-  link: ${article.next.link}
+  text: ${article.next.text? article.next.text: ''}
+  link: ${article.next.link? article.next.link: ''}
 ---
 
 `
@@ -319,8 +319,8 @@ next:
 
 const getPdfFile = () => {
     console.log('getPdf')
-    const markdown = editor.commands.outputMarkdown()
-    // const markdown = converseImages(editor.commands.outputMarkdown())
+    // const markdown = editor.commands.outputMarkdown()
+    const markdown = converseImages(editor.commands.outputMarkdown())
     console.log(markdown)
 }
 
