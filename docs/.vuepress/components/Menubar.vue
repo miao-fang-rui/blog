@@ -267,11 +267,11 @@ const getMarkdownFile = () => {
                     `---
 sidebar: heading
 prev:
-  text: ${article.prev.text? article.prev.text: ''}
-  link: ${article.prev.link? article.prev.link: ''}
+  text: ${article.prev.text? article.prev.text: '无'}
+  link: ${article.prev.link? article.prev.link: '无'}
 next:
-  text: ${article.next.text? article.next.text: ''}
-  link: ${article.next.link? article.next.link: ''}
+  text: ${article.next.text? article.next.text: '无'}
+  link: ${article.next.link? article.next.link: '无'}
 ---
 
 `
