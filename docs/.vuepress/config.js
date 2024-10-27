@@ -59,8 +59,6 @@ export default defineUserConfig({
         },
     },
     theme: defaultTheme({
-        // 默认主题配置
-        // hostname: 'https://tiamaes.blog.com',
         logo: '/images/logo.png',
         logoAlt: 'Tiamaes-logo',
         docsRepo: 'https://github.com/miao-fang-rui/blog',
@@ -107,26 +105,13 @@ export default defineUserConfig({
                         link: '/zh/product/车载调度产品.md'
                     },
                     {
-                        text: '调试及维修文档',
+                        text: '调试及维修',
                         link: '/zh/article/车载调度产品.md'
                     },
                     {
                         text: '写文章',
                         link: '/zh/edit.md'
                     },
-                    // {
-                    //     text: '文档列表',
-                    //     children: [
-                    //         {
-                    //             text: '测试1',
-                    //             link: '/zh/测试1.md'
-                    //         }, 
-                    //         {
-                    //             text: '测试2',
-                    //             link: '/zh/测试2.md'
-                    //         }, 
-                    //     ],
-                    // }
                 ],
                 sidebar: {
                     '/zh/': [
@@ -151,7 +136,7 @@ export default defineUserConfig({
                     ],
                     '/zh/article/': [
                         {
-                            text: '调试及维修文档',
+                            text: '调试及维修',
                             children: [
                                 {
                                     text: '车载调度产品',
