@@ -10,8 +10,8 @@ actions:
   - text: 产品列表
     link: /zh/product/车载调度产品.md
     type: primary
-  - text: 技术协议
-    link: /zh/productLine/
+  - text: 调试及维修文档
+    link: /zh/article/车载调度产品.md
     type: secondary
 features:
   - title: 产品列表

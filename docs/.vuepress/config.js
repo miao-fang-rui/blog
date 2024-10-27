@@ -8,7 +8,7 @@ export default defineUserConfig({
     bundler: viteBundler(),
     base: '/blog/',
     head: [
-        ['link', { rel: 'icon', href: '/images/logo.png' }],
+        ['link', { rel: 'icon', href: 'favicon.ico' }],
     ],
     plugins: [
         markdownImagePlugin({
