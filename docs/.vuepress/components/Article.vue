@@ -18,8 +18,7 @@ const { articles } = defineProps(['articles'])
     padding: 20px 0;
 
     .node {
-        // background-color: var(--vp-c-accent);
-        background-color: lightcoral;
+        background-color: var(--vp-c-accent);
         color: white;
         padding: 0px 7px;
         border-radius: 2px;
@@ -29,18 +28,9 @@ const { articles } = defineProps(['articles'])
     .link {
         text-decoration: none;
         color: var(--vp-c-text);
-        border-width: 1px 1px 0px 1px;
-        border-style: dashed;
-        border-color: var(--vp-c-gutter);
-        border-radius: 4px;
-        padding: 20px;
+        padding: 10px;
         display: block;
-        margin: 0 20px;
-        // background-color: rgb(240, 241, 255);
-
-        &:last-child {
-            border-width: 1px 1px 1px 1px;
-        }
+        margin: 0px 20px;
 
         &:hover {
             color: var(--vp-c-accent);
