@@ -236,7 +236,7 @@ onUnmounted(() => {
 }
 
 .editor-container {
-    background-color: #eee;
+    background-color: var(--vp-c-grey-bg);
     height: 100%;
     display: flex;
 
@@ -248,7 +248,7 @@ onUnmounted(() => {
         // flex: none;
         overflow: auto;
         top: 48px;
-        border-right: 1px solid #dbdbdb;
+        border-right: 1px solid var(--vp-c-border);
         // padding: 10px 20px;
         box-sizing: border-box;
     }
@@ -263,12 +263,11 @@ onUnmounted(() => {
     padding: 60px;
     box-sizing: border-box;
     outline: none;
-    border: 1px solid #eee;
-    background-color: white;
+    border: 1px solid var(--vp-c-gutter);
+    background-color: var(--vp-c-bg);
     // width: 70%;
     margin: 60px 0;
     min-height: 1200px;
-    border: 1px solid #eee;
 
     pre {
         background: #2E2B29;
@@ -353,7 +352,7 @@ onUnmounted(() => {
 
         td,
         th {
-            border: 1px solid rgba(61, 37, 20, .12);
+            border: 1px solid var(--vp-c-grey-hover);
             box-sizing: border-box;
             min-width: 1em;
             padding: 0px 8px;
@@ -372,7 +371,7 @@ onUnmounted(() => {
         }
 
         .selectedCell:after {
-            background: rgba(61, 37, 20, .08);
+            background: rgba(105, 105, 105, 0.3);
             content: "";
             left: 0;
             right: 0;

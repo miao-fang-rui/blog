@@ -39,12 +39,13 @@ const { catalogHeadings } = defineProps({
     height: calc(100% - 36px);
 
     .title {
-        border-bottom: 1px solid #dbdbdb;
+        // border-bottom: 1px solid #dbdbdb;
+        border-bottom: 1px solid var(--vp-c-border);
         font-weight: bold;
         font-size: 18px;
         padding: 12px;
         margin: 0 10px;
-        color: #5c5c5c;
+        color: var(--vp-c-text);
         box-sizing: border-box;
         flex-grow: 0;
     }
@@ -56,6 +57,7 @@ const { catalogHeadings } = defineProps({
 
         .level {
             margin: 10px;
+
             .level-1 {
                 padding-left: 0;
             }
@@ -81,7 +83,7 @@ const { catalogHeadings } = defineProps({
             }
 
             a {
-                color: rgb(48, 48, 48);
+                color: var(--vp-c-text);
                 font-size: 14px;
 
                 &:hover {

@@ -90,7 +90,7 @@ const customWidthHandle = () => {
                 <button class="button"
                     :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'left' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'left' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <LeftTextAlign />
                     </el-icon>
                 </button>
@@ -99,7 +99,7 @@ const customWidthHandle = () => {
                 <button class="button"
                     :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'center' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'center' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <CenterTextAlign />
                     </el-icon>
                 </button>
@@ -108,7 +108,7 @@ const customWidthHandle = () => {
                 <button class="button"
                     :class="{ 'is-active': editor.isActive('ResizableImage', { justifyContent: 'right' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { justifyContent: 'right' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <RightTextAlign />
                     </el-icon>
                 </button>
@@ -117,7 +117,7 @@ const customWidthHandle = () => {
                 v-if="editor.isActive('ResizableImage', { display: 'flex' })">
                 <button class="button" :class="{ 'is-active': editor.isActive('ResizableImage', { width: '100%' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { width: '100%' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <JustifyTextAlign />
                     </el-icon>
                 </button>
@@ -126,7 +126,7 @@ const customWidthHandle = () => {
 
             <el-tooltip content="自定义图片尺寸" :show-after="200">
                 <button class="button" @click="customWidthHandle">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <CustomWidthIcon />
                     </el-icon>
                 </button>
@@ -135,7 +135,7 @@ const customWidthHandle = () => {
             <el-tooltip content="块-block" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('ResizableImage', { display: 'flex' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { display: 'flex' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <BlockIcon />
                     </el-icon>
                 </button>
@@ -144,7 +144,7 @@ const customWidthHandle = () => {
                 <button class="button"
                     :class="{ 'is-active': editor.isActive('ResizableImage', { display: 'inline-block' }) }"
                     @click="editor.commands.updateAttributes('ResizableImage', { display: 'inline-block' })">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <inlineBlockIcon />
                     </el-icon>
                 </button>
@@ -152,7 +152,7 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="删除" :show-after="200">
                 <button class="button" @click="deleteSelectHandle">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <DeleteIcon />
                     </el-icon>
                 </button>
@@ -161,21 +161,21 @@ const customWidthHandle = () => {
         <div class="bubble-menu" v-else-if="editor.isActive('table')">
             <el-tooltip content="向左插入一列" :show-after="200">
                 <button class="button" @click="editor.chain().focus().addColumnBefore().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <InsetTableLeft />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="向右插入一列" :show-after="200">
                 <button class="button" @click="editor.chain().focus().addColumnAfter().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <InsetTableRight />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="删除列" :show-after="200">
                 <button class="button" @click="editor.chain().focus().deleteColumn().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <DeleteColumn />
                     </el-icon>
                 </button>
@@ -183,21 +183,21 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="向上添加一行" :show-after="200">
                 <button class="button" @click="editor.chain().focus().addRowBefore().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <AddRowBefore />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="向下添加一行" :show-after="200">
                 <button class="button" @click="editor.chain().focus().addRowAfter().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <AddRowAfter />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="删除行" :show-after="200">
                 <button class="button" @click="editor.chain().focus().deleteRow().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <DeleteRow />
                     </el-icon>
                 </button>
@@ -205,14 +205,14 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="合并单元格" :show-after="200">
                 <button class="button" @click="editor.chain().focus().mergeCells().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <MergeCells />
                     </el-icon>
                 </button>
             </el-tooltip>
             <el-tooltip content="拆分单元格" :show-after="200">
                 <button class="button" @click="editor.chain().focus().splitCell().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <SplitCell />
                     </el-icon>
                 </button>
@@ -220,7 +220,7 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="删除表格" :show-after="200">
                 <button class="button" @click="editor.chain().focus().deleteTable().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <DeleteIcon />
                     </el-icon>
                 </button>
@@ -230,7 +230,7 @@ const customWidthHandle = () => {
             <el-tooltip content="粗体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('bold') }"
                     @click="editor.chain().focus().toggleBold().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Bold />
                     </el-icon>
                 </button>
@@ -238,7 +238,7 @@ const customWidthHandle = () => {
             <el-tooltip content="斜体" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('italic') }"
                     @click="editor.chain().focus().toggleItalic().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Italic />
                     </el-icon>
                 </button>
@@ -246,7 +246,7 @@ const customWidthHandle = () => {
             <el-tooltip content="下划线" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('underline') }"
                     @click="editor.chain().focus().toggleUnderline().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Underline />
                     </el-icon>
                 </button>
@@ -254,7 +254,7 @@ const customWidthHandle = () => {
             <el-tooltip content="删除线" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('strike') }"
                     @click="editor.chain().focus().toggleStrike().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <StrikeIcon />
                     </el-icon>
                 </button>
@@ -263,7 +263,7 @@ const customWidthHandle = () => {
             <el-tooltip content="高亮" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('highlight') }"
                     @click="editor.chain().focus().toggleHighlight({ color: '#ff8066' }).run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Highlight />
                     </el-icon>
                 </button>
@@ -271,7 +271,7 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="链接" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('link') }" @click="setLink">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <LinkIcon />
                     </el-icon>
                 </button>
@@ -279,7 +279,7 @@ const customWidthHandle = () => {
             <el-tooltip content="下标" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('subscript') }"
                     @click="editor.chain().focus().toggleSubscript().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Subscript />
                     </el-icon>
                 </button>
@@ -287,7 +287,7 @@ const customWidthHandle = () => {
             <el-tooltip content="上标" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('superscript') }"
                     @click="editor.chain().focus().toggleSuperscript().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <Superscript />
                     </el-icon>
                 </button>
@@ -295,7 +295,7 @@ const customWidthHandle = () => {
             <el-tooltip content="行内代码" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('code') }"
                     @click="editor.chain().focus().toggleCode().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <CodeIcon />
                     </el-icon>
                 </button>
@@ -303,7 +303,7 @@ const customWidthHandle = () => {
             <el-tooltip content="代码块" :show-after="200">
                 <button class="button" :class="{ 'is-active': editor.isActive('codeBlock') }"
                     @click="editor.chain().focus().toggleCodeBlock().run()">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <CodeBlockIcon />
                     </el-icon>
                 </button>
@@ -311,7 +311,7 @@ const customWidthHandle = () => {
             <el-divider direction="vertical" />
             <el-tooltip content="删除" :show-after="200">
                 <button class="button" @click="deleteSelectHandle">
-                    <el-icon size="18">
+                    <el-icon size="18" color="black">
                         <DeleteIcon />
                     </el-icon>
                 </button>

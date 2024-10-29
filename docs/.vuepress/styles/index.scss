@@ -10,11 +10,23 @@
         letter-spacing: 1px;
         padding: 4px 6px;
         margin: 0 4px;
-        background-color: #111113;
+        background-color: var(--vp-c-grey-bg);
     }
 
     table{
         display: table;
+    }
+
+    div[class*=language-] pre::-webkit-scrollbar{
+        height: 6px !important;
+        
+    }
+    div[class*=language-] pre:hover::-webkit-scrollbar-thumb{
+        background-color: #7672ff !important;
+        border-radius: 3px !important;
+    }
+    div[class*=language-] pre::-webkit-scrollbar-thumb:hover{
+        cursor: pointer !important;
     }
 }
 
@@ -39,5 +51,11 @@
     } 
     .el-card {
         color: white;
+    }
+
+    .el-dialog{
+        .el-dialog__header {
+            color: rgb(60, 60, 67);
+        }
     }
 }

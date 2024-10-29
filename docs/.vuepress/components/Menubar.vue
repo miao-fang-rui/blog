@@ -919,7 +919,8 @@ onMounted(() => {
     display: flex;
     justify-items: center;
     align-items: center;
-    border: 1px solid #eee;
+    // border: 1px solid #eee;
+    border-bottom: 1px solid var(--vp-c-gutter);
     flex-wrap: wrap;
 
     .menu-buttons {
@@ -939,9 +940,11 @@ onMounted(() => {
         justify-content: center;
         align-items: center;
         background-color: transparent;
+        color: var(--vp-c-text);
 
         &:hover {
-            background-color: #eee;
+            background-color: var(--vp-c-border);
+            // background-color: #eee;
         }
     }
 
@@ -951,7 +954,7 @@ onMounted(() => {
         padding: 0 6px;
 
         &:hover {
-            background-color: #eee;
+            background-color: var(--vp-c-border);
         }
 
         .el-dropdown-link {
@@ -961,7 +964,7 @@ onMounted(() => {
             justify-content: space-between;
             align-items: center;
             outline: none;
-            color: black;
+            color: var(--vp-c-text);
         }
     }
 }
@@ -973,6 +976,8 @@ onMounted(() => {
     .el-dropdown-text {
         padding-top: 10px !important;
         padding-bottom: 10px !important;
+        color: var(--vp-c-text) !important;
+
     }
 
     .el-icon {
@@ -999,7 +1004,7 @@ onMounted(() => {
     padding: 0 6px;
 
     &:hover {
-        background-color: #eee;
+        background-color: var(--vp-c-border);
     }
 
     .el-dropdown-link {
@@ -1009,7 +1014,7 @@ onMounted(() => {
         justify-content: space-between;
         align-items: center;
         outline: none;
-        color: black;
+        color: var(--vp-c-text);
     }
 }
 
@@ -1019,7 +1024,7 @@ onMounted(() => {
     height: 26px;
 
     &:hover {
-        background-color: #eee;
+        background-color: var(--vp-c-border);
     }
 
     .el-dropdown-link {
@@ -1029,7 +1034,7 @@ onMounted(() => {
         justify-content: space-between;
         align-items: center;
         outline: none;
-        color: black;
+        color: var(--vp-c-text);
     }
 }
 
@@ -1038,6 +1043,6 @@ onMounted(() => {
 }
 
 .is-active {
-    background-color: #eee !important;
+    background-color: var(--vp-c-grey-bg) !important;
 }
 </style>
