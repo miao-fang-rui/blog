@@ -14,7 +14,45 @@ next:
 
 ![车载机debug接口.png](/articles/DEBUG调试线制作/车载机debug接口.png )
 
-<table style="min-width: 240px"><colgroup><col style="width: 200px"><col><col></colgroup><tbody><tr><td colspan="1" rowspan="4" style="width: 200px"><p style="text-align: center">DEBUG调试口</p></td><td colspan="1" rowspan="1" style="width: 200px"><p>1脚</p></td><td colspan="1" rowspan="1" style="width: 200px"><p>串口RXD（收）</p></td></tr><tr><td colspan="1" rowspan="1"><p>2脚</p></td><td colspan="1" rowspan="1"><p>空</p></td></tr><tr><td colspan="1" rowspan="1"><p>3脚</p></td><td colspan="1" rowspan="1"><p>串口TXD（发）</p></td></tr><tr><td colspan="1" rowspan="1"><p>4脚</p></td><td colspan="1" rowspan="1"><p>地</p></td></tr></tbody></table>
+<table>
+  <tbody>
+    <tr>
+      <td rowspan="4" style='width: 20%'>
+        <p style="text-align: center">DEBUG调试口</p>
+      </td>
+      <td>
+        1脚
+      </td>
+      <td>
+        串口RXD（收）
+      </td>
+    </tr>
+    <tr>
+      <td style='width: 40%'>
+        2脚
+      </td>
+      <td style='width: 40%'>
+        空
+      </td>
+    </tr>
+    <tr>
+      <td>
+        3脚
+      </td>
+      <td>
+        串口TXD（发）
+      </td>
+    </tr>
+    <tr>
+      <td>
+        4脚
+      </td>
+      <td>
+        地
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## **2、转接线制作**
 
@@ -29,10 +67,6 @@ DB9接口主要用到的是`2、3、5`引脚。其中：
 * `3`脚为TXD（发送数据）
 
 * `5`脚为GND（信号地线）
-
-取一个串口DB9的接头和一个四芯的接插件（如下图所示）：
-
-.![串口线.png](/articles/DEBUG调试线制作/串口线.png )
 
 接线定义：
 
