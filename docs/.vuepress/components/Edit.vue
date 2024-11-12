@@ -50,7 +50,7 @@ const textAlign = ref('left')
 window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
     let catalog = document.getElementById('catalog');
-    let headerHeight = header.offsetHeight;
+    let headerHeight = header?.offsetHeight;
     catalog.style.top = headerHeight + 'px';
     catalog.style.height = `calc(100vh - ${headerHeight}px)`
 })
@@ -138,29 +138,6 @@ onMounted(() => {
                 textAlign.value = 'left'
             }
         },
-        onPaste(event, slice) {
-            const items = (event.clipboardData || window.clipboardData).items;
-            if(items.length > 0){
-                for (let item of items) {
-                    if (item.type.startsWith('image/')) {
-                        const file = item.getAsFile();
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                const imageUrl = URL.createObjectURL(file)
-                                editor.value.chain().focus().setImage({
-                                    src: imageUrl,
-                                    alt: file.name,
-                                    title: file.name,
-                                }).run()
-                            }
-                            reader.readAsDataURL(file)
-                        }
-                    }
-                }
-            }
-            
-        }
     })
 
     if (editor.value) {
