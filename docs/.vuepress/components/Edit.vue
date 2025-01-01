@@ -51,7 +51,7 @@ window.addEventListener('scroll', (e) => {
     let header = document.getElementById('menu-bar');
     let catalog = document.getElementById('catalog');
     let headerHeight = header?.offsetHeight;
-    catalog.style.top = headerHeight + 'px';
+    catalog?.style?.top = headerHeight + 'px';
     catalog.style.height = `calc(100vh - ${headerHeight}px)`
 })
 
