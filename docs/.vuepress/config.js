@@ -75,12 +75,24 @@ export default defineUserConfig({
                         text: 'Home',
                         link: '/',
                     },
+                    {
+                        text: 'Product List',
+                        link: '/product/车载调度产品.md'
+                    },
+                    {
+                        text: 'Technical Document',
+                        link: '/article/车载调度产品.md'
+                    },
+                    {
+                        text: 'Write Article',
+                        link: '/zh/edit.md'
+                    },
                 ],
                 sidebar: {
                     '/': [
                         {
                             text: 'All Products',
-                            children: ['/product/车载调度产品.md', '/product/智慧收银产品.md']
+                            children: ['/product/车载调度产品.md', '/product/主动安全产品.md', '/product/智慧收银产品.md']
                         }
                     ],
                 },
