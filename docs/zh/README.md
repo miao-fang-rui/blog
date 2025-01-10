@@ -4,8 +4,8 @@ pageClass: home-page-class
 heroImage: /images/logo.png
 heroAlt: 'Tiamaes-logo'
 heroHeight: 80
-heroText: 天迈文档中心
-tagline: Tiamaes Document Center
+heroText: Tiamaes
+tagline: 天迈文档中心
 actions:
   - text: 产品列表
     link: /zh/product/车载调度产品.md

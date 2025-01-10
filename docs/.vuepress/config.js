@@ -95,6 +95,25 @@ export default defineUserConfig({
                             children: ['/product/车载调度产品.md', '/product/主动安全产品.md', '/product/智慧收银产品.md']
                         }
                     ],
+                    '/article/': [
+                        {
+                            text: 'Technical Document',
+                            children: [
+                                {
+                                    text: 'Vehicle Scheduling Products',
+                                    link: '/zh/article/车载调度产品.md',
+                                },
+                                {
+                                    text: 'Active Safety Product',
+                                    link: '/zh/article/主动安全产品.md',
+                                },
+                                {
+                                    text: 'Smart Cash Register Products',
+                                    link: '/zh/article/智慧收银产品.md',
+                                },
+                            ]
+                        }
+                    ]
                 },
             },
             '/zh/': {
