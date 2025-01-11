@@ -7,7 +7,7 @@ const { articles } = defineProps(['articles'])
     <div class="article-container">
         <a :href="article.link" class="link" v-for="(article, index) in articles" :key="article.link">
             <span class="node">{{ index + 1 }}</span>
-            <span>{{ `${article.name}` }}</span>
+            <span class="article-name">{{ `${article.name}` }}</span>
         </a>
     </div>
 
@@ -15,7 +15,7 @@ const { articles } = defineProps(['articles'])
 
 <style lang="scss" scoped>
 .article-container {
-    padding: 20px 0;
+    padding: 10px 0;
 
     .node {
         background-color: var(--vp-c-accent);
