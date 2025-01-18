@@ -28,6 +28,20 @@
     div[class*=language-] pre::-webkit-scrollbar-thumb:hover{
         cursor: pointer !important;
     }
+    .el-button.is-text:not(.is-disabled).is-has-bg {
+        background-color: transparent;
+        border: 1px solid #e8e8e8;
+    }
+
+    .el-button.is-text:not(.is-disabled).is-has-bg:hover {
+        border: 1px solid #5468ff;
+        background-color: transparent;
+    }
+
+    .el-dropdown-menu__item:not(.is-disabled):hover{
+        color: #5468ff !important;
+        background-color: rgb(250, 250, 250) !important;
+    }
 }
 
 [data-theme='dark'] {
@@ -57,5 +71,26 @@
         .el-dialog__header {
             color: rgb(60, 60, 67);
         }
+    }
+    .el-button.is-text:not(.is-disabled).is-has-bg {
+        background-color: rgb(25, 25, 25);
+        border-color: #454545;
+    }
+
+    .el-dropdown-menu__item:not(.is-disabled):hover{
+        background-color: rgb(250, 250, 250) !important;
+    }
+
+    .el-dropdown-menu {
+        background-color: rgb(36, 36, 36);
+    }
+
+    .el-dropdown-menu__item:not(.is-disabled):hover {
+        background-color: #151618 !important;
+    }
+
+    .el-popper.is-light, .el-popper.is-light>.el-popper__arrow:before {
+        border-color: #151618;
+        background-color: #151618;
     }
 }
