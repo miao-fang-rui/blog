@@ -112,8 +112,12 @@ const handleCommand = (command) => {
   .sidebar-btn {
     display: none;
   }
+
   .right-btn {
-    display: none;
+    bottom: 120px;
+    .more-btn {
+      padding: 18px;
+    }
   }
 }
 
