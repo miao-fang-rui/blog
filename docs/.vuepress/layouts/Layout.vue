@@ -15,26 +15,28 @@ const handleSide = () => {
 
 const handleTop = () => {
   const navbarContainer = document.querySelector('.theme-container')
-    const vpNavbarContainer = document.querySelector('.vp-theme-container')
-    if (navbarContainer) {
-        navbarContainer.classList.toggle('no-navbar');
-        const navbar = document.querySelector('.navbar')
-        navbar.style.display = navbar.style.display === 'none' ? '' : 'none'
-    }
+  const vpNavbarContainer = document.querySelector('.vp-theme-container')
+  if (navbarContainer) {
+      navbarContainer.classList.toggle('no-navbar');
+      const navbar = document.querySelector('.navbar')
+      navbar.style.display = navbar.style.display === 'none' ? '' : 'none'
+  }
 
-    if (vpNavbarContainer) {
-        vpNavbarContainer.classList.toggle('no-navbar');
-        const vpNavbar = document.querySelector('.vp-navbar')
-        vpNavbar.style.display = vpNavbar.style.display === 'none' ? '' : 'none'
-    }
+  if (vpNavbarContainer) {
+      vpNavbarContainer.classList.toggle('no-navbar');
+      const vpNavbar = document.querySelector('.vp-navbar')
+      vpNavbar.style.display = vpNavbar.style.display === 'none' ? '' : 'none'
+  }
 }
 
 const handlePrint = () => {
-  let printContent = document.querySelector('.theme-default-content')
-  let windowContent = document.querySelector('#app');
-  windowContent.innerHTML = printContent.innerHTML;
-  window.print();
-  window.location.reload();
+  const printContent = document.querySelector('.theme-default-content')
+  const windowContent = document.querySelector('#app');
+  if(printContent) {
+    windowContent.innerHTML = printContent.innerHTML;
+    window.print();
+    window.location.reload();
+  }
 }
 
 const handleCommand = (command) => {
