@@ -64,7 +64,7 @@ const handleCommand = (command) => {
           <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item command="print">打印</el-dropdown-item>
+              <el-dropdown-item class="print-btn" command="print">打印</el-dropdown-item>
               <el-dropdown-item command="topMenu">顶部菜单</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -103,8 +103,18 @@ const handleCommand = (command) => {
 
   .more-btn {
     padding: 24px;
+    background-color: white !important;
+  }
+
+  
+}
+
+[data-theme='dark'] {
+  .more-btn {
+    background-color: rgb(36, 36, 36) !important;
   }
 }
+
 
 :deep(.el-button.is-text:not(.is-disabled):focus-visible){
   outline: none;
@@ -117,6 +127,7 @@ const handleCommand = (command) => {
 
   .right-btn {
     bottom: 120px;
+
     .more-btn {
       padding: 18px;
     }
