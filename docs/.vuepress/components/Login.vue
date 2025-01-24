@@ -84,8 +84,6 @@ const onSubmit = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-size: cover;
-
 
     .login {
         border: 1px solid var(--vp-c-border);
@@ -135,7 +133,7 @@ const onSubmit = () => {
 
 .btn {
     box-sizing: border-box;
-    padding: 8px 18px;
+    padding: 10px 18px;
     margin-top: 20px;
     background-color: var(--c-bg);
     border: 1px solid var(--c-border-dark);
