@@ -170,4 +170,17 @@ const onSubmit = () => {
     }
 
 }
+
+
+@media screen and (max-width: 720px) {
+
+    .login-contain {
+
+        .login {
+            border: none;
+            padding: 0;
+        }
+    }
+
+}
 </style>
