@@ -14,7 +14,7 @@ next:
 
 | app名称 | 图片 | 下载地址 |
 | --- | --- | --- |
-| 运维宝 | ![运维宝APP.png](/articles/TM8765运维宝APP使用/运维宝APP.png =60x56) | <u>点击下载</u> |
+| 运维宝 | ![运维宝APP.png](/articles/TM8765运维宝APP使用/运维宝APP.png =60x56) | [点击下载](/blog/articles/TM8765运维宝APP使用/运维宝.apk) |
 
 ## 二、登陆
 
@@ -76,19 +76,19 @@ next:
 >
 >   车载机文件：`/mnt/flash/tm8765_para.db`
 >
->   导出文件：`手机内部存储/com.tiamaes.tm8765/sysfile/tm8765_para.zip`
+>   导出：`/手机内部存储/com.tiamaes.tm8765/sysfile/tm8765_para.zip`
 >
 > * 语音文件：
 >
 >   车载机文件：`/mnt/nand/bzqmp3/语音文件`
 >
->   导出文件：`手机内部存储/com.tiamaes.tm8765/voice/bzqmp3.zip`
+>   导出：`/手机内部存储/com.tiamaes.tm8765/voice/bzqmp3.zip`
 >
 > * 日志文件：
 >
 >   车载机文件：`/mnt/syslog/日志文件`
 >
->   导出文件：`手机内部存储/com.tiamaes.tm8765/log/log.zip`
+>   导出：`/手机内部存储/com.tiamaes.tm8765/log/log.zip`
 
 ![文件管理.png](/articles/TM8765运维宝APP使用/文件管理.png =300x)
 
@@ -112,19 +112,19 @@ next:
 >
 > * AI
 >
->   暂未升级
+>   暂无
 >
 > * 4G模块
 >
->   暂未升级
+>   暂无
 >
 > * WLAN
 >
->   暂未升级
+>   暂无
 >
 > * GPS
 >
->   暂未升级
+>   暂无
 
 ![升级管理.png](/articles/TM8765运维宝APP使用/升级管理.png =300x)
 
@@ -140,29 +140,49 @@ next:
 
 #### ①、调度服务
 
+> 设置主副调度服务器地址和域名。
+
 ![调度服务.png](/articles/TM8765运维宝APP使用/调度服务.png =300x)
 
 #### ②、音量管理
+
+> 设置车载机音量：扬声器、麦克、提示音。
 
 ![音量管理.png](/articles/TM8765运维宝APP使用/音量管理.png =300x)
 
 #### ③、定位模式
 
+> 默认，不需要修改。
+
 ![定位模式.png](/articles/TM8765运维宝APP使用/定位模式.png =300x)
 
 #### ④、调度管理
+
+> 可设置：报站声音、屏协议类型、发车点参数、厂区参数。
 
 ![调度管理.png](/articles/TM8765运维宝APP使用/调度管理.png =300x)
 
 #### ⑤、车辆管理
 
+> 设置车辆自编号。
+
+::: warning 
+
+车牌号可后台下发，机器号禁止修改。
+
+:::
+
 ![车辆管理.png](/articles/TM8765运维宝APP使用/车辆管理.png =300x)
 
 #### ⑥、车辆信号管理
 
+> 设置门类型、开门显示通道，倒车显示通道等。
+
 ![车辆信号管理.png](/articles/TM8765运维宝APP使用/车辆信号管理.png =300x)
 
 #### ⑦、测试工装
+
+> 测试车载机存储的语音
 
 ![测试工装.png](/articles/TM8765运维宝APP使用/测试工装.png =300x)
 
@@ -170,17 +190,25 @@ next:
 
 #### ①、视频服务
 
+> 设置主副视频服务器地址，域名不需要设置。
+
 ![视频服务.png](/articles/TM8765运维宝APP使用/视频服务.png =300x)
 
 #### ②、输入图像
+
+> 可单独设置每个摄像头图像的色彩
 
 ![输入图像.png](/articles/TM8765运维宝APP使用/输入图像.png =300x)
 
 #### ③、输出图像
 
+> 设置TM8832显示屏的色彩
+
 ![输出图像.png](/articles/TM8765运维宝APP使用/输出图像.png =300x)
 
 #### ④、OSD
+
+> 设置录像视频上的水印信息
 
 ![OSD.png](/articles/TM8765运维宝APP使用/OSD.png =300x)
 
@@ -198,13 +226,31 @@ next:
 
 #### ⑧、视频编码
 
+::: warning 
+
+修改前请咨询售后人员。
+
+:::
+
 ![视频编码.png](/articles/TM8765运维宝APP使用/视频编码.png =300x)
 
 #### ⑨、系统配置
 
+::: warning 
+
+修改前请咨询售后人员。
+
+:::
+
 ![系统配置.png](/articles/TM8765运维宝APP使用/系统配置.png =300x)
 
 #### ⑩、AD配置
+
+::: warning 
+
+修改前请咨询售后人员。
+
+:::
 
 ![AD配置.png](/articles/TM8765运维宝APP使用/AD配置.png =300x)
 
@@ -212,21 +258,31 @@ next:
 
 #### ①、移动数据
 
+> 默认，不需要修改。
+
 ![移动数据.png](/articles/TM8765运维宝APP使用/移动数据.png =300x)
 
 #### ②、以太网
+
+> 模式需要修改为`STATIC` ，否则使用IPC接口的设备不能上网。
 
 ![以太网.png](/articles/TM8765运维宝APP使用/以太网.png =300x)
 
 #### ③、WLAN
 
+> 默认，不需要修改。
+
 ![WLAN.png](/articles/TM8765运维宝APP使用/WLAN.png =300x)
 
 #### ④、路由
 
+> 默认，不需要修改。
+
 ![路由.png](/articles/TM8765运维宝APP使用/路由.png =300x)
 
 #### ⑤、NAT
+
+> 默认，不需要修改。
 
 ![NAT.png](/articles/TM8765运维宝APP使用/NAT.png =300x)
 

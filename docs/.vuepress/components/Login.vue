@@ -177,6 +177,9 @@ const onSubmit = () => {
         .login {
             border: none;
             padding: 0;
+            box-shadow: none;
+            width: 100%;
+            height: 100%;
         }
     }
 

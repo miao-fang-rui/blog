@@ -64,7 +64,7 @@ const handleCommand = (command) => {
           <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item class="print-btn" command="print">打印</el-dropdown-item>
+              <el-dropdown-item class="hidden-xs-only" command="print">打印</el-dropdown-item>
               <el-dropdown-item command="topMenu">顶部菜单</el-dropdown-item>
             </el-dropdown-menu>
           </template>
