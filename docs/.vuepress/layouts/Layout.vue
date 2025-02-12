@@ -2,6 +2,8 @@
 import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue'
 import { ref } from 'vue'
 import SettingIcon from '../icons/SettingIcon.vue'
+import Topbar from '../icons/Topbar.vue'
+import Print from '../icons/Print.vue'
 
 const sideIsShow = ref(true)
 
@@ -39,12 +41,16 @@ const handlePrint = () => {
   }
 }
 
-const handleCommand = (command) => {
+// const handleCommand = (command) => {
   
-  switch(command){
-    case 'print': handlePrint() ;break;
-    case 'topMenu': handleTop();break;
-  }
+//   switch(command){
+//     case 'print': handlePrint() ;break;
+//     case 'topMenu': handleTop();break;
+//   }
+// }
+
+const toggleTopBar = () => {
+  handleTop()
 }
 </script>
 
@@ -60,7 +66,7 @@ const handleCommand = (command) => {
     </template>
     <template #page-bottom>
       <div class="right-btn">
-        <el-dropdown placement="top" @command="handleCommand">
+        <!-- <el-dropdown placement="top" @command="handleCommand">
           <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
           <template #dropdown>
             <el-dropdown-menu>
@@ -68,7 +74,26 @@ const handleCommand = (command) => {
               <el-dropdown-item command="topMenu">顶部菜单</el-dropdown-item>
             </el-dropdown-menu>
           </template>
-        </el-dropdown>
+        </el-dropdown> -->
+        <el-popover placement="top"
+          popper-style="min-width:20px; width:auto; border-radius: 10px; padding: 10px 2px;"
+        >
+          <template #reference>
+            <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
+          </template>
+          <template #default>
+            <div>
+              <el-tooltip content="显示/隐藏顶部菜单栏" placement="left" :show-after="300">
+                <el-button class="tip-btn" text><el-icon :size="20" @click="toggleTopBar"><Topbar /></el-icon></el-button>
+              </el-tooltip>
+            </div>
+            <div>
+              <el-tooltip content="打印本页面文档" placement="left" :show-after="300">
+                <el-button class="tip-btn" text><el-icon :size="20" @click=""><Print /></el-icon></el-button>
+              </el-tooltip>
+            </div>
+          </template>
+        </el-popover>
       </div>
     </template>
   </ParentLayout>
@@ -104,20 +129,33 @@ const handleCommand = (command) => {
   .more-btn {
     padding: 24px;
     background-color: white !important;
-  }
 
-  
+    &:hover {
+      color: #5468ff;
+      border-color: #5468ff;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.tip-btn.is-text:not(.is-disabled){
+  padding: 14px;
+}
+
+.tip-btn.is-text:not(.is-disabled):hover {
+  color: #5468ff;
 }
 
 [data-theme='dark'] {
   .more-btn {
     background-color: rgb(36, 36, 36) !important;
   }
-}
 
-
-:deep(.el-button.is-text:not(.is-disabled):focus-visible){
-  outline: none;
+  .tip-btn.is-text:not(.is-disabled):hover {
+    background-color: rgb(36, 36, 36);
+    color: #5468ff;
+  }
 }
 
 @media screen and (max-width: 720px) {
