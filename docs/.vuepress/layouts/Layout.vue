@@ -3,9 +3,43 @@ import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue'
 import { ref } from 'vue'
 import SettingIcon from '../icons/SettingIcon.vue'
 import Topbar from '../icons/Topbar.vue'
-import Print from '../icons/Print.vue'
+import DownloadIcon from '../icons/DownloadIcon.vue'
+import html2canvas from 'html2canvas'
+import { jsPDF } from "jspdf"
+import { ElMessageBox, ElMessage } from 'element-plus'
+import { usePageData } from 'vuepress/client'
 
+const page = usePageData()
 const sideIsShow = ref(true)
+const topIsShow = ref(true)
+
+const html2pdf = () => {
+    html2canvas(document.querySelector('.theme-default-content'), {
+        dpi: 350, // 设置图片的 dpi（每英寸像素数）
+    }).then(function (canvas) {
+
+        let pdf = new jsPDF('p', 'mm', 'a4'); // 创建A4大小的PDF
+        let ctx = canvas.getContext('2d', { willReadFrequently: true });
+        let a4w = 190;
+        let a4h = 270; // A4 大小，210mm x 297mm，四边各保留 10mm 的边距，显示区域 190x277，
+        let imgHeight = Math.floor((a4h * canvas.width) / a4w);  // 按 A4显示比例换算一页图像的像素高度
+        let renderedHeight = 0;
+
+        // 按照A4大小进行分页渲染
+        while (renderedHeight < canvas.height) {
+            let page = document.createElement('canvas');
+            page.width = canvas.width;
+            page.height = Math.min(imgHeight, canvas.height - renderedHeight); // 可能内容不足一页
+            // 用 getImageData 剪裁指定区域，并画到前面创建的 canvas 对象中
+            page.getContext('2d', { willReadFrequently: true }).putImageData(ctx.getImageData(0, renderedHeight, canvas.width, Math.min(imgHeight, canvas.height - renderedHeight)), 0, 0);
+            pdf.addImage(page.toDataURL('image/jpeg', 0.2), 'JPEG', 10, 10, a4w, Math.min(a4h, (a4w * page.height) / page.width)); // 添加图像到页面，保留 10mm 边距
+            renderedHeight += imgHeight;
+            if (renderedHeight < canvas.height) pdf.addPage(); // 如果后面还有内容，添加一个空页
+        }
+
+        pdf.save(page.value.title + '.pdf');
+    });
+}
 
 const handleSide = () => {
   sideIsShow.value = !sideIsShow.value
@@ -16,6 +50,7 @@ const handleSide = () => {
 }
 
 const handleTop = () => {
+  topIsShow.value = !topIsShow.value
   const navbarContainer = document.querySelector('.theme-container')
   const vpNavbarContainer = document.querySelector('.vp-theme-container')
   if (navbarContainer) {
@@ -41,13 +76,37 @@ const handlePrint = () => {
   }
 }
 
-// const handleCommand = (command) => {
-  
-//   switch(command){
-//     case 'print': handlePrint() ;break;
-//     case 'topMenu': handleTop();break;
-//   }
-// }
+const handleDownload = () => {
+
+ElMessageBox.confirm('确认下载本页面文档 - [ ' + page.value.title + '.pdf' + ' ], 是否继续?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+})
+    .then(() => {
+
+        const sidebar = document.querySelector('.vp-sidebar')
+        if (sidebar) {
+            const isNoSidebar = sidebar.classList.contains('no-sidebar')
+            if (!isNoSidebar) {
+                sidebar.classList.add('no-sidebar')
+                html2pdf()
+                sidebar.classList.remove('no-sidebar')
+            } else {
+                html2pdf()
+            }
+
+            ElMessage.success({
+                message: '导出成功，请等待浏览器下载！',
+                type: 'success',
+            })
+        }
+    })
+    .catch(() => {
+        ElMessage('取消下载！')
+    })
+
+}
 
 const toggleTopBar = () => {
   handleTop()
@@ -66,30 +125,21 @@ const toggleTopBar = () => {
     </template>
     <template #page-bottom>
       <div class="right-btn">
-        <!-- <el-dropdown placement="top" @command="handleCommand">
-          <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item class="hidden-xs-only" command="print">打印</el-dropdown-item>
-              <el-dropdown-item command="topMenu">顶部菜单</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown> -->
         <el-popover placement="top"
-          popper-style="min-width:20px; width:auto; border-radius: 10px; padding: 10px 2px;"
+          popper-style="min-width:20px; width:auto; border-radius: 3px; padding: 10px 2px;"
         >
           <template #reference>
             <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
           </template>
           <template #default>
             <div>
-              <el-tooltip content="显示/隐藏顶部菜单栏" placement="left" :show-after="300">
+              <el-tooltip :content="topIsShow? '隐藏顶部导航栏': '显示顶部导航栏'" placement="left" :show-after="300">
                 <el-button class="tip-btn" text><el-icon :size="20" @click="toggleTopBar"><Topbar /></el-icon></el-button>
               </el-tooltip>
             </div>
             <div>
-              <el-tooltip content="打印本页面文档" placement="left" :show-after="300">
-                <el-button class="tip-btn" text><el-icon :size="20" @click=""><Print /></el-icon></el-button>
+              <el-tooltip content="下载文档" placement="left" :show-after="300">
+                <el-button class="tip-btn" text><el-icon :size="20" @click="handleDownload()"><DownloadIcon /></el-icon></el-button>
               </el-tooltip>
             </div>
           </template>
