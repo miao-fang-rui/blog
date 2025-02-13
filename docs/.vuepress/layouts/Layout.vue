@@ -3,6 +3,7 @@ import ParentLayout from '@vuepress/theme-default/layouts/Layout.vue'
 import { ref } from 'vue'
 import SettingIcon from '../icons/SettingIcon.vue'
 import Topbar from '../icons/Topbar.vue'
+import Sidebar from '../icons/Sidebar.vue'
 import DownloadIcon from '../icons/DownloadIcon.vue'
 import html2canvas from 'html2canvas'
 import { jsPDF } from "jspdf"
@@ -116,7 +117,7 @@ const toggleTopBar = () => {
     <template #page-bottom>
       <div class="right-btn">
         <el-popover placement="top"
-          popper-style="min-width:20px; width:auto; border-radius: 8px; padding: 10px 2px;"
+          popper-style="min-width:20px; width:auto; border-radius: 8px; padding: 10px;"
         >
           <template #reference>
             <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon></el-button>
@@ -130,7 +131,7 @@ const toggleTopBar = () => {
             </div>
             <div class="tip">
                 <el-button class="tip-btn hidden-xs-only" text @click="handleSide">
-                  <el-icon :size="20"><Topbar /></el-icon>
+                  <el-icon :size="20"><Sidebar /></el-icon>
                   <span>{{ sideIsShow? '隐藏侧边栏': '显示侧边栏' }}</span> 
                 </el-button>
             </div>

@@ -51,6 +51,7 @@
         width: 100%;
         display: flex;
         justify-content: flex-start;
+        padding: 4px;
     }
 
     .tip-btn.is-text:not(.is-disabled):hover {
@@ -63,7 +64,7 @@
 
         .line {
             width: 80%;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #cfcfcf;
             margin: 2px 0;
         }
     }
@@ -122,5 +123,12 @@
     .el-popper.is-light>.el-popper__arrow:before {
         border-color: #151618;
         background-color: #151618;
+    }
+
+    .right-popo-divider{
+
+        .line {
+            border-bottom: 1px solid #333;
+        }
     }
 }
