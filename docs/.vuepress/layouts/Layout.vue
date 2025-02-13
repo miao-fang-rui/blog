@@ -66,16 +66,6 @@ const handleTop = () => {
   }
 }
 
-const handlePrint = () => {
-  const printContent = document.querySelector('.theme-default-content')
-  const windowContent = document.querySelector('#app');
-  if(printContent) {
-    windowContent.innerHTML = printContent.innerHTML;
-    window.print();
-    window.location.reload();
-  }
-}
-
 const handleDownload = () => {
 
 ElMessageBox.confirm('确认下载本页面文档 - [ ' + page.value.title + '.pdf' + ' ], 是否继续?', '提示', {
@@ -126,21 +116,30 @@ const toggleTopBar = () => {
     <template #page-bottom>
       <div class="right-btn">
         <el-popover placement="top"
-          popper-style="min-width:20px; width:auto; border-radius: 3px; padding: 10px 2px;"
+          popper-style="min-width:20px; width:auto; border-radius: 8px; padding: 10px 2px;"
         >
           <template #reference>
-            <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon> </el-button>
+            <el-button class="more-btn" text bg circle><el-icon :size="20"><SettingIcon /></el-icon></el-button>
           </template>
           <template #default>
-            <div>
-              <el-tooltip :content="topIsShow? '隐藏顶部导航栏': '显示顶部导航栏'" placement="left" :show-after="300">
-                <el-button class="tip-btn" text><el-icon :size="20" @click="toggleTopBar"><Topbar /></el-icon></el-button>
-              </el-tooltip>
+            <div class="tip">
+                <el-button class="tip-btn" text @click="toggleTopBar">
+                  <el-icon :size="20"><Topbar /></el-icon>
+                  <span>{{ topIsShow? '隐藏顶部菜单': '显示顶部菜单' }}</span> 
+                </el-button>
             </div>
-            <div>
-              <el-tooltip content="下载文档" placement="left" :show-after="300">
-                <el-button class="tip-btn" text><el-icon :size="20" @click="handleDownload()"><DownloadIcon /></el-icon></el-button>
-              </el-tooltip>
+            <div class="tip">
+                <el-button class="tip-btn hidden-xs-only" text @click="handleSide">
+                  <el-icon :size="20"><Topbar /></el-icon>
+                  <span>{{ sideIsShow? '隐藏侧边栏': '显示侧边栏' }}</span> 
+                </el-button>
+            </div>
+            <div class="right-popo-divider"><div class="line"></div></div>
+            <div class="tip">
+                <el-button class="tip-btn" text  @click="handleDownload()">
+                  <el-icon :size="20"><DownloadIcon /></el-icon>
+                  <span>下载本页文档</span>
+                </el-button>
             </div>
           </template>
         </el-popover>
@@ -175,6 +174,7 @@ const toggleTopBar = () => {
   position: fixed;
   bottom: 130px;
   right: 16px;
+  z-index: 99999;
 
   .more-btn {
     padding: 24px;
@@ -186,15 +186,6 @@ const toggleTopBar = () => {
       cursor: pointer;
     }
   }
-}
-
-
-.tip-btn.is-text:not(.is-disabled){
-  padding: 14px;
-}
-
-.tip-btn.is-text:not(.is-disabled):hover {
-  color: #5468ff;
 }
 
 [data-theme='dark'] {
