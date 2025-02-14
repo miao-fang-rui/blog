@@ -16,7 +16,7 @@ const topIsShow = ref(true)
 
 const html2pdf = () => {
     html2canvas(document.querySelector('.theme-default-content'), {
-        dpi: 350, // 设置图片的 dpi（每英寸像素数）
+      dpi: 350, // 设置图片的 dpi（每英寸像素数）
     }).then(function (canvas) {
 
         let pdf = new jsPDF('p', 'mm', 'a4'); // 创建A4大小的PDF

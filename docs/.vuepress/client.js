@@ -10,6 +10,7 @@ import Table from './components/Table.vue'
 import Carousel from './components/Carousel.vue'
 import Edit from './components/Edit.vue'
 import Layout from './layouts/Layout.vue'
+import NotFound from './components/NotFound.vue'
 
 
 export default defineClientConfig({
@@ -58,6 +59,7 @@ export default defineClientConfig({
     layouts: {
         Login,
         Edit,
-        Layout
+        Layout,
+        NotFound
     }
 })
