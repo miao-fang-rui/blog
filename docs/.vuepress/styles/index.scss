@@ -31,16 +31,6 @@
         cursor: pointer !important;
     }
 
-    .el-button.is-text:not(.is-disabled).is-has-bg {
-        background-color: transparent;
-        border: 1px solid #e8e8e8;
-    }
-
-    .el-button.is-text:not(.is-disabled).is-has-bg:hover {
-        border: 1px solid #5468ff;
-        // background-color: transparent;
-    }
-
     .el-dropdown-menu__item:not(.is-disabled):hover {
         color: #5468ff !important;
         background-color: rgb(250, 250, 250) !important;

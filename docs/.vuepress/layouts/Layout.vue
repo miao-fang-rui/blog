@@ -5,10 +5,13 @@ import SettingIcon from '../icons/SettingIcon.vue'
 import Topbar from '../icons/Topbar.vue'
 import Sidebar from '../icons/Sidebar.vue'
 import DownloadIcon from '../icons/DownloadIcon.vue'
+import GoBack404 from '../icons/GoBack404.vue'
 import html2canvas from 'html2canvas'
 import { jsPDF } from "jspdf"
 import { ElMessageBox, ElMessage } from 'element-plus'
 import { usePageData } from 'vuepress/client'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const page = usePageData()
 const sideIsShow = ref(true)
@@ -102,6 +105,10 @@ ElMessageBox.confirm('确认下载本页面文档 - [ ' + page.value.title + '.p
 const toggleTopBar = () => {
   handleTop()
 }
+
+function goBack(){
+  router.go(-1);
+}
 </script>
 
 <template>
@@ -144,6 +151,11 @@ const toggleTopBar = () => {
             </div>
           </template>
         </el-popover>
+        <div class="go-back">
+          <el-tooltip content="返回上一页" placement="left" :show-after="200">
+            <el-button class="more-btn" text bg circle @click="goBack"><el-icon :size="20"><GoBack404 /></el-icon></el-button>
+          </el-tooltip>
+        </div>
       </div>
     </template>
   </ParentLayout>
@@ -177,14 +189,22 @@ const toggleTopBar = () => {
   right: 16px;
   z-index: 99999;
 
+  .go-back {
+    margin-top: 16px;
+  }
+
   .more-btn {
     padding: 24px;
     background-color: white !important;
+    border: 1px solid #e8e8e8;
 
     &:hover {
-      color: #5468ff;
-      border-color: #5468ff;
+      background-color: rgb(248, 248, 248) !important;
       cursor: pointer;
+    }
+
+    &:active {
+      background-color: rgb(240, 240, 240) !important;
     }
   }
 }
@@ -192,6 +212,14 @@ const toggleTopBar = () => {
 [data-theme='dark'] {
   .more-btn {
     background-color: rgb(36, 36, 36) !important;
+
+    &:hover {
+      background-color: rgb(59, 59, 59) !important;
+    }
+
+    &:active {
+      background-color: rgb(79, 79, 79) !important;
+    }
   }
 
   .tip-btn.is-text:not(.is-disabled):hover {
