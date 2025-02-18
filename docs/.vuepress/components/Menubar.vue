@@ -172,15 +172,19 @@ const handleTableCommand = (command) => {
 }
 
 const uploadImg = (uploadFile) => {
-    const imageUrl = URL.createObjectURL(uploadFile.raw)
 
-    if (imageUrl) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const base64String = e.target.result;
+
         editor.chain().focus().setImage({
-            src: imageUrl,
+            src: base64String,
             alt: uploadFile.name,
             title: uploadFile.name,
         }).run()
     }
+    reader.readAsDataURL(uploadFile.raw);
+    
 }
 
 const setLink = () => {
@@ -240,7 +244,7 @@ const dialogCloseHandle = () => {
 }
 
 const converseImages = (makedownText) => {
-    const regex = /!\[(.*?)\]\((blob:.*?\")(.*?)"(.*?)\)/g;
+    const regex = /!\[(.*?)\]\((data:.*?\")(.*?)"(.*?)\)/g;
     const replacedText = makedownText.replace(regex, (_, alt, blob, title, size) => {
         if(size.split('x')[0] === ' =100%'){
             return `![${alt}](${article.imgSrc}${title})`
