@@ -46,13 +46,22 @@ import PdfIcon from '../icons/PdfIcon.vue'
 import IndentIcon from '../icons/IndentIcon.vue'
 import OutdentIcon from '../icons/OutdentIcon.vue'
 import DeleteIcon from '../icons/DeleteIcon.vue'
+import { useThemeLocaleData } from '@theme/useThemeData'
 
-
+const themeLocale = useThemeLocaleData()
 const { editor } = defineProps({
     editor: {
         type: Object
     }
 })
+
+const directoryOptions = ref([])
+
+const options = themeLocale.value.directoryOptions
+
+const props = {
+    expandTrigger: 'hover',
+}
 
 const fileList = ref([])
 const heading = defineModel('heading')
@@ -81,6 +90,14 @@ const article = reactive({
     title: '',
     imgSrc: '',
 })
+
+const handleChange = (value) => {
+    article.imgSrc = '/'
+    value.forEach(item => {
+        article.imgSrc += item + '/'
+    });
+    directoryOptions.value = value
+}
 
 const handleTextAlignCommand = (command) => {
     switch (command) {
@@ -812,6 +829,16 @@ onMounted(() => {
                     <el-form-item label="文章标题">
                         <el-input v-model="article.title" />
                     </el-form-item>
+                    <el-form-item label="产品归属" style="width: 100%;">
+                        <el-cascader
+                            v-model="directoryOptions"
+                            :options="options"
+                            :props="props"
+                            @change="handleChange"
+                            clearable
+                            placeholder="选择产品"
+                        />
+                    </el-form-item>
                     <el-form-item label="图片路径">
                         <el-input v-model="article.imgSrc" />
                         <el-alert show-icon type="info" :closable="false" style="margin-top: 6px"
@@ -912,6 +939,10 @@ onMounted(() => {
 
     :deep(.el-input__wrapper.is-focus) {
         box-shadow: 0 0 0 1px #626aef inset !important;
+    }
+
+    :deep(.el-cascader){
+        width: 100%;
     }
 }
 
