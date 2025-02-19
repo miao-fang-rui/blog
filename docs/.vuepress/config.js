@@ -189,7 +189,7 @@ export default defineUserConfig({
                                     link: '/zh/product/智慧收银产品.md',
                                 },
                             ]
-                            
+
                         },
                     ],
                     '/zh/article/': [
@@ -217,220 +217,220 @@ export default defineUserConfig({
                         value: '产品',
                         label: '产品列表',
                         children: [
-                        {
-                            value: '车载调度',
-                            label: '车载调度',
-                            children: [
-                                {
-                                    value: '报站器',
-                                    label: '报站器',
-                                    children: [
-                                        {
-                                            value: 'TM5805',
-                                            label: 'TM5805'
-                                        }
-                                    ]
-                                },
-                                {
-                                    value: '车载机',
-                                    label: '车载机',
-                                    children: [
-                                        {
-                                            value: 'TM8606',
-                                            label: 'TM8606'
-                                        },
-                                        {
-                                            value: 'TM8706',
-                                            label: 'TM8706'
-                                        },
-                                        {
-                                            value: 'TM8707',
-                                            label: 'TM8707'
-                                        },
-                                        {
-                                            value: 'TM8720',
-                                            label: 'TM8720'
-                                        },
-                                        {
-                                            value: 'TM8721',
-                                            label: 'TM8721'
-                                        },
-                                        {
-                                            value: 'TM8722',
-                                            label: 'TM8722'
-                                        },
-                                        {
-                                            value: 'TM8726',
-                                            label: 'TM8726'
-                                        },
-                                        {
-                                            value: 'TM8730',
-                                            label: 'TM8730'
-                                        },
-                                        {
-                                            value: 'TM8731',
-                                            label: 'TM8731'
-                                        },
-                                        {
-                                            value: 'TM8732',
-                                            label: 'TM8732'
-                                        },
-                                        {
-                                            value: 'TM8738',
-                                            label: 'TM8738'
-                                        },
-                                        {
-                                            value: 'TM8760',
-                                            label: 'TM8760'
-                                        },
-                                        {
-                                            value: 'TM8765',
-                                            label: 'TM8765'
-                                        },
-                                        {
-                                            value: 'TM8765N',
-                                            label: 'TM8765N'
-                                        },
-                                    ]
-                                },
-                                {
-                                    value: '调度机',
-                                    label: '调度机',
-                                    children: [
-                                        {
-                                            value: 'TM8128',
-                                            label: 'TM8128',
-                                        },
-                                        {
-                                            value: 'TM8129',
-                                            label: 'TM8129',
-                                        },
-                                        {
-                                            value: 'TM8130',
-                                            label: 'TM8130',
-                                        },
-                                    ],
-                                },
-                                {
-                                    value: '通话机',
-                                    label: '通话机',
-                                    children: [
-                                        {
-                                            value: 'TM8104',
-                                            label: 'TM8104',
-                                        },
-                                        {
-                                            value: 'TM8105',
-                                            label: 'TM8105',
-                                        },
-                                    ],
-                                },
-                                {
-                                    value: '客流',
-                                    label: '客流',
-                                    children: [
-                                        {
-                                            value: 'TM8206',
-                                            label: 'TM8206',
-                                        },
-                                        {
-                                            value: 'TM8207',
-                                            label: 'TM8207',
-                                        },
-                                        {
-                                            value: 'TM8209',
-                                            label: 'TM8209',
-                                        },
-                                        {
-                                            value: 'TM8216',
-                                            label: 'TM8216',
-                                        },
-                                        {
-                                            value: 'TM8217',
-                                            label: 'TM8217',
-                                        },
-                                        {
-                                            value: 'TM8218',
-                                            label: 'TM8218',
-                                        },
-                                        {
-                                            value: 'TM3715',
-                                            label: 'TM3715',
-                                        },
-                                        {
-                                            value: 'TM8217-B',
-                                            label: 'TM8217-B',
-                                        },
-                                    ],
-                                },
-                                {
-                                    value: '协议转换器',
-                                    label: '协议转换器',
-                                    children: [
-                                        {
-                                            value: 'TM2252',
-                                            label: 'TM2252'
-                                        }
-                                    ]
-                                },
-                                {
-                                    value: '全景360',
-                                    label: '全景360',
-                                    children: [
-                                        {
-                                            value: 'TM8902',
-                                            label: 'TM8902'
-                                        },
-                                        {
-                                            value: 'TM8920',
-                                            label: 'TM8920'
-                                        },
-                                    ]
-                                },
-                            ],
-                        },
-                        {
-                            value: '主动安全',
-                            label: '主动安全',
-                            children: [
-                                {
-                                    value: '主动安全设备',
-                                    label: '主动安全设备',
-                                    children: [
-                                        {
-                                            value: 'TM9008',
-                                            label: 'TM9008'
-                                        },
-                                        {
-                                            value: 'TM9504-B',
-                                            label: 'TM9504-B'
-                                        },
-                                        {
-                                            value: 'TM9507',
-                                            label: 'TM9507'
-                                        },
-                                        {
-                                            value: 'TM9507-A',
-                                            label: 'TM9507-A'
-                                        },
-                                        {
-                                            value: 'TM9608',
-                                            label: 'TM9608'
-                                        },
-                                    ]
-                                },
-                                {
-                                    value: '酒精测试设备',
-                                    label: '酒精测试设备',
-                                    children: [
-                                        {
-                                            value: 'TM9603',
-                                            label: 'TM9603'
-                                        },
-                                    ]
-                                },
-                            ],
-                        },
+                            {
+                                value: '车载调度',
+                                label: '车载调度',
+                                children: [
+                                    {
+                                        value: '报站器',
+                                        label: '报站器',
+                                        children: [
+                                            {
+                                                value: 'TM5805',
+                                                label: 'TM5805'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        value: '车载机',
+                                        label: '车载机',
+                                        children: [
+                                            {
+                                                value: 'TM8606',
+                                                label: 'TM8606'
+                                            },
+                                            {
+                                                value: 'TM8706',
+                                                label: 'TM8706'
+                                            },
+                                            {
+                                                value: 'TM8707',
+                                                label: 'TM8707'
+                                            },
+                                            {
+                                                value: 'TM8720',
+                                                label: 'TM8720'
+                                            },
+                                            {
+                                                value: 'TM8721',
+                                                label: 'TM8721'
+                                            },
+                                            {
+                                                value: 'TM8722',
+                                                label: 'TM8722'
+                                            },
+                                            {
+                                                value: 'TM8726',
+                                                label: 'TM8726'
+                                            },
+                                            {
+                                                value: 'TM8730',
+                                                label: 'TM8730'
+                                            },
+                                            {
+                                                value: 'TM8731',
+                                                label: 'TM8731'
+                                            },
+                                            {
+                                                value: 'TM8732',
+                                                label: 'TM8732'
+                                            },
+                                            {
+                                                value: 'TM8738',
+                                                label: 'TM8738'
+                                            },
+                                            {
+                                                value: 'TM8760',
+                                                label: 'TM8760'
+                                            },
+                                            {
+                                                value: 'TM8765',
+                                                label: 'TM8765'
+                                            },
+                                            {
+                                                value: 'TM8765N',
+                                                label: 'TM8765N'
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        value: '调度机',
+                                        label: '调度机',
+                                        children: [
+                                            {
+                                                value: 'TM8128',
+                                                label: 'TM8128',
+                                            },
+                                            {
+                                                value: 'TM8129',
+                                                label: 'TM8129',
+                                            },
+                                            {
+                                                value: 'TM8130',
+                                                label: 'TM8130',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '通话机',
+                                        label: '通话机',
+                                        children: [
+                                            {
+                                                value: 'TM8104',
+                                                label: 'TM8104',
+                                            },
+                                            {
+                                                value: 'TM8105',
+                                                label: 'TM8105',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '客流',
+                                        label: '客流',
+                                        children: [
+                                            {
+                                                value: 'TM8206',
+                                                label: 'TM8206',
+                                            },
+                                            {
+                                                value: 'TM8207',
+                                                label: 'TM8207',
+                                            },
+                                            {
+                                                value: 'TM8209',
+                                                label: 'TM8209',
+                                            },
+                                            {
+                                                value: 'TM8216',
+                                                label: 'TM8216',
+                                            },
+                                            {
+                                                value: 'TM8217',
+                                                label: 'TM8217',
+                                            },
+                                            {
+                                                value: 'TM8218',
+                                                label: 'TM8218',
+                                            },
+                                            {
+                                                value: 'TM3715',
+                                                label: 'TM3715',
+                                            },
+                                            {
+                                                value: 'TM8217-B',
+                                                label: 'TM8217-B',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '协议转换器',
+                                        label: '协议转换器',
+                                        children: [
+                                            {
+                                                value: 'TM2252',
+                                                label: 'TM2252'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        value: '全景360',
+                                        label: '全景360',
+                                        children: [
+                                            {
+                                                value: 'TM8902',
+                                                label: 'TM8902'
+                                            },
+                                            {
+                                                value: 'TM8920',
+                                                label: 'TM8920'
+                                            },
+                                        ]
+                                    },
+                                ],
+                            },
+                            {
+                                value: '主动安全',
+                                label: '主动安全',
+                                children: [
+                                    {
+                                        value: '主动安全设备',
+                                        label: '主动安全设备',
+                                        children: [
+                                            {
+                                                value: 'TM9008',
+                                                label: 'TM9008'
+                                            },
+                                            {
+                                                value: 'TM9504-B',
+                                                label: 'TM9504-B'
+                                            },
+                                            {
+                                                value: 'TM9507',
+                                                label: 'TM9507'
+                                            },
+                                            {
+                                                value: 'TM9507-A',
+                                                label: 'TM9507-A'
+                                            },
+                                            {
+                                                value: 'TM9608',
+                                                label: 'TM9608'
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        value: '酒精测试设备',
+                                        label: '酒精测试设备',
+                                        children: [
+                                            {
+                                                value: 'TM9603',
+                                                label: 'TM9603'
+                                            },
+                                        ]
+                                    },
+                                ],
+                            },
                         ],
                     },
                     {
@@ -438,8 +438,218 @@ export default defineUserConfig({
                         label: '调试及维修',
                         children: [
                             {
-                                value: 'basic',
-                                label: 'Basic',
+                                value: '车载调度',
+                                label: '车载调度',
+                                children: [
+                                    {
+                                        value: '报站器',
+                                        label: '报站器',
+                                        children: [
+                                            {
+                                                value: 'TM5805',
+                                                label: 'TM5805'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        value: '车载机',
+                                        label: '车载机',
+                                        children: [
+                                            {
+                                                value: 'TM8606',
+                                                label: 'TM8606'
+                                            },
+                                            {
+                                                value: 'TM8706',
+                                                label: 'TM8706'
+                                            },
+                                            {
+                                                value: 'TM8707',
+                                                label: 'TM8707'
+                                            },
+                                            {
+                                                value: 'TM8720',
+                                                label: 'TM8720'
+                                            },
+                                            {
+                                                value: 'TM8721',
+                                                label: 'TM8721'
+                                            },
+                                            {
+                                                value: 'TM8722',
+                                                label: 'TM8722'
+                                            },
+                                            {
+                                                value: 'TM8726',
+                                                label: 'TM8726'
+                                            },
+                                            {
+                                                value: 'TM8730',
+                                                label: 'TM8730'
+                                            },
+                                            {
+                                                value: 'TM8731',
+                                                label: 'TM8731'
+                                            },
+                                            {
+                                                value: 'TM8732',
+                                                label: 'TM8732'
+                                            },
+                                            {
+                                                value: 'TM8738',
+                                                label: 'TM8738'
+                                            },
+                                            {
+                                                value: 'TM8760',
+                                                label: 'TM8760'
+                                            },
+                                            {
+                                                value: 'TM8765',
+                                                label: 'TM8765'
+                                            },
+                                            {
+                                                value: 'TM8765N',
+                                                label: 'TM8765N'
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        value: '调度机',
+                                        label: '调度机',
+                                        children: [
+                                            {
+                                                value: 'TM8128',
+                                                label: 'TM8128',
+                                            },
+                                            {
+                                                value: 'TM8129',
+                                                label: 'TM8129',
+                                            },
+                                            {
+                                                value: 'TM8130',
+                                                label: 'TM8130',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '通话机',
+                                        label: '通话机',
+                                        children: [
+                                            {
+                                                value: 'TM8104',
+                                                label: 'TM8104',
+                                            },
+                                            {
+                                                value: 'TM8105',
+                                                label: 'TM8105',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '客流',
+                                        label: '客流',
+                                        children: [
+                                            {
+                                                value: 'TM8206',
+                                                label: 'TM8206',
+                                            },
+                                            {
+                                                value: 'TM8207',
+                                                label: 'TM8207',
+                                            },
+                                            {
+                                                value: 'TM8209',
+                                                label: 'TM8209',
+                                            },
+                                            {
+                                                value: 'TM8216',
+                                                label: 'TM8216',
+                                            },
+                                            {
+                                                value: 'TM8217',
+                                                label: 'TM8217',
+                                            },
+                                            {
+                                                value: 'TM8218',
+                                                label: 'TM8218',
+                                            },
+                                            {
+                                                value: 'TM3715',
+                                                label: 'TM3715',
+                                            },
+                                            {
+                                                value: 'TM8217-B',
+                                                label: 'TM8217-B',
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        value: '协议转换器',
+                                        label: '协议转换器',
+                                        children: [
+                                            {
+                                                value: 'TM2252',
+                                                label: 'TM2252'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        value: '全景360',
+                                        label: '全景360',
+                                        children: [
+                                            {
+                                                value: 'TM8902',
+                                                label: 'TM8902'
+                                            },
+                                            {
+                                                value: 'TM8920',
+                                                label: 'TM8920'
+                                            },
+                                        ]
+                                    },
+                                ],
+                            },
+                            {
+                                value: '主动安全',
+                                label: '主动安全',
+                                children: [
+                                    {
+                                        value: '主动安全设备',
+                                        label: '主动安全设备',
+                                        children: [
+                                            {
+                                                value: 'TM9008',
+                                                label: 'TM9008'
+                                            },
+                                            {
+                                                value: 'TM9504-B',
+                                                label: 'TM9504-B'
+                                            },
+                                            {
+                                                value: 'TM9507',
+                                                label: 'TM9507'
+                                            },
+                                            {
+                                                value: 'TM9507-A',
+                                                label: 'TM9507-A'
+                                            },
+                                            {
+                                                value: 'TM9608',
+                                                label: 'TM9608'
+                                            },
+                                        ]
+                                    },
+                                    {
+                                        value: '酒精测试设备',
+                                        label: '酒精测试设备',
+                                        children: [
+                                            {
+                                                value: 'TM9603',
+                                                label: 'TM9603'
+                                            },
+                                        ]
+                                    },
+                                ],
                             },
                         ],
                     }

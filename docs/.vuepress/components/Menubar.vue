@@ -56,6 +56,8 @@ const { editor } = defineProps({
 })
 
 const directoryOptions = ref([])
+const prevLinkOptions = ref([])
+const nextLinkOptions = ref([])
 
 const options = themeLocale.value.directoryOptions
 
@@ -74,7 +76,7 @@ const dialogConfig = reactive({
     visible: false,
     id: '',
     title: '',
-    width: '60%',
+    width: '720px',
     draggable: true
 })
 
@@ -97,6 +99,40 @@ const handleChange = (value) => {
         article.imgSrc += item + '/'
     });
     directoryOptions.value = value
+}
+
+const handlePrevChange = (value) => {
+    console.log(value)
+    article.prev.link = '/'
+    value.forEach((item, index) => {
+        article.prev.link += item;
+        // 如果不是最后一个元素，则添加斜杠作为分隔符
+        if (index < value.length - 1) {
+            article.prev.link += '/';
+        }
+    });
+
+    // 在路径末尾添加.md扩展名
+    article.prev.link += '.md';
+    console.log('prev-link', article.prev.link)
+    prevLinkOptions.value = value
+}
+
+const handleNextChange = (value) => {
+    console.log(value)
+    article.next.link = '/'
+    value.forEach((item, index) => {
+        article.next.link += item;
+        // 如果不是最后一个元素，则添加斜杠作为分隔符
+        if (index < value.length - 1) {
+            article.next.link += '/';
+        }
+    });
+
+    // 在路径末尾添加.md扩展名
+    article.next.link += '.md';
+    console.log('next-link', article.next.link)
+    nextLinkOptions.value = value
 }
 
 const handleTextAlignCommand = (command) => {
@@ -387,6 +423,15 @@ onMounted(() => {
         article.next.text = articleLocalStorage.next.text
         article.next.link = articleLocalStorage.next.link
         article.content = articleLocalStorage.content
+
+        const prevArrs = articleLocalStorage.prev.link.slice(1, -3).split('/')
+        const nextArrs = articleLocalStorage.next.link.slice(1, -3).split('/')
+        const imgArrs = articleLocalStorage.imgSrc.slice(1, -1).split('/')
+        
+        directoryOptions.value = imgArrs
+        prevLinkOptions.value = prevArrs
+        nextLinkOptions.value = nextArrs
+
     }
 })
 </script>
@@ -839,21 +884,42 @@ onMounted(() => {
                             placeholder="选择产品"
                         />
                     </el-form-item>
-                    <el-form-item label="图片路径">
+                    <!-- <el-form-item label="图片路径">
                         <el-input v-model="article.imgSrc" />
                         <el-alert show-icon type="info" :closable="false" style="margin-top: 6px"
                             title="例: /产品/车载调度/车载机/TM8730/" />
-                    </el-form-item>
+                    </el-form-item> -->
                     <el-form-item label="上一篇文章">
-                        <el-row :gutter="20" style="width:100%">
-                            <el-col :span="12"><el-input v-model="article.prev.text" placeholder="标题" /></el-col>
-                            <el-col :span="12"><el-input v-model="article.prev.link" placeholder="链接" /></el-col>
+                        <el-row :gutter="5" style="width:100%">
+                            <el-col :span="8"><el-input v-model="article.prev.text" placeholder="标题" /></el-col>
+                            <!-- <el-col :span="12"><el-input v-model="article.prev.link" placeholder="链接" /></el-col> -->
+                            <el-col :span="16">
+                                <el-cascader
+                                    v-model="prevLinkOptions"
+                                    :options="options"
+                                    :props="props"
+                                    @change="handlePrevChange"
+                                    clearable
+                                    placeholder="链接"
+                                />
+                            </el-col>
                         </el-row>
                     </el-form-item>
                     <el-form-item label="下一篇文章">
-                        <el-row :gutter="20" style="width:100%">
-                            <el-col :span="12"><el-input v-model="article.next.text" placeholder="标题" /></el-col>
-                            <el-col :span="12"><el-input v-model="article.next.link" placeholder="链接" /></el-col>
+                        <el-row :gutter="5" style="width:100%">
+                            <el-col :span="8"><el-input v-model="article.next.text" placeholder="标题" /></el-col>
+                            <!-- <el-col :span="12"><el-input v-model="article.next.link" placeholder="链接" /></el-col> -->
+                            <el-col :span="16">
+                                <el-cascader
+                                    v-model="nextLinkOptions"
+                                    :options="options"
+                                    :props="props"
+                                    @change="handleNextChange"
+                                    clearable
+                                    placeholder="链接"
+                                />
+                            </el-col>
+                             
                         </el-row>
                     </el-form-item>
                 </el-form>
