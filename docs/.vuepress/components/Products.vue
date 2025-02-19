@@ -15,7 +15,7 @@
         </el-card>
         <div class="tag-container">
             <span class="tag" v-if="p.date">{{ p.date }}</span>
-            <!-- <span class="tag" v-if="p.stop" :class="{ 'stop-production': p.stop }">{{ p.stop? '已停产': '正常' }}</span> -->
+            <span class="tag" v-if="p.stop" :class="{ 'stop-production': p.stop }">{{ p.stop? '已停产': '正常' }}</span>
         </div>
         
     </el-col>
