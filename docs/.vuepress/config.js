@@ -214,7 +214,21 @@ export default defineUserConfig({
                 },
                 directoryOptions: [
                     {
-                        value: '产品',
+                        value: 'product',
+                        label: '产品分类',
+                        children: [
+                            {
+                                value: '车载调度产品',
+                                label: '车载调度产品',
+                            },
+                            {
+                                value: '主动安全产品',
+                                label: '主动安全产品',
+                            },
+                        ]
+                    },
+                    {
+                        value: 'product',
                         label: '产品列表',
                         children: [
                             {
@@ -653,7 +667,7 @@ export default defineUserConfig({
                             },
                         ],
                     }
-                ]
+                ],
             }
         }
     })

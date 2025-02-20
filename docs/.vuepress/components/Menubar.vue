@@ -63,6 +63,7 @@ const options = themeLocale.value.directoryOptions
 
 const props = {
     expandTrigger: 'hover',
+    // checkStrictly: true,
 }
 
 const fileList = ref([])
@@ -96,14 +97,18 @@ const article = reactive({
 const handleChange = (value) => {
     article.imgSrc = '/'
     value.forEach(item => {
-        article.imgSrc += item + '/'
+        if(item === 'product'){
+            article.imgSrc += '产品/'
+        }else{
+            article.imgSrc += item + '/'
+        }
+        
     });
     directoryOptions.value = value
 }
 
 const handlePrevChange = (value) => {
-    console.log(value)
-    article.prev.link = '/'
+    article.prev.link = '/zh/'
     value.forEach((item, index) => {
         article.prev.link += item;
         // 如果不是最后一个元素，则添加斜杠作为分隔符
@@ -114,13 +119,11 @@ const handlePrevChange = (value) => {
 
     // 在路径末尾添加.md扩展名
     article.prev.link += '.md';
-    console.log('prev-link', article.prev.link)
     prevLinkOptions.value = value
 }
 
 const handleNextChange = (value) => {
-    console.log(value)
-    article.next.link = '/'
+    article.next.link = '/zh/'
     value.forEach((item, index) => {
         article.next.link += item;
         // 如果不是最后一个元素，则添加斜杠作为分隔符
@@ -131,7 +134,6 @@ const handleNextChange = (value) => {
 
     // 在路径末尾添加.md扩展名
     article.next.link += '.md';
-    console.log('next-link', article.next.link)
     nextLinkOptions.value = value
 }
 
@@ -424,9 +426,15 @@ onMounted(() => {
         article.next.link = articleLocalStorage.next.link
         article.content = articleLocalStorage.content
 
-        const prevArrs = articleLocalStorage.prev.link.slice(1, -3).split('/')
-        const nextArrs = articleLocalStorage.next.link.slice(1, -3).split('/')
+        const prevArrs = articleLocalStorage.prev.link.slice(3,).slice(1, -3).split('/')
+        const nextArrs = articleLocalStorage.next.link.slice(3,).slice(1, -3).split('/')
         const imgArrs = articleLocalStorage.imgSrc.slice(1, -1).split('/')
+
+        imgArrs.forEach((img, index) => {
+            if (img === '产品') {
+                imgArrs[index] = 'product';
+            }
+        });
         
         directoryOptions.value = imgArrs
         prevLinkOptions.value = prevArrs
