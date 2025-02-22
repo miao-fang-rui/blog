@@ -26,6 +26,8 @@ import JustifyTextAlign from '../icons/JustifyTextAlign.vue'
 import CustomWidthIcon from '../icons/CustomWidthIcon.vue'
 import BlockIcon from '../icons/BlockIcon.vue'
 import inlineBlockIcon from '../icons/inlineBlockIcon.vue'
+import TipIcon from '../icons/TipIcon.vue'
+
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const { editor } = defineProps({
@@ -305,6 +307,14 @@ const customWidthHandle = () => {
                     @click="editor.chain().focus().toggleCodeBlock().run()">
                     <el-icon size="18" color="black">
                         <CodeBlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="警告文本" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('tip') }"
+                @click="editor.chain().focus().toggleTip().run()">
+                    <el-icon size="18" color="black">
+                        <TipIcon />
                     </el-icon>
                 </button>
             </el-tooltip>

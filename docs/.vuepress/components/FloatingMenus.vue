@@ -16,7 +16,7 @@ import TaskItem from '../icons/TaskItem.vue'
 import LinkIcon from '../icons/LinkIcon.vue'
 import CodeBlockIcon from '../icons/CodeBlockIcon.vue'
 import TableIcon from '../icons/TableIcon.vue'
-
+import TipIcon from '../icons/TipIcon.vue'
 
 
 const { editor } = defineProps({
@@ -173,6 +173,14 @@ const setLink = () => {
                                     <CodeBlockIcon />
                                 </el-icon>
                                 <span>代码块</span>
+                            </el-button>
+                            <el-divider direction="vertical" />
+                            <el-button class="down-button" :class="{ 'is-active': editor.isActive('tip') }"
+                            @click="editor.chain().focus().toggleTip().run()">
+                                <el-icon size="18">
+                                    <TipIcon />
+                                </el-icon>
+                                <span>警告文本</span>
                             </el-button>
                             <el-divider direction="vertical" />
                             <el-button class="down-button"  @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">

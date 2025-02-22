@@ -46,8 +46,12 @@ import PdfIcon from '../icons/PdfIcon.vue'
 import IndentIcon from '../icons/IndentIcon.vue'
 import OutdentIcon from '../icons/OutdentIcon.vue'
 import DeleteIcon from '../icons/DeleteIcon.vue'
+import TipIcon from '../icons/TipIcon.vue'
 import { useThemeLocaleData } from '@theme/useThemeData'
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
+const zip = new JSZip();
 const themeLocale = useThemeLocaleData()
 const { editor } = defineProps({
     editor: {
@@ -314,42 +318,61 @@ const converseImages = (makedownText) => {
 const getMarkdownFile = () => {
 
     if (article.title !== '') {
-        ElMessageBox.confirm('确认下载本页面文档 - [ ' + article.title + '.md' + ' ], 是否继续?', '提示', {
+        ElMessageBox.confirm('确认下载本页面文档 - [ ' + article.title + '.zip' + ' ], 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
             plain: true,
         })
             .then(() => {
-                const content = converseImages(editor.commands.outputMarkdown())
-                const frontpage =
-                    `---
+                const articleLocalStorage = JSON.parse(localStorage.getItem('editor-content'))
+                    const content = converseImages(editor.commands.outputMarkdown())
+                                const frontpage =
+                                    `---
 sidebar: heading
 prev:
-  text: ${article.prev.text? article.prev.text: '无'}
-  link: ${article.prev.link? article.prev.link: '无'}
+text: ${article.prev.text? article.prev.text: '无'}
+link: ${article.prev.link? article.prev.link: '无'}
 next:
-  text: ${article.next.text? article.next.text: '无'}
-  link: ${article.next.link? article.next.link: '无'}
+text: ${article.next.text? article.next.text: '无'}
+link: ${article.next.link? article.next.link: '无'}
 ---
 
 `
-                // 创建一个 Blob 对象，它表示了一段不可变的原始数据
-                const blob = new Blob([frontpage + content], { type: 'text/plain' });
-                // 创建一个指向 Blob 的 URL
-                const url = URL.createObjectURL(blob);
-                // 创建一个下载链接元素
-                const downloadLink = document.createElement('a');
-                // 设置下载链接的 href 属性为 Blob 的 URL
-                downloadLink.href = url;
-                // 设置下载文件的名称
-                downloadLink.download = article.title + '.md';
-                // 触发下载
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                // 清理
-                document.body.removeChild(downloadLink);
-                URL.revokeObjectURL(url);
+                    // 创建一个 Blob 对象，它表示了一段不可变的原始数据
+                    const blob = new Blob([frontpage + content], { type: 'text/plain' });
+                    zip.file(`${article.title}.md`, blob);
+
+                    articleLocalStorage.content.forEach( (item, index) => {
+                        if(item.type === "ResizableImage"){
+                            const [, format, bodyData] = /data:image\/(\w+);base64,(.*)/.exec(item.attrs?.src) || [];
+                            
+                            if (!format) {
+                                console.error('ERROR: Invalid base64 image format');
+                                return;
+                            }
+
+                            // 将Base64编码的数据转换为二进制数据
+                            const binaryData = atob(bodyData);
+
+                            var arrayBuffer = new ArrayBuffer(binaryData.length);
+                            var view = new Uint8Array(arrayBuffer);
+                            for (var i = 0; i < binaryData.length; i++) {
+                                view[i] = binaryData.charCodeAt(i) & 0xFF;
+                            }
+
+                            // 创建一个Blob对象，并将其添加到ZIP文件中
+                            zip.file(`${item.attrs.title}`, arrayBuffer, {
+                                type: `image/${format}`,
+                            });
+
+                        }
+                    })
+
+                    zip.generateAsync({ type: 'blob' }).then(blob => {
+                        saveAs(blob, `${article.title}.zip`);
+                    });
+
 
                 ElMessage.success({
                     message: '导出成功，请等待浏览器下载！',
@@ -736,6 +759,14 @@ onMounted(() => {
                     @click="editor.chain().focus().toggleCodeBlock().run()">
                     <el-icon size="18">
                         <CodeBlockIcon />
+                    </el-icon>
+                </button>
+            </el-tooltip>
+            <el-tooltip content="警告文本" :show-after="200">
+                <button class="button" :class="{ 'is-active': editor.isActive('tip') }"
+                    @click="editor.chain().focus().toggleTip().run()">
+                    <el-icon size="18">
+                        <TipIcon />
                     </el-icon>
                 </button>
             </el-tooltip>

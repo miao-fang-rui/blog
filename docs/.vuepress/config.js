@@ -225,6 +225,10 @@ export default defineUserConfig({
                                 value: '主动安全产品',
                                 label: '主动安全产品',
                             },
+                            {
+                                value: '智慧收银产品',
+                                label: '智慧收银产品',
+                            },
                         ]
                     },
                     {

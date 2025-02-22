@@ -13,6 +13,7 @@ import text from '../markdown/nodes/text'
 import taskList from '../markdown/nodes/taskList'
 import taskItem from '../markdown/nodes/taskItem'
 import table from '../markdown/nodes/table'
+import tip from '../markdown/nodes/tip'
 
 import { italic } from '../markdown/marks/italic'
 import { bold } from '../markdown/marks/bold'
@@ -41,6 +42,7 @@ export {
     taskList,
     taskItem,
     table,
+    tip,
 
     italic,
     bold,

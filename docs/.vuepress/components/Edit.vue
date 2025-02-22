@@ -32,6 +32,7 @@ import CodeBlockComponent from './CodeBlockComponent.vue'
 import Indent from '../extension/indent'
 import ResizableImage from '../extension/image'
 import MarkdownOutputExtension from '../extension/makedown'
+import TipContainer from '../extension/tip'
 
 const lowlight = createLowlight(all)
 lowlight.register('html', html)
@@ -104,6 +105,7 @@ onMounted(() => {
             }),
             Indent,
             MarkdownOutputExtension,
+            TipContainer,
         ],
         content: '',
         onUpdate: () => {
@@ -474,6 +476,17 @@ onUnmounted(() => {
         float: left;
         height: 0;
         pointer-events: none;
+    }
+
+    .tip-container {
+        background-color: #ff6060;
+        border: 1px solid #e9e9e9;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        color: #333;
+        // font-size: 14px;
+        margin: 10px 0;
+        padding: 10px;
     }
 }
 

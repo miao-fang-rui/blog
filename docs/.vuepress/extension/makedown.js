@@ -16,6 +16,7 @@ import {
     taskList,
     taskItem,
     table,
+    tip,
 
     italic,
     bold,
@@ -44,7 +45,8 @@ const myMarkdownSerializer = new MarkdownSerializer({
     text,
     taskList,
     taskItem,
-    table
+    table,
+    tip
 }, {
     italic,
     bold,
