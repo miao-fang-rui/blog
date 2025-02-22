@@ -49,7 +49,15 @@ import DeleteIcon from '../icons/DeleteIcon.vue'
 import TipIcon from '../icons/TipIcon.vue'
 import { useThemeLocaleData } from '@theme/useThemeData'
 import JSZip from 'jszip';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
+
+// let saveAs;
+
+// if (typeof window !== 'undefined') {
+//   import('file-saver').then(module => {
+//     saveAs = module.default;
+//   });
+// }
 
 const zip = new JSZip();
 const themeLocale = useThemeLocaleData()
@@ -369,9 +377,13 @@ link: ${article.next.link? article.next.link: '无'}
                         }
                     })
 
-                    zip.generateAsync({ type: 'blob' }).then(blob => {
-                        saveAs(blob, `${article.title}.zip`);
-                    });
+                    // zip.generateAsync({ type: 'blob' }).then(blob => {
+                    //     saveAs(blob, `${article.title}.zip`);
+                    // });
+
+                    const zipBlob = await zip.generateAsync({ type: 'blob' })
+                    const { saveAs } = await import('file-saver')
+                    saveAs(zipBlob, `${article.title}.zip`)
 
 
                 ElMessage.success({
