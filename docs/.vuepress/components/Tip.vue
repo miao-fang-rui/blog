@@ -65,14 +65,14 @@ export default {
     <node-view-wrapper class="vue-component"
         :style="{ backgroundColor: selectTipType === 'warning' ? '#efda81' : selectTipType === 'danger' ? '#ef8181' : selectTipType === 'info' ? '#aad6f8' : selectTipType === 'important' ? '#a5abf6' : selectTipType === 'note' ? '#eee' : '#81efad' }">
         <!-- <label contenteditable="false">提示文本</label> -->
-            <el-input v-model="inputTipContent" style="width: 100%;" placeholder="输入标题内容" clearable class="input-with-select">
-                <template #prepend>
-                    <el-select v-model="selectTipType" style="min-width: 100px; max-width: 300px;">
-                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-                    </el-select>
-                </template>
-            </el-input>
-        <node-view-content class="content is-editable" />
+        <el-input v-model="inputTipContent" style="width: 100%;" placeholder="输入标题内容" clearable class="input-with-select">
+            <template #prepend>
+                <el-select v-model="selectTipType" style="min-width: 100px; max-width: 300px;">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+            </template>
+        </el-input>
+        <node-view-content class="content" />
     </node-view-wrapper>
 </template>
 
