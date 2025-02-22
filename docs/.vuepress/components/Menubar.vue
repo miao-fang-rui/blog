@@ -50,14 +50,16 @@ import TipIcon from '../icons/TipIcon.vue'
 import { useThemeLocaleData } from '@theme/useThemeData'
 import JSZip from 'jszip';
 // import { saveAs } from 'file-saver';
+import pkg from 'file-saver'
+const { saveAs } = pkg
 
-let saveAs;
+// let saveAs;
 
-if (typeof window !== 'undefined') {
-  import('file-saver').then(module => {
-    saveAs = module.default;
-  });
-}
+// if (typeof window !== 'undefined') {
+//   import('file-saver').then(module => {
+//     saveAs = module.default;
+//   });
+// }
 
 const zip = new JSZip();
 const themeLocale = useThemeLocaleData()
