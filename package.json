@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@vuepress/bundler-vite": "2.0.0-rc.15",
     "@vuepress/theme-default": "2.0.0-rc.46",
     "sass-embedded": "^1.79.3",
