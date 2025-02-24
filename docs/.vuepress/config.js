@@ -188,6 +188,26 @@ export default defineUserConfig({
                                     text: '智慧收银产品',
                                     link: '/zh/product/智慧收银产品.md',
                                 },
+                                {
+                                    text: '电子支付产品',
+                                    link: '/zh/product/电子支付产品.md',
+                                },
+                                {
+                                    text: '车载屏类产品',
+                                    link: '/zh/product/车载屏类产品.md',
+                                },
+                                {
+                                    text: '出租车产品',
+                                    link: '/zh/product/出租车产品.md',
+                                },
+                                {
+                                    text: '智能座舱产品',
+                                    link: '/zh/product/智能座舱产品.md',
+                                },
+                                {
+                                    text: '公交站台产品',
+                                    link: '/zh/product/公交站台产品.md',
+                                },
                             ]
 
                         },
