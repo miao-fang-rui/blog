@@ -62,6 +62,21 @@
     .el-cascader-node.in-active-path, .el-cascader-node.is-active, .el-cascader-node.is-selectable.in-checked-path {
         color: var(--vp-c-accent) !important;
     }
+
+    .el-input-group {
+        .el-input-group__prepend {
+            background: white;
+        }
+
+        .el-input__wrapper.is-focus {
+            box-shadow: 0 0 0 1px var(--vp-c-accent) inset;
+        }
+
+    }
+
+    .el-select__popper.el-popper .el-select-dropdown__item.is-selected {
+        color: #5468ff;
+    }
 }
 
 [data-theme='dark'] {
@@ -117,6 +132,11 @@
     .el-popper.is-light>.el-popper__arrow:before {
         border-color: #151618;
         background-color: #151618;
+    }
+
+    .el-popper.is-light, .el-popper.is-light > .el-popper__arrow:before {
+        background: var(--el-bg-color-overlay);
+        border: 1px solid var(--el-border-color-light);
     }
 
     .right-popo-divider{
