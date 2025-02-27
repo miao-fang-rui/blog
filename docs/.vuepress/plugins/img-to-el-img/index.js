@@ -12,6 +12,7 @@ export const imgToElImgPlugin = (options) => (app) => ({
                 alt="${alt}" 
                 title="${alt}"
                 lazy
+                :z-index="100000"
                 :style="{width: '${width}', height: '${height}'}"
                 :zoom-rate="1.2" 
                 :max-scale="7" 
