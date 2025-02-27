@@ -3,11 +3,14 @@ import { defaultTheme } from '@vuepress/theme-default'
 import { defineUserConfig } from 'vuepress'
 import { markdownImagePlugin } from '@vuepress/plugin-markdown-image'
 import { mdEnhancePlugin } from "vuepress-plugin-md-enhance";
+import { imgToElImgPlugin } from './plugins/img-to-el-img';
+
 
 export default defineUserConfig({
     bundler: viteBundler(),
     base: '/blog/',
     plugins: [
+        imgToElImgPlugin(),
         markdownImagePlugin({
             // 启用 figure
             // figure: true,
@@ -68,6 +71,10 @@ export default defineUserConfig({
         docsBranch: 'main',
         docsDir: 'docs',
         sidebarDepth: 4,
+        themePlugins: {
+            // 在这里自定义主题插件
+            'mediumZoom': false
+        },
         locales: {
             '/': {
                 selectLanguageName: 'English',

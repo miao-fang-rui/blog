@@ -134,15 +134,16 @@
         background-color: #151618;
     }
 
-    .el-popper.is-light, .el-popper.is-light > .el-popper__arrow:before {
-        background: var(--el-bg-color-overlay);
-        border: 1px solid var(--el-border-color-light);
-    }
+    // .el-popper.is-light, .el-popper.is-light > .el-popper__arrow:before {
+    //     background: var(--el-bg-color-overlay);
+    //     border: 1px solid var(--el-border-color-light);
+    // }
 
     .right-popo-divider{
 
         .line {
             border-bottom: 1px solid #333;
+
         }
     }
 }
