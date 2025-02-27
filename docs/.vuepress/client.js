@@ -49,6 +49,8 @@ export default defineClientConfig({
                 next()
             
             })
+
+            router.push(router.currentRoute.value.fullPath)
         }
     },
     setup() {
