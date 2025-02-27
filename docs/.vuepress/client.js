@@ -31,7 +31,8 @@ export default defineClientConfig({
             // 在浏览器环境下执行 sessionStorage 相关操作
 
             router.beforeEach((to, from, next) => {
-                const isLoggedIn = sessionStorage.getItem('token');
+                const token = sessionStorage.getItem('token');
+                const isLoggedIn = !!token;
                 if (to.path === '/login.html') {
                     if (isLoggedIn) {
                         return next(from.fullPath)
@@ -41,7 +42,7 @@ export default defineClientConfig({
                     }
                 }
 
-                if (!isLoggedIn) {
+                if (!isLoggedIn && to.path !== '/login.html') {
                     sessionStorage.removeItem('token')
                     return next({ path: '/login.html', replace: true })
                 }
@@ -49,8 +50,6 @@ export default defineClientConfig({
                 next()
             
             })
-
-            router.push(router.currentRoute.value.fullPath)
         }
     },
     setup() {
