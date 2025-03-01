@@ -1,7 +1,6 @@
 <template>
     <el-carousel motion-blur  :height="props.height" indicator-position="outside">
         <el-carousel-item v-for="item in props.pictures" :key="item" :label="item.label">
-            <!-- <img :alt="item.name" :src="item.src" style="width: 100%; height: 100%; object-fit: contain;"/> -->
             <el-image 
                 :src="item.src" 
                 :alt="item.name"
@@ -17,8 +16,17 @@
                 preview-teleported
             >
                 <template #error>
-                    <div class="image-slot">
-                        <el-icon><Picture /></el-icon>
+                    <div style="display: flex;justify-content: center;align-items: center;width: 100%;height: 100%;background: var(--el-fill-color-light);color: var(--el-text-color-secondary);font-size: 14px;">
+                        <span>加载失败</span>
+                    </div>
+                </template>
+                <template #placeholder>
+                    <div style="display: flex;justify-content: center;align-items: center;width: 100%;height: 100%;background: var(--el-fill-color-light);color: var(--el-text-color-secondary);font-size: 14px;">
+                        <el-icon class="is-loading">
+                            <Loading />
+                        </el-icon>    
+                        <span style="margin: 0 4px">加载中</span>
+                        <span style="animation: dot 2s infinite steps(3, start);overflow: hidden;">...</span>
                     </div>
                 </template>
             </el-image>
