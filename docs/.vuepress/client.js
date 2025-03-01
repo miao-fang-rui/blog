@@ -11,6 +11,7 @@ import Carousel from './components/Carousel.vue'
 import Edit from './components/Edit.vue'
 import Layout from './layouts/Layout.vue'
 import NotFound from './components/NotFound.vue'
+import Loading from './components/Loading.vue'
 
 
 export default defineClientConfig({
@@ -56,7 +57,7 @@ export default defineClientConfig({
         const lS = reactive({ u: 'admin', p: 'tmkj@123456' })
         provide('lS', lS)
     },
-    rootComponents: [],
+    rootComponents: [Loading],
     layouts: {
         Login,
         Edit,
