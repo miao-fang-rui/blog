@@ -3,7 +3,7 @@ import Login from './components/Login.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import { provide, reactive } from 'vue'
+import { provide, reactive, ref } from 'vue'
 import Products from './components/Products.vue'
 import Article from './components/Article.vue'
 import Table from './components/Table.vue'
@@ -30,27 +30,36 @@ export default defineClientConfig({
 
         if (typeof window !== "undefined") {
             // 在浏览器环境下执行 sessionStorage 相关操作
-
+            const isLoading = ref(true)
             router.beforeEach((to, from, next) => {
                 const token = sessionStorage.getItem('token');
                 const isLoggedIn = !!token;
                 if (to.path === '/login.html') {
                     if (isLoggedIn) {
+                        isLoading.value = false
                         return next(from.fullPath)
                     } else {
                         sessionStorage.removeItem('token')
+                        isLoading.value = false
                         return next()
                     }
                 }
 
                 if (!isLoggedIn && to.path !== '/login.html') {
                     sessionStorage.removeItem('token')
+                    isLoading.value = false
                     return next({ path: '/login.html', replace: true })
                 }
-
+                isLoading.value = false
                 next()
             
             })
+
+            router.afterEach(() => {
+                isLoading.value = false 
+            })
+
+            app.provide('isLoading', isLoading)
         }
     },
     setup() {
