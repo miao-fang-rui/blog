@@ -17,6 +17,11 @@ import Loading from './components/Loading.vue'
 export default defineClientConfig({
     enhance({ app, router, siteData }) {
 
+        router.addRoute({
+            path: '/',
+            redirect: '/login.html'
+        })
+
         // app.component("Login", Login)
         app.component('Products', Products)
         app.component('Article', Article)
