@@ -11,7 +11,7 @@ import Carousel from './components/Carousel.vue'
 import Edit from './components/Edit.vue'
 import Layout from './layouts/Layout.vue'
 import NotFound from './components/NotFound.vue'
-import Loading from './components/Loading.vue'
+//import Loading from './components/Loading.vue'
 
 
 export default defineClientConfig({
@@ -29,43 +29,43 @@ export default defineClientConfig({
 
         if (typeof window !== "undefined") {
             // 在浏览器环境下执行 sessionStorage 相关操作
-            const isLoading = ref(true)
+            // const isLoading = ref(true)
             router.beforeEach((to, from, next) => {
                 const token = sessionStorage.getItem('token');
                 const isLoggedIn = !!token;
                 if (to.path === '/login.html') {
                     if (isLoggedIn) {
-                        isLoading.value = false
+                        // isLoading.value = false
                         return next(from.fullPath)
                     } else {
                         sessionStorage.removeItem('token')
-                        isLoading.value = false
+                        // isLoading.value = false
                         return next()
                     }
                 }
 
                 if (!isLoggedIn && to.path !== '/login.html') {
                     sessionStorage.removeItem('token')
-                    isLoading.value = false
+                    // isLoading.value = false
                     return next({ path: '/login.html', replace: true })
                 }
-                isLoading.value = false
+                // isLoading.value = false
                 next()
             
             })
 
-            router.afterEach(() => {
-                isLoading.value = false 
-            })
+            //router.afterEach(() => {
+             //   isLoading.value = false 
+            //})
 
-            app.provide('isLoading', isLoading)
+            //app.provide('isLoading', isLoading)
         }
     },
     setup() {
         const lS = reactive({ u: 'admin', p: 'tmkj@123456' })
         provide('lS', lS)
     },
-    rootComponents: [Loading],
+    //rootComponents: [Loading],
     layouts: {
         Login,
         Edit,
