@@ -71,6 +71,8 @@ export default defineUserConfig({
         docsBranch: 'main',
         docsDir: 'docs',
         sidebarDepth: 4,
+        LoadFail: 'Load Fail',
+        Loading: 'Loading',
         themePlugins: {
             // 在这里自定义主题插件
             'mediumZoom': false
@@ -137,6 +139,8 @@ export default defineUserConfig({
                 ],
             },
             '/zh/': {
+                LoadFail: '加载失败',
+                Loading: '加载中',
                 selectLanguageName: '简体中文',
                 selectLanguageText: '选择语言',
                 toggleColorMode: '白天 / 黑夜',

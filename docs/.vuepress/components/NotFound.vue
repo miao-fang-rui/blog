@@ -7,9 +7,9 @@ import GoBack404 from '../icons/GoBack404.vue'
 
 const themeLocale = useThemeLocaleData()
 
-const messages = themeLocale.value.notFound ?? ['Not Found']
-const notFoundTitle = themeLocale.value.notFoundTitle ?? ['Not Found']
-const goBackText = themeLocale.value.goBackText ?? ['go Back']
+const messages = themeLocale.value.notFound ?? 'Not Found'
+const notFoundTitle = themeLocale.value.notFoundTitle ?? 'Not Found'
+const goBackText = themeLocale.value.goBackText ?? 'go Back'
 
 const randomItem = ref("");
 const router = useRouter()

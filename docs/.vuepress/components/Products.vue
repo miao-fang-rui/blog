@@ -1,35 +1,21 @@
+<script setup>
+import ElImageI18n from './ElImageI18n.vue'
+const props = defineProps(['product'])
+
+</script>
+
 <template>
 <el-row :gutter="20">
     <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6" v-for="p in props.product" class="product">
         <el-card shadow="hover">
-            <el-image 
+            <ElImageI18n 
+                type="list"
                 :src="p.src" 
-                fit="contain" 
                 :alt="p.name"
                 :title="p.name"
-                style="width: 100%; height: 100px"
-                :zoom-rate="1.2"
-                :max-scale="7"
-                :min-scale="0.2"
-                :preview-src-list="[p.src,]"
-                :z-index="100000"
-                hide-on-click-modal
-            >
-                <template #error>
-                    <div style="display: flex;justify-content: center;align-items: center;width: 100%;height: 100%;background: var(--el-fill-color-light);color: var(--el-text-color-secondary);font-size: 14px;">
-                        <span>加载失败</span>
-                    </div>
-                </template>
-                <template #placeholder>
-                    <div style="display: flex;justify-content: center;align-items: center;width: 100%;height: 100%;background: var(--el-fill-color-light);color: var(--el-text-color-secondary);font-size: 14px;">
-                        <el-icon class="is-loading">
-                            <Loading />
-                        </el-icon>    
-                        <span style="margin: 0 4px">加载中</span>
-                        <span style="animation: dot 2s infinite steps(3, start);overflow: hidden;">...</span>
-                    </div>
-                </template>
-            </el-image>
+                width="100%"
+                height="100px"
+            />
             <template #footer>
                 <router-link :to="p.link" class="product_name">{{ p.name }}</router-link> 
             </template>
@@ -42,12 +28,6 @@
     </el-col>
 </el-row>
 </template>
-
-<script setup>
-
-const props = defineProps(['product'])
-
-</script>
 
 <style lang="scss" scoped>
 

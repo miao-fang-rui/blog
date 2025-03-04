@@ -12,6 +12,7 @@ import Edit from './components/Edit.vue'
 import Layout from './layouts/Layout.vue'
 import NotFound from './components/NotFound.vue'
 import Loading from './components/Loading.vue'
+import ElImageI18n from './components/ElImageI18n.vue'
 
 
 export default defineClientConfig({
@@ -21,6 +22,7 @@ export default defineClientConfig({
         app.component('Article', Article)
         app.component('Table', Table)
         app.component('Carousel', Carousel)
+        app.component('ElImageI18n', ElImageI18n)
 
         app.use(ElementPlus)
         for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

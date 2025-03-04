@@ -1,8 +1,7 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { inject } from 'vue'
 
 const lS = inject('lS')
 const isClient = ref(false)

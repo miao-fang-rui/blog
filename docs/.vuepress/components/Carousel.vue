@@ -1,7 +1,22 @@
+<script setup>
+import ElImageI18n from './ElImageI18n.vue'
+const props = defineProps(['height','pictures'])
+
+</script>
+
 <template>
     <el-carousel motion-blur  :height="props.height" indicator-position="outside">
         <el-carousel-item v-for="item in props.pictures" :key="item" :label="item.label">
-            <el-image 
+            <ElImageI18n 
+                :src="item.src" 
+                :alt="item.name"
+                :title="item.name"
+                width="100%"
+                height="100%"
+                previewTeleported
+                type="carousel"
+            />
+            <!-- <el-image 
                 :src="item.src" 
                 :alt="item.name"
                 :title="item.name"
@@ -29,13 +44,8 @@
                         <span style="animation: dot 2s infinite steps(3, start);overflow: hidden;">...</span>
                     </div>
                 </template>
-            </el-image>
+            </el-image> -->
         </el-carousel-item>
     </el-carousel>
 </template>
 
-<script setup>
-
-const props = defineProps(['height','pictures'])
-
-</script>
