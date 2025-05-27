@@ -94,7 +94,7 @@ export default defineConfig({
       { text: '技术文档', link: '/api-examples' },
     ],
     // 侧边栏
-    sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')),
+    sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')) || [],
 
     // sidebar: [
     //     {

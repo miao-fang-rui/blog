@@ -112,6 +112,11 @@
     /*.VPLocalNav{
       top: 0 !important;;
     } */
+
+
+    .VPContent.has-sidebar {
+        padding-left: var(--vp-sidebar-width);
+    }
 }
 
 html.dark {

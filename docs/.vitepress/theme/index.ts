@@ -48,7 +48,7 @@ export default {
     // 路由守卫
     router.onBeforeRouteChange = (to) => {
 
-      if(to === '/blog/login.html') return true
+      if (to === '/blog/login.html') return true
 
       auth.check()
 
