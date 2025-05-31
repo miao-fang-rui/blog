@@ -13,7 +13,7 @@ const { products } = defineProps({
 <template>
 
 <el-row :gutter="20">
-    <el-col :span="8" v-for="(product, index) in products" :key="index">
+    <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="6" v-for="(product, index) in products" :key="index">
         <el-card shadow="never">
             <!-- <el-image 
                 :src="withBase(product.src)" 
@@ -28,7 +28,7 @@ const { products } = defineProps({
             <ELImage 
                 :src="product.src" 
                 :alt="product.name"
-                :width.="'100%'"
+                :width="'100%'"
                 :height="'100px'"
             />
             <template #footer>

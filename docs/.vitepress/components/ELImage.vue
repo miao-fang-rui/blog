@@ -57,8 +57,8 @@ const getErrorStyle = computed(() => {
 
     return {
         ...baseStyle,
-        width: width?? '400px',
-        height: height?? '400px'
+        width: props.width?? '400px',
+        height: props.height?? '400px'
     }
        
 });
@@ -78,7 +78,7 @@ const getErrorStyle = computed(() => {
         :min-scale="0.2" 
         hide-on-click-modal 
         :preview-teleported="props.previewTeleported"
-        :style="{ width: width, height: height }"
+        :style="{ 'max-width': width, 'height': height }"
         class="my-el-image"
     >
         <template #placeholder>

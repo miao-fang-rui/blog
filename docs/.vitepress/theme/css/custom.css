@@ -70,11 +70,6 @@
     .el-card:hover .el-card__footer {
         border-color: var(--vp-c-gray-1);
     }
-
-    .el-card:hover .el-image img{
-        transform: scaleX(1.15) scaleY(1.15);
-        /* transition: transform 0.5s ease-in-out; */
-    }
 }
 
 :root {

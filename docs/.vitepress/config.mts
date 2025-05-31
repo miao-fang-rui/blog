@@ -11,7 +11,7 @@ export default defineConfig({
   base: "/blog/",
   title: "天迈科技",
   description: "Document Center",
-  ignoreDeadLinks: true,
+  // ignoreDeadLinks: true,
   // 国际化配置-未启用
   // locales: {
   //   root: {
@@ -27,6 +27,11 @@ export default defineConfig({
   //   }
   // },
   markdown: {
+    lineNumbers: true,
+    image: {
+      // 开启图片懒加载
+      lazyLoading: true
+    },
     config(md) {
       md.renderer.rules.image = (tokens, idx) => {
         const token = tokens[idx]
@@ -69,6 +74,24 @@ export default defineConfig({
     // 搜索
     search: {
       provider: "local",
+      options: {
+        translations: {
+          button: {
+            buttonText: "搜索文档",
+            buttonAriaLabel: "搜索文档",
+          },
+          modal: {
+            noResultsText: "无法找到相关结果",
+            resetButtonTitle: "清除查询条件",
+            displayDetails: '列表切换',
+            footer: {
+              selectText: "选择",
+              navigateText: "切换",
+              closeText: '关闭'
+            },
+          },
+        },
+      },
     },
     // 页脚
     footer: {
@@ -77,7 +100,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
+      pattern: 'https://github.com/miao-fang-rui/blog/edit/main/docs/:path',
       text: '编辑此页'
     },
     // 文档的最后更新时间
@@ -94,7 +117,10 @@ export default defineConfig({
       { text: '技术文档', link: '/api-examples' },
     ],
     // 侧边栏
-    sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')) || [],
+    sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')) || [{
+        text: '产品列表',
+        items: []
+    }],
 
     // sidebar: [
     //     {

@@ -91,11 +91,11 @@ const submitForm = async (formEl) => {
 
 .login {
     width: 460px;
-    padding: 60px;
+    padding: 80px;
     border-radius: 3px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: var(--vp-c-bg);
-    border: 1px solid var(--vp-c-border);
+    /* border: 1px solid var(--vp-c-border); */
 }
 
 .login-title {
