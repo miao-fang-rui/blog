@@ -28,6 +28,6 @@ features:
     icon:
       src: /svg/setting.svg
     details: 查看产品的技术文档、安装、调试及维修方法。
-    link: https://carlosme.fun
+    link: /产品列表/车载调度
     linkText: 查看详情
 ---
