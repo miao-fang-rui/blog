@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { generateSidebar } from './lib/sidebarGenerator'
-import path from 'path'
+// import path from 'path'
 import markdownItImsize from 'markdown-it-imsize'
 
 // https://vitepress.dev/reference/site-config
@@ -117,40 +117,26 @@ export default defineConfig({
       { text: '技术文档', link: '/api-examples' },
     ],
     // 侧边栏
-    sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')) || [{
-        text: '产品列表',
-        items: []
-    }],
+    // sidebar: generateSidebar(path.resolve(__dirname, '../产品列表')) || [{
+    //     text: '产品列表',
+    //     items: []
+    // }],
 
-    // sidebar: [
-    //     {
-    //       text: '产品列表',
-    //       collapsed: false,
-    //       items: [
-    //         { 
-    //           text: '车载调度', 
-    //           link: '/产品列表/车载调度', 
-    //           items: [
-    //             { 
-    //               text: '报站器', 
-    //               items: [
-    //                 { text: 'TM5805', link: '/产品列表/车载调度/报站器/TM5805' },
-    //               ]
-    //             },
-    //             { 
-    //               text: '车载机', 
-    //               items: [
-    //                 { text: 'TM8706', link: '/产品列表/车载调度/车载机/TM8706' },
-    //                 { text: 'TM8707', link: '/产品列表/车载调度/车载机/TM8707' },
-    //               ]
-    //             },
-    //           ]
-    //         },
-    //         { text: '主动安全', collapsed: true, link: '/产品列表/主动安全', items: []},
-    //         { text: '智慧收银', link: '/产品列表/车载调度/TM8707', items: []},
-    //       ]
-    //     },
-    //   ],
+    sidebar: [
+      {
+        text: '产品列表',
+        items: [
+          { text: '车载调度', link: '/产品列表/车载调度' },
+          { text: '主动安全', link: '/产品列表/主动安全' },
+          { text: '智慧收银', link: '/产品列表/智慧收银' },
+          { text: '车载屏类', link: '/产品列表/车载屏类' },
+          { text: '出租车', link: '/产品列表/出租车' },
+          { text: '电子支付', link: '/产品列表/电子支付' },
+          { text: '智能座舱', link: '/产品列表/智能座舱' },
+          { text: '公交站台', link: '/产品列表/公交站台' },
+        ]
+      }
+    ],
 
     notFound:{ // 404页
       title: '未找到页面，迷路了~',

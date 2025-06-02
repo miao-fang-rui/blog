@@ -15,13 +15,12 @@ import BackTop from '../components/BackTop.vue'
 import './css/style.css'
 import './css/custom.css'
 
-
 export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      'layout-bottom': () => h(BackTop)
+      'layout-bottom': () => h(BackTop),
     })
   },
   enhanceApp({ app, router, siteData }) {
@@ -35,7 +34,6 @@ export default {
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }
-    // app.component('Layout', Layout)
 
     const backToTop = () => {
       window.scrollTo({ 

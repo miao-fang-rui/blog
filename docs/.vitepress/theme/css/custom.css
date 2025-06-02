@@ -52,6 +52,13 @@
         background: var(--vp-c-gray-1);
     }
 
+    .VPSidebar .nav .group .items{
+        padding-left: 16px;
+    }
+    .VPSidebar .nav .group > .VPSidebarItem{
+        padding-bottom: 10px;
+    }
+
 }
 
 
