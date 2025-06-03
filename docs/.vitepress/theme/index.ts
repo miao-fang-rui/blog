@@ -1,5 +1,4 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 // import './style.css'
@@ -14,15 +13,17 @@ import Carousel from '../components/Carousel.vue'
 import BackTop from '../components/BackTop.vue'
 import './css/style.css'
 import './css/custom.css'
+import MyLayout from './MyLayout.vue'
 
 export default {
   extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      'layout-bottom': () => h(BackTop),
-    })
-  },
+  Layout: MyLayout,
+  // Layout: () => {
+  //   return h(DefaultTheme.Layout, null, {
+  //     // https://vitepress.dev/guide/extending-default-theme#layout-slots
+  //     'layout-bottom': () => h(BackTop),
+  //   })
+  // },
   enhanceApp({ app, router, siteData }) {
     // ...
     app.component('Login', Login)
