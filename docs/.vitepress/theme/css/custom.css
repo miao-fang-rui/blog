@@ -108,16 +108,15 @@
 
 
 @media (min-width: 960px) {
-    /* .VPDoc .aside{
-      display: block;
-    }  */
-    /*.VPLocalNav{
-      top: 0 !important;;
-    } */
-
-
-    .VPContent.has-sidebar {
-        padding-left: var(--vp-sidebar-width);
+    .VPSidebar[data-v-d0bc8011] {
+        padding-top: var(--vp-nav-height);
+        width: var(--vp-sidebar-width);
+        max-width: 100%;
+        background-color: var(--vp-sidebar-bg-color);
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        transform: translateX(0);
     }
 }
 
